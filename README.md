@@ -16,4 +16,4 @@ com assuntos que estarei estudando para fazer esse, talvez até desista desse da
 no meio do caminho.
 
 ## Dia 1
-Já adicionei um modo de criar fases novas e perguntas novas.# engine_simples
+Já adicionei um modo de criar fases novas e perguntas novas.

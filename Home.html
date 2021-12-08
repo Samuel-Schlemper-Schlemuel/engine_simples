@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Simples</title>
+    <link href="CSS.css" rel="stylesheet">
+    <script src="js.js"></script>
+</head>
+<body>
+    <div id='introducao'>
+        <h1>Bem Vindo</h1>
+        <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu ou baixar direto no seu computador, e isso de graça!</p>
+    </div>
+    <br>
+    <div id='perguntas'>
+        <p>Clique para adicionar uma nova fase <button id='nova_fase' onclick="adicionar_fase()">Nova Fase</button></p>
+            <p>&nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 4 e maximo de 8) <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Pergunta</button></p>
+                <div id='fase_1'>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta">
+                    <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta">
+                    <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta">
+                    <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta">
+                </div>
+    </div>
+</body>
+</html>
