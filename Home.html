@@ -15,16 +15,18 @@
     </div>
     <br>
     <div id='perguntas'>
-        <p>Clique para adicionar uma nova fase <button id='nova_fase' onclick="adicionar_fase()">Nova Fase</button></p>
-            <p>
-                &nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 4 e maximo de 8) 
-                <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Pergunta</button> 
-                <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última pergunta</button>
-            </p>
-                <div id='fase_1'>
-                  <div id='input_1_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta"> </div>
-                   <div id='input_2_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta"> </div>
-                </div>
+        <p>Clique para adicionar uma nova fase <button id='nova_fase' onclick="adicionar_fase()">Nova Fase</button> <button id='remover_fase' onclick="remover_fase()">Remover a última fase</button></p>
+            <div id='fase_completa_1'>
+                <p>
+                    &nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8) 
+                    <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Pergunta</button> 
+                    <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última pergunta</button>
+                </p>
+                    <div id='fase_1'>
+                    <div id='input_1_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta"> </div>
+                    <div id='input_2_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" placeholder="A pergunta"> </div>
+                    </div>
+            </div>
     </div>
 </body>
 </html>
