@@ -17,3 +17,7 @@ no meio do caminho.
 
 ## Dia 1
 Já adicionei um modo de criar fases novas e perguntas novas.
+
+## Dias 2
+Adicionei um modo que limita a quantidade maxima de caixas de texto e um botão que apaga
+a ultima caixa, deixei como minimo duas caixas em vez de quatro como na versão anterior.
