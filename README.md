@@ -18,7 +18,15 @@ no meio do caminho.
 ## Dia 1
 Já adicionei um modo de criar fases novas e perguntas novas.
 
-## Dias 2
+## Dia 2
 Adicionei um modo que limita a quantidade maxima de caixas de texto e um botão que apaga
 a ultima caixa, deixei como minimo duas caixas em vez de quatro como na versão anterior.<br>
 Adicionei um botão que remove a última fase, deixando um minimo de uma fase
+
+## Dia 3
+Não consegui criar muita coisa hoje, apenas adicionei um botão de criar fase, mudei algumas
+coisas no CSS e criar a função criar jogo.
+
+## Dia 4
+Mudei o nome da função criar_jogo() para function manipular_perguntas() e agora quando se
+cria uma fase ou pergunta nova as que já estavam escritas não se apagam.

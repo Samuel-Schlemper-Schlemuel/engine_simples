@@ -3,6 +3,31 @@ body{
     font: 18px Architects Daughter;
 }
 
+button{
+    cursor: pointer;
+}
+
 #introducao{
     text-align: center;
+}
+
+#perguntas{
+    width: 48vw;
+    float: left;
+}
+
+#jogo{
+    width: 48vw;
+    float: right;
+}
+
+#tela{
+    float: right;
+    width: 500px;
+    height: 200px;
+    background-color: rgba(0, 0, 255, 0.7);
+}
+
+input{
+    width: 280px;
 }
