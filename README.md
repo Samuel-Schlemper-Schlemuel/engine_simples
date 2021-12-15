@@ -36,3 +36,9 @@ Havia um problema de lógica no HTML que fazia com que toda vez que eu adicionas
 pergunta, ela fosse para baixo do botão 'criar jogo!', mas agora o problema foi resolvido.<br>
 Finalmente posso dizer que meu site cria um jogo, por mais que ele é bem mal feito e só pode
 ser usado localmente enquanto o site estiver aberto.
+
+## Dia 6
+Percebi que havia um erro no jogo que quando a pessoa escreve as possiveis respostas não a 
+como escrever a pergunta, então adicionei essa opção.<br>
+Agora da para ver quantos acertos ouve e os botões se tornaram responsiveis e estão todos de tamanho
+igual agora.

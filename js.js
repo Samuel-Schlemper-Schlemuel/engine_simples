@@ -1,8 +1,9 @@
-var fases = {1: 2}
+var fases = {1: 3}
 var quantidade_fase = 1
 var perguntas = []
 var perguntas_da_fase = []
 var contagem_de_arrays = 0
+var pontuacao = 0
 
 function adicionar_fase(){
     manipular_perguntas()
@@ -11,13 +12,14 @@ function adicionar_fase(){
                                                             <button id='nova_pergunta' onclick="adicionar_pergunta(${quantidade_fase + 1})">Nova Pergunta</button> 
                                                             <button id='deletar_pergunta' onclick="deletar_pergunta(${quantidade_fase + 1})">Deletar última pergunta</button></p>
                                                             <div id='fase_${quantidade_fase + 1}'>
-                                                               <div id='input_1_fase_${quantidade_fase + 1}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${quantidade_fase + 1}_pergunta_1' type="text" placeholder="A pergunta (que também é a respossta certa)"> </div>
-                                                                <div id='input_2_fase_${quantidade_fase + 1}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${quantidade_fase + 1}_pergunta_2' type="text" placeholder="A pergunta"> </div>
+                                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${quantidade_fase + 1}_pergunta_1' type="text" placeholder="A pergunta">
+                                                               <div id='input_1_fase_${quantidade_fase + 1}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${quantidade_fase + 1}_pergunta_2' type="text" placeholder="A resposta certa"> </div>
+                                                                <div id='input_2_fase_${quantidade_fase + 1}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${quantidade_fase + 1}_pergunta_3' type="text" placeholder="Uma das respostas erradas"> </div>
                                                             </div>
                                                         </div>      `
     valor()
     quantidade_fase++
-    fases[quantidade_fase] = 2
+    fases[quantidade_fase] = 3
     }
 
 function remover_fase(){
@@ -30,18 +32,18 @@ function remover_fase(){
 }
 
 function adicionar_pergunta(fase){
-    if(fases[fase] === 8){
+    if(fases[fase] === 9){
         alert('Limite maximo de escolhas alcançado na fase ' + fase)
     } else {
         manipular_perguntas()
-        document.getElementById(`fase_${fase}`).innerHTML += `<div id='input_${fases[fase] + 1}_fase_${fase}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${fase}_pergunta_${fases[fase] + 1}' type="text" placeholder="A pergunta"> </div>`
+        document.getElementById(`fase_${fase}`).innerHTML += `<div id='input_${fases[fase] + 1}_fase_${fase}'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_${fase}_pergunta_${fases[fase] + 1}' type="text" placeholder="Uma das respostas erradas"> </div>`
         valor()
         fases[fase] += 1
     }
 }
 
 function deletar_pergunta(fase){
-    if(fases[fase] === 2){
+    if(fases[fase] === 3){
         alert('Minimo de escolhas alcançado na fase ' + fase)
     } else {
         document.getElementById(`input_${fases[fase]}_fase_${fase}`).remove()
@@ -71,18 +73,24 @@ function manipular_perguntas(){
 function criar_jogo(){
     manipular_perguntas()
     var tela = document.getElementById('tela')
+    contagem_de_arrays = 0
     botoes()
 }
 
 function botoes(){
-    let ordenado = [...perguntas[contagem_de_arrays]]
+    let ordenado = perguntas[contagem_de_arrays].slice(1,)
+    let tamanho_das_perguntas = 0
+    for(let i = 0; i < ordenado.length; i++){
+        tamanho_das_perguntas += ordenado[i].length
+    }
     ordenado.sort()
-    tela.innerHTML = ''
+    tela.innerHTML = perguntas[contagem_de_arrays][0] + ':<br> <div id="botoes_tela"><div>'
+    var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
-        if(perguntas[contagem_de_arrays][0] === ordenado[c]){
-            tela.innerHTML += `<button class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
+        if(perguntas[contagem_de_arrays][1] === ordenado[c]){
+            botoes_tela.innerHTML += `<button style='width:${175}px;' class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
         } else {
-            tela.innerHTML += `<button class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button style='width:${175}px;' class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
     }
     contagem_de_arrays++
@@ -91,11 +99,12 @@ function botoes(){
 function resposta(classe){
     if(classe === 'certo'){
         alert('Acertou')
+        pontuacao++
     } else {
         alert('Errou')
     }
     if(contagem_de_arrays === perguntas.length){
-        alert('O jogo acabou')
+        tela.innerHTML = `O jogo acabou<br>Sua pontuação: ${pontuacao}/${perguntas.length}`
     } else {
         botoes()
     }

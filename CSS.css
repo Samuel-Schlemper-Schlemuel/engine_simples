@@ -5,6 +5,7 @@ body{
 
 button{
     cursor: pointer;
+    font: 16px Architects Daughter;
 }
 
 #introducao{
@@ -29,6 +30,10 @@ button{
     padding: 10px;
 }
 
+#botoes_tela{
+    padding-left: 150px;
+}
+
 input{
-    width: 280px;
+    width: 230px;
 }
