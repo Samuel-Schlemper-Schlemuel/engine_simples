@@ -2,6 +2,7 @@ var fases = {1: 2}
 var quantidade_fase = 1
 var perguntas = []
 var perguntas_da_fase = []
+var contagem_de_arrays = 0
 
 function adicionar_fase(){
     manipular_perguntas()
@@ -56,14 +57,11 @@ function valor(){
     }
 }
 
-function manipular_perguntas(organizar = false){
+function manipular_perguntas(){
     perguntas = []
     for(let i = 1; i <= quantidade_fase; i++){
         for(let c = 1; c <= fases[i]; c++){
             perguntas_da_fase.push(document.getElementById(`fase_${i}_pergunta_${c}`).value)
-        }
-        if (organizar){
-            perguntas_da_fase.sort()
         }
         perguntas.push(perguntas_da_fase)
         perguntas_da_fase = []
@@ -71,5 +69,34 @@ function manipular_perguntas(organizar = false){
 }
 
 function criar_jogo(){
-    manipular_perguntas(true)
+    manipular_perguntas()
+    var tela = document.getElementById('tela')
+    botoes()
+}
+
+function botoes(){
+    let ordenado = [...perguntas[contagem_de_arrays]]
+    ordenado.sort()
+    tela.innerHTML = ''
+    for(let c = 0; c < ordenado.length; c++){
+        if(perguntas[contagem_de_arrays][0] === ordenado[c]){
+            tela.innerHTML += `<button class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
+        } else {
+            tela.innerHTML += `<button class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
+        }
+    }
+    contagem_de_arrays++
+}
+
+function resposta(classe){
+    if(classe === 'certo'){
+        alert('Acertou')
+    } else {
+        alert('Errou')
+    }
+    if(contagem_de_arrays === perguntas.length){
+        alert('O jogo acabou')
+    } else {
+        botoes()
+    }
 }
