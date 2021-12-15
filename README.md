@@ -41,4 +41,6 @@ ser usado localmente enquanto o site estiver aberto.
 Percebi que havia um erro no jogo que quando a pessoa escreve as possiveis respostas não a 
 como escrever a pergunta, então adicionei essa opção.<br>
 Agora da para ver quantos acertos ouve e os botões se tornaram responsiveis e estão todos de tamanho
-igual agora.
+igual agora.<br>
+Agora em vez de dar um alert toda ves que acerta ou erra, o código bota uma tag h1 por 2 segundos
+dizendo se ouve um acerto ou erro.

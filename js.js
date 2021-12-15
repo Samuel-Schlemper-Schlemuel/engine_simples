@@ -88,9 +88,9 @@ function botoes(){
     var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
         if(perguntas[contagem_de_arrays][1] === ordenado[c]){
-            botoes_tela.innerHTML += `<button style='width:${175}px;' class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button style='width:175px;' class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
         } else {
-            botoes_tela.innerHTML += `<button style='width:${175}px;' class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button style='width:175px;' class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
     }
     contagem_de_arrays++
@@ -98,14 +98,16 @@ function botoes(){
 
 function resposta(classe){
     if(classe === 'certo'){
-        alert('Acertou')
+        tela.innerHTML = `<h1 style='color: green;'>Acertou</h1>`
         pontuacao++
     } else {
-        alert('Errou')
+        tela.innerHTML = `<h1 style='color: red;'>Errou</h1>`
     }
-    if(contagem_de_arrays === perguntas.length){
-        tela.innerHTML = `O jogo acabou<br>Sua pontuação: ${pontuacao}/${perguntas.length}`
-    } else {
-        botoes()
-    }
+    setTimeout(() => {
+        if(contagem_de_arrays === perguntas.length){
+            tela.innerHTML = `O jogo acabou<br>Sua pontuação: ${pontuacao}/${perguntas.length}`
+        } else {
+            botoes()
+        }
+    }, 2000);
 }
