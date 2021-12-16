@@ -44,3 +44,9 @@ Agora da para ver quantos acertos ouve e os botões se tornaram responsiveis e e
 igual agora.<br>
 Agora em vez de dar um alert toda ves que acerta ou erra, o código bota uma tag h1 por 2 segundos
 dizendo se ouve um acerto ou erro.
+
+## Dia 7
+Agora o resultado (acertou/errou) e o final estão centralizados<br>
+Amanhã começa uma das partes mais complexas do projeto, que é o fato de que eu começarei a usar funções 
+das quais não tenho nenhum conhecimento ainda, que é algo que não aconteceu até o momento atual, o primeiro 
+objetivo será criar algo que deixe fácil para o usuário mudar a cor de fundo.

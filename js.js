@@ -74,6 +74,8 @@ function criar_jogo(){
     manipular_perguntas()
     var tela = document.getElementById('tela')
     contagem_de_arrays = 0
+    tela.style.textAlign = 'left'
+    pontuacao = 0
     botoes()
 }
 
@@ -88,15 +90,16 @@ function botoes(){
     var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
         if(perguntas[contagem_de_arrays][1] === ordenado[c]){
-            botoes_tela.innerHTML += `<button style='width:175px;' class='certo' onclick='resposta("certo")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button style='width:175px;' onclick='resposta("certo")'>${ordenado[c]}</button>`
         } else {
-            botoes_tela.innerHTML += `<button style='width:175px;' class='errado' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button style='width:175px;' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
     }
     contagem_de_arrays++
 }
 
 function resposta(classe){
+    tela.style.textAlign = 'center'
     if(classe === 'certo'){
         tela.innerHTML = `<h1 style='color: green;'>Acertou</h1>`
         pontuacao++
@@ -105,8 +108,9 @@ function resposta(classe){
     }
     setTimeout(() => {
         if(contagem_de_arrays === perguntas.length){
-            tela.innerHTML = `O jogo acabou<br>Sua pontuação: ${pontuacao}/${perguntas.length}`
+            tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${perguntas.length}</p>`
         } else {
+            tela.style.textAlign = 'left'
             botoes()
         }
     }, 2000);

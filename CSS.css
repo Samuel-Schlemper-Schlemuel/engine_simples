@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 body{
-    font: 18px Architects Daughter;
+    font: 18px Montserrat;
 }
 
 button{
     cursor: pointer;
-    font: 16px Architects Daughter;
+    font: 16px Montserrat;
+}
+
+input{
+    width: 230px;
 }
 
 #introducao{
@@ -32,8 +35,4 @@ button{
 
 #botoes_tela{
     padding-left: 150px;
-}
-
-input{
-    width: 230px;
 }
