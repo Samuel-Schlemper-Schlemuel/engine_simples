@@ -115,3 +115,8 @@ function resposta(classe){
         }
     }, 2000);
 }
+
+function mudar_cor(){
+    let cor = document.getElementById('seletor_cores').value
+    document.getElementById('tela').style.backgroundColor = cor
+}

@@ -50,3 +50,8 @@ Agora o resultado (acertou/errou) e o final estão centralizados<br>
 Amanhã começa uma das partes mais complexas do projeto, que é o fato de que eu começarei a usar funções 
 das quais não tenho nenhum conhecimento ainda, que é algo que não aconteceu até o momento atual, o primeiro 
 objetivo será criar algo que deixe fácil para o usuário mudar a cor de fundo.
+
+## Dia 8
+Descobri a existencia de um input que tem como valor type="color", ultilizarei isso para criar um seletor de 
+cores para meu usuário.
+Input pronto e mudando a cor, agora o trabalho é botar o site no ar.

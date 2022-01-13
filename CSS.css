@@ -23,6 +23,7 @@ input{
 #jogo{
     width: 48vw;
     float: right;
+    text-align: center;
 }
 
 #tela{
@@ -35,4 +36,9 @@ input{
 
 #botoes_tela{
     padding-left: 150px;
+}
+
+#caixa_seletor_cores{
+    float: left;
+    margin-left: 140px;
 }
