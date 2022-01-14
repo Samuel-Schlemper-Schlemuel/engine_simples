@@ -1,6 +1,6 @@
 # Engine Simples
 
-Site hospedado no github: [Engine Simples](https://schlemuel.github.io/engine_simples/Home.html).
+Site hospedado no github: [Engine Simples](https://samuel-schlemper-schlemuel.github.io/engine_simples/Home.html).
 
 Este projeto foi criado quando minha mãe disse que precisava de um 
 programa que fizesse isso gratuitamente, o objetivo dele é fazer ser
@@ -57,4 +57,4 @@ objetivo será criar algo que deixe fácil para o usuário mudar a cor de fundo.
 Descobri a existencia de um input que tem como valor type="color", ultilizarei isso para criar um seletor de 
 cores para meu usuário.
 <br>Input pronto e mudando a cor, agora o trabalho é botar o site no ar.
-<br>Acabei de fazer com que o código tenha um site hospedado no próprio github: [Engine Simples](https://schlemuel.github.io/engine_simples/Home.html).
+<br>Acabei de fazer com que o código tenha um site hospedado no próprio github: [Engine Simples](https://samuel-schlemper-schlemuel.github.io/engine_simples/Home.html).
