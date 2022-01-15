@@ -4,6 +4,7 @@ var perguntas = []
 var perguntas_da_fase = []
 var contagem_de_arrays = 0
 var pontuacao = 0
+var imagem = false
 
 function adicionar_fase(){
     manipular_perguntas()
@@ -94,6 +95,11 @@ function botoes(){
         } else {
             botoes_tela.innerHTML += `<button style='width:175px;' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
+    }
+    if(!imagem){
+        document.getElementById('botoes_tela').style.textAlign = 'center'
+    } else {
+        document.getElementById('botoes_tela').style.paddingLeft = '150px'
     }
     contagem_de_arrays++
 }
