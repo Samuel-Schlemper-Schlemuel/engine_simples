@@ -32,6 +32,7 @@ input{
     height: 200px;
     background-color: rgba(4, 4, 216, 0.7);
     padding: 10px;
+    border: 30px;
 }
 
 #caixa_seletor_cores{

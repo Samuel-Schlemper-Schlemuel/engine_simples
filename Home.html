@@ -44,8 +44,14 @@
 
         <div id="caixa_seletor_cores">
             <p>Escolha a cor de fundo para o jogo: </p>
-            <input id="seletor_cores" type="color" value="#4f4fe4"/>    
-            <button id="botao_cores" onclick="mudar_cor()"> Adicionar cor </button>
+            <input id="seletor_cores_fundo" type="color" value="#4f4fe4"/>    
+            <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
+            <p>Escolha a de acerto do jogo: </p>
+            <input id="seletor_cores_acerto" type="color" value="#008000"/>    
+            <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
+            <p>Escolha a cor de erro do jogo: </p>
+            <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
+            <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
         </div>
     </div>
 </body>
