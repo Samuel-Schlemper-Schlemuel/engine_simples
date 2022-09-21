@@ -44,3 +44,6 @@ Agora os botões são centralizados caso não haja imagem.
 ## Atualização 10
 Depois de muito tempo estou retornando a esse projeto. A atualização dessa vez é pequena só organizei um pouco o código e adicionei a 
 possibilidade de mudar a cor das palavras acerto e erro.
+
+## Atualização 11
+Adicionei a opção de mudar a fonte do jogo criei uma borda para a tela.

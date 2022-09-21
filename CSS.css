@@ -30,12 +30,27 @@ input{
     float: right;
     width: 500px;
     height: 200px;
-    background-color: rgba(4, 4, 216, 0.7);
-    padding: 10px;
-    border: 30px;
+    background-color: rgb(122, 122, 230);
+    padding: 5px;
+    border: 5px solid rgba(0, 0, 0, 0.7);
+    font: 25px cursive;
+}
+
+#tela button{
+    font: 20px cursive; 
 }
 
 #caixa_seletor_cores{
     float: left;
     margin-left: 140px;
+}
+
+#fonte{
+    margin-top: 30px;
+    float: left;
+    margin-left: 140px;
+}
+
+#fonte select{
+    height: 25px;
 }

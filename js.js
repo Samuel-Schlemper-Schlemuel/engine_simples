@@ -144,3 +144,15 @@ function mudar_cor_erro(){
     let cor = document.getElementById('seletor_cores_erro').value
     cor_erro = cor
 }
+
+function mudar_fonte(){
+    let fonte = document.getElementById('select_fonte').value
+    document.getElementById('tela').style.fontFamily = fonte
+    var botoes = document.getElementById('tela').querySelectorAll('button')
+
+    for(botao in botoes){
+        if(!isNaN(Number.parseInt(botao))){
+            botoes[botao].style.fontFamily = fonte
+        }
+    }
+}
