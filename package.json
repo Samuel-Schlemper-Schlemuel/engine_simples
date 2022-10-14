@@ -1,0 +1,25 @@
+{
+    "name": "engine_simples",
+    "version": "1.0.0",
+    "description": "Uma engine para jogos simples, onde você podera adicionar os jogos criados com ela em seu site",
+    "main": "index.js",
+    "engines": {
+        "node": "14.x"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "build": "webpack --env production --env VERCEL_ENV=$VERCEL_ENV"
+    },
+    "dependencies": {
+        "express": "^4.18.1",
+        "mongoose": "^6.6.2"
+    },
+    "keywords": [
+        "node",
+        "express",
+        "mongoose",
+        "engine"
+    ],
+    "license": "MIT",
+    "author": "Samuel Schlemper"
+}

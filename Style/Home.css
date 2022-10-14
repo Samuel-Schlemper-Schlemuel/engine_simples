@@ -7,6 +7,10 @@ button{
     font: 16px Montserrat;
 }
 
+select, #caixa_seletor_cores input{
+    cursor: pointer;
+}
+
 input{
     width: 230px;
 }

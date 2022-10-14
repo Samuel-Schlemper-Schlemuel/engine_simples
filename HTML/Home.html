@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head id='head'>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Engine Simples</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <link href="/Home.css" rel="stylesheet">
+        <script src="/Home.js"></script>
+    </head>
+    <body>
+        <div id='introducao'>
+            <h1>Bem Vindo</h1>
+            <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
+        </div>
+        <br>
+        <div id='tela_inicial'>
+            <div id='perguntas'>
+                <p>Clique para adicionar uma nova fase <button id='nova_fase' onclick="adicionar_fase()">Nova Fase</button> <button id='remover_fase' onclick="remover_fase()">Remover a última fase</button></p>
+                    <div id='fase_completa_1'>
+                        <p>
+                            &nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8) 
+                            <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Pergunta</button> 
+                            <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última pergunta</button>
+                        </p>
+                            <div id='fase_1'>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_1' type="text" placeholder="A pergunta">
+                                <div id='input_1_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_2' type="text" placeholder="A resposta certa"> </div>
+                                <div id='input_2_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_3' type="text" placeholder="Uma das respostas erradas"> </div>
+                            </div>
+                    </div>
+                <br>
+            </div>
+                <br>
+                <button id='criar_jogo' onclick="criar_jogo()">Criar jogo!</button>
+        </div>
+        <div id='jogo'>
+            <div id='tela'>
+
+            </div>
+
+            <div id="caixa_seletor_cores">
+                <p>Escolha a cor de fundo para o jogo: </p>
+                <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
+                <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
+                <p>Escolha a de acerto do jogo: </p>
+                <input id="seletor_cores_acerto" type="color" value="#008000"/>    
+                <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
+                <p>Escolha a cor de erro do jogo: </p>
+                <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
+                <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
+            </div>
+
+            <div id="fonte">
+                <select id="select_fonte">
+                    <option>cursive</option>
+                    <option>serif</option>
+                    <option>sans-serif</option>
+                    <option>monospace</option>
+                    <option>fantasy</option>
+                </select>
+                <button onclick="mudar_fonte()">Mudar fonte</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -47,3 +47,6 @@ possibilidade de mudar a cor das palavras acerto e erro.
 
 ## Atualização 11
 Adicionei a opção de mudar a fonte do jogo criei uma borda para a tela.
+
+## Atualização 12
+Criei um servidor em node.js para o site
