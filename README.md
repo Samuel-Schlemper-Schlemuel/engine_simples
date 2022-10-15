@@ -1,5 +1,5 @@
 # Engine Simples
-Site hospedado no github: [Engine Simples](https://samuel-schlemper-schlemuel.github.io/engine_simples/Home.html).
+Site hospedado no vercel: [Engine Simples](engine-simples.vercel.app).
 
 Este projeto foi criado quando minha mãe disse que precisava de um programa que fizesse isso gratuitamente, o objetivo dele é fazer ser uma engine simples de jogos onde se pode criar um jogo de botões onde o usuário escolhe uma opção das dadas pelo criador e vê se foi a resposta certa ou não, o criador do jogo também pode adicionar uma imagem ou animação simples no jogo, o resultado final pode ser baixado ou adicionado a outro site.
 
@@ -36,7 +36,6 @@ Começarei uma das partes mais complexas do projeto, que é o fato de que eu com
 ## Atualização 8
 Descobri a existencia de um input que tem como valor type="color", ultilizarei isso para criar um seletor de cores para meu usuário.
 Input pronto e mudando a cor, agora o trabalho é botar o site no ar.
-Acabei de fazer com que o código tenha um site hospedado no próprio github: [Engine Simples](https://samuel-schlemper-schlemuel.github.io/engine_simples/Home.html).
 
 ## Atualização 9
 Agora os botões são centralizados caso não haja imagem.
@@ -49,4 +48,7 @@ possibilidade de mudar a cor das palavras acerto e erro.
 Adicionei a opção de mudar a fonte do jogo criei uma borda para a tela.
 
 ## Atualização 12
-Criei um servidor em node.js para o site
+Criei um servidor em node.js para o site.
+
+## Atualização 13
+Agora há meta tags no html e um cabeçalho com um botão e o meu nome no topo da pagina.

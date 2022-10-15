@@ -2,8 +2,14 @@
 <html lang="pt-BR">
     <head id='head'>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Samuel Schlemper">
+        <meta name="description" content="Engine Simples">
+        <meta name="keywords" content="criador, jogos, simples, educativo, engine">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="content-language" content="pt-br">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="rating" content="general">
         <title>Engine Simples</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,19 +18,26 @@
         <script src="/Home.js"></script>
     </head>
     <body>
+        <div id="cabecario">
+            <p>By Samuel Schlemper</p> <button id="criar_conta"><a href="/criar_conta">Criar conta</a></button>
+        </div>
         <div id='introducao'>
-            <h1>Bem Vindo</h1>
+            <h1>Bem Vindo!</h1>
             <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
         </div>
         <br>
         <div id='tela_inicial'>
             <div id='perguntas'>
-                <p>Clique para adicionar uma nova fase <button id='nova_fase' onclick="adicionar_fase()">Nova Fase</button> <button id='remover_fase' onclick="remover_fase()">Remover a última fase</button></p>
+                <p>
+                    Clique para adicionar uma nova fase 
+                    <button id='nova_fase' onclick="adicionar_fase()">Nova Questão</button> 
+                    <button id='remover_fase' onclick="remover_fase()">Deletar última Questão</button>
+                </p>
                     <div id='fase_completa_1'>
                         <p>
                             &nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8) 
-                            <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Pergunta</button> 
-                            <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última pergunta</button>
+                            <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Resposta</button> 
+                            <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última resposta</button>
                         </p>
                             <div id='fase_1'>
                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_1' type="text" placeholder="A pergunta">

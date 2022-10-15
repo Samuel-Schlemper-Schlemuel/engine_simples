@@ -12,8 +12,8 @@ function adicionar_fase(){
     manipular_perguntas()
     document.getElementById('perguntas').innerHTML += `<div id='fase_completa_${quantidade_fase + 1}'>
                                                          <p>${repeat('&nbsp', 4)}Fase ${quantidade_fase + 1}: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8)
-                                                            <button id='nova_pergunta' onclick="adicionar_pergunta(${quantidade_fase + 1})">Nova Pergunta</button> 
-                                                            <button id='deletar_pergunta' onclick="deletar_pergunta(${quantidade_fase + 1})">Deletar última pergunta</button></p>
+                                                            <button id='nova_pergunta' onclick="adicionar_pergunta(${quantidade_fase + 1})">Nova Resposta</button> 
+                                                            <button id='deletar_pergunta' onclick="deletar_pergunta(${quantidade_fase + 1})">Deletar última resposta</button></p>
                                                             <div id='fase_${quantidade_fase + 1}'>
                                                             ${repeat('&nbsp', 8)}<input id='fase_${quantidade_fase + 1}_pergunta_1' type="text" placeholder="A pergunta">
                                                                <div id='input_1_fase_${quantidade_fase + 1}'> ${repeat('&nbsp', 8)}<input id='fase_${quantidade_fase + 1}_pergunta_2' type="text" placeholder="A resposta certa"> </div>
