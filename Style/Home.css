@@ -71,14 +71,14 @@ input{
     left: 0px;
 }
 
-#criar_conta{
+#cadastro{
     text-align: center;
     background-color: rgb(0, 202, 0);
     margin-right: 30px;
     margin-top: 10px;
 }
 
-#criar_conta a{
+#cadastro a{
     color: black;
     text-decoration: none;
 }

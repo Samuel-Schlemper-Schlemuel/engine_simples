@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/HTML/Home.html')
 })
 
-app.get('/criar_conta', (req, res) => {
-    res.send('chegou')
+app.get('/cadastro', (req, res) => {
+    res.sendFile(__dirname + '/HTML/cadastro.html')
 })
 
 app.listen(PORT)
