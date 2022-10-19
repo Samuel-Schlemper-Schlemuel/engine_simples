@@ -4,7 +4,7 @@
     "description": "Uma engine para jogos simples, onde você podera adicionar os jogos criados com ela em seu site",
     "main": "index.js",
     "engines": {
-        "node": "14.x"
+        "node": "16.x"
     },
     "scripts": {
         "start": "node index.js",
