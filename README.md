@@ -52,3 +52,6 @@ Criei um servidor em node.js para o site.
 
 ## Atualização 13
 Agora há meta tags no html e um cabeçalho com um botão e o meu nome no topo da pagina.
+
+## Atualização 14
+Agora o site tem um sistema para enviar um email para o usuário.
