@@ -21,15 +21,23 @@ function saveConta(email, senha){
 }
 
 async function findConta(email){
+    let encontrado = []
+
     await contaModel.find({
         email: email
     })
     .then(doc => {
-        return 'exist'
+        encontrado = doc
     })
     .catch(err => {
-        return 'dont exist'
+        return err
     })
+
+    if(encontrado.length == 0){
+        return "don't exist"
+    } else {
+        return 'exist'
+    }
 }
 
 module.exports = {saveConta, findConta}

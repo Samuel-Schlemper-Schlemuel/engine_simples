@@ -1,0 +1,17 @@
+body{
+    font: 23px Arial;
+}
+
+div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+}
+
+input{
+    height: 25px;
+    width: 300px;
+    font-size: 18px;
+}

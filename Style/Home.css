@@ -88,3 +88,8 @@ input{
     top: -3px;
     left: 10px;
 }
+
+#userMail{
+    position: relative;
+    right: 20px;
+}
