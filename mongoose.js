@@ -20,7 +20,7 @@ function saveConta(email, senha){
     conta.save()
 }
 
-async function findConta(email){
+async function seeIfCountExist(email){
     let encontrado = []
 
     await contaModel.find({
@@ -40,4 +40,20 @@ async function findConta(email){
     }
 }
 
-module.exports = {saveConta, findConta}
+async function findCount(email){
+    let result
+
+    await contaModel.find({
+        email: email
+    })
+    .then(doc => {
+        result = doc[0]
+    })
+    .catch(err => {
+        result = 'error'
+    })
+
+    return result
+}
+
+module.exports = {saveConta, seeIfCountExist, findCount}

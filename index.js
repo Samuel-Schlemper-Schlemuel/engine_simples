@@ -16,7 +16,7 @@ var userData = {
 }
 var cabecario = `
 <div id="cabecario">
-    <p>By Samuel Schlemper</p> <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
+    <p>By Samuel Schlemper</p> <button id="login"><a href="/login">Login</a></button> <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
 </div>
 `
 
@@ -63,7 +63,7 @@ app.post('/cadastro_efetuado', async (req, res) => {
         return
     }
 
-    const exist = await mongo.findConta(email)
+    const exist = await mongo.seeIfCountExist(email)
     
     if(exist == 'exist'){
         alert('Esse e-mail já possui uma conta')
@@ -110,21 +110,63 @@ app.post('/confirmar_email', (req, res) => {
 
     if(codigo == confirmacao){
         mongo.saveConta(userData.email, userData.password)
-        fs.readFile(__dirname + '/HTML/Home.html', 'utf-8', (err, data) => {
-            if(err){
-                console.error(err)
-            } else {
-                cabecario = `
-                <div id="cabecario">
-                    <p>By Samuel Schlemper</p> <label id='userMail'>'${userData.email}'</label>
-                </div>
-                `
-                res.redirect('/')
-            }
-        })
+
+        cabecario = `
+        <div id="cabecario">
+            <p>By Samuel Schlemper</p> <label id='userMail'>${userData.email}</label>
+        </div>
+        `
+        res.redirect('/')
     } else {
         alert('O código não está correto')
         res.redirect('/cadastro')
+    }
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/HTML/login.html')
+})
+
+app.post('/login_efetuado', async (req, res) => {
+    const email = req.body.email
+    const password = req.body.password
+
+    const exist = await mongo.seeIfCountExist(email)
+    
+    if(exist == 'exist'){
+        const conta = await mongo.findCount(email)
+
+        if(conta == 'error'){
+            alert('Houve algum erro, tente novamente mais tarde')
+            res.redirect('/login')
+            return
+        }
+
+        if(password != conta.senha){
+            alert('Senha errada')
+            res.redirect('/login')
+            return
+        }
+
+        userData.email = conta.email
+        userData.password = conta.senha
+
+        cabecario = `
+        <div id="cabecario">
+        <p>By Samuel Schlemper</p> <label id='userMail'>${userData.email}</label>
+        </div>
+        `
+
+        res.redirect('/')
+
+    } else if(exist == "don't exist"){
+        alert('Não existe conta com esse email')
+        res.redirect('/login')
+        return
+    } else {
+        alert('Houve algum erro, tente novamente mais tarde')
+        res.redirect('/login')
+        return
     }
 })
 

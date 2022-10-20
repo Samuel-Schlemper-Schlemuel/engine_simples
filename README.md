@@ -58,3 +58,6 @@ Agora o site tem um sistema para enviar um email para o usuário.
 
 ## Atualização 15
 Agora a parte de verificação de e-mail e criação de conta está completa.
+
+## Atualização 16
+Sistema de login criado.
