@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="/login.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/geral.js"></script>
 </head>
 <body>
     <div>
@@ -13,10 +15,10 @@
             Email: <input type="email" name="email">
             <br>
             <br>
-            Senha: <input type="password" maxlength="12" minlength="4" name="password">
+            Senha: <input type="password" maxlength="15" minlength="4" name="password">
             <br>
             <br>
-            <input type="submit" value="Criar a conta">
+            <input type="submit" value="Fazer login">
         </form>
     </div>
 </body>

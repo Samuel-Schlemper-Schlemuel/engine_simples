@@ -61,3 +61,6 @@ Agora a parte de verificação de e-mail e criação de conta está completa.
 
 ## Atualização 16
 Sistema de login criado.
+
+## Atualização 17
+Atualizei o código, por mais que as mudanças foram pequenas uma delas quebrava o código anterior, por isso estarei atualizando o pakage.json para a verção 2.0.0, e fiz com que o servidor interagice direto com o cliente.

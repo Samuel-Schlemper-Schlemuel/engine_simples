@@ -1,28 +1,29 @@
-var fases = {1: 3}
-var quantidade_fase = 1
+var socket = io()
+var questoes = {1: 3}
+var quantidade_questao = 1
 var perguntas = []
-var perguntas_da_fase = []
+var perguntas_da_questao = []
 var contagem_de_arrays = 0
 var pontuacao = 0
 var imagem = false
 var cor_acerto = 'green'
 var cor_erro = 'red'
 
-function adicionar_fase(){
+function adicionar_questao(){
     manipular_perguntas()
-    document.getElementById('perguntas').innerHTML += `<div id='fase_completa_${quantidade_fase + 1}'>
-                                                         <p>${repeat('&nbsp', 4)}Fase ${quantidade_fase + 1}: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8)
-                                                            <button id='nova_pergunta' onclick="adicionar_pergunta(${quantidade_fase + 1})">Nova Resposta</button> 
-                                                            <button id='deletar_pergunta' onclick="deletar_pergunta(${quantidade_fase + 1})">Deletar última resposta</button></p>
-                                                            <div id='fase_${quantidade_fase + 1}'>
-                                                            ${repeat('&nbsp', 8)}<input id='fase_${quantidade_fase + 1}_pergunta_1' type="text" placeholder="A pergunta">
-                                                               <div id='input_1_fase_${quantidade_fase + 1}'> ${repeat('&nbsp', 8)}<input id='fase_${quantidade_fase + 1}_pergunta_2' type="text" placeholder="A resposta certa"> </div>
-                                                                <div id='input_2_fase_${quantidade_fase + 1}'> ${repeat('&nbsp', 8)}<input id='fase_${quantidade_fase + 1}_pergunta_3' type="text" placeholder="Uma das respostas erradas"> </div>
+    document.getElementById('perguntas').innerHTML += `<div id='questao_completa_${quantidade_questao + 1}'>
+                                                         <p>${repeat('&nbsp', 4)}Questão ${quantidade_questao + 1}: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8)
+                                                            <button id='nova_resposta' onclick="adicionar_resposta(${quantidade_questao + 1})">Nova Resposta</button> 
+                                                            <button id='deletar_resposta' onclick="deletar_resposta(${quantidade_questao + 1})">Deletar última resposta</button></p>
+                                                            <div id='questao_${quantidade_questao + 1}'>
+                                                            ${repeat('&nbsp', 8)}<input id='questao_${quantidade_questao + 1}_resposta_1' type="text" placeholder="A resposta">
+                                                               <div id='input_1_questao_${quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa"> </div>
+                                                                <div id='input_2_questao_${quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas"> </div>
                                                             </div>
                                                         </div>`
     valor()
-    quantidade_fase += 1
-    fases[quantidade_fase] = 3
+    quantidade_questao += 1
+    questoes[quantidade_questao] = 3
 }
 
 function repeat(text, times){
@@ -35,51 +36,51 @@ function repeat(text, times){
     return result
 }
 
-function remover_fase(){
-    if(quantidade_fase === 1){
-        alert('Minimo de fases alcançado')
+function remover_questao(){
+    if(quantidade_questao === 1){
+        alert('Minimo de questões alcançado')
     } else {
-    document.getElementById(`fase_completa_${quantidade_fase}`).remove()
-    quantidade_fase -= 1
+    document.getElementById(`questao_completa_${quantidade_questao}`).remove()
+    quantidade_questao -= 1
     }
 }
 
-function adicionar_pergunta(fase){
-    if(fases[fase] === 9){
-        alert('Limite maximo de escolhas alcançado na fase ' + fase)
+function adicionar_resposta(questao){
+    if(questoes[questao] === 9){
+        alert('Limite maximo de escolhas alcançado na questão ' + questao)
     } else {
         manipular_perguntas()
-        document.getElementById(`fase_${fase}`).innerHTML += `<div id='input_${fases[fase] + 1}_fase_${fase}'> ${repeat('&nbsp', 8)}<input id='fase_${fase}_pergunta_${fases[fase] + 1}' type="text" placeholder="Uma das respostas erradas"> </div>`
+        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${questoes[questao] + 1}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas"> </div>`
         valor()
-        fases[fase] += 1
+        questoes[questao] += 1
     }
 }
 
-function deletar_pergunta(fase){
-    if(fases[fase] === 3){
-        alert('Minimo de escolhas alcançado na fase ' + fase)
+function deletar_resposta(questao){
+    if(questoes[questao] === 3){
+        alert('Minimo de escolhas alcançado na questão ' + questao)
     } else {
-        document.getElementById(`input_${fases[fase]}_fase_${fase}`).remove()
-        fases[fase] -= 1
+        document.getElementById(`input_${questoes[questao]}_questao_${questao}`).remove()
+        questoes[questao] -= 1
     }
 }   
 
 function valor(){
-    for(let i = 1; i <= quantidade_fase; i++){
-        for(let c = 1; c <= fases[i]; c++){
-            document.getElementById(`fase_${i}_pergunta_${c}`).value = perguntas[i - 1][c - 1]
+    for(let i = 1; i <= quantidade_questao; i++){
+        for(let c = 1; c <= questoes[i]; c++){
+            document.getElementById(`questao_${i}_resposta_${c}`).value = perguntas[i - 1][c - 1]
         }
     }
 }
 
 function manipular_perguntas(){
     perguntas = []
-    for(let i = 1; i <= quantidade_fase; i++){
-        for(let c = 1; c <= fases[i]; c++){
-            perguntas_da_fase.push(document.getElementById(`fase_${i}_pergunta_${c}`).value)
+    for(let i = 1; i <= quantidade_questao; i++){
+        for(let c = 1; c <= questoes[i]; c++){
+            perguntas_da_questao.push(document.getElementById(`questao_${i}_resposta_${c}`).value)
         }
-        perguntas.push(perguntas_da_fase)
-        perguntas_da_fase = []
+        perguntas.push(perguntas_da_questao)
+        perguntas_da_questao = []
     }
 }
 

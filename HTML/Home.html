@@ -14,7 +14,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
-        <link href="/Home.css" rel="stylesheet">
+        <script src="/socket.io/socket.io.js"></script>
+        <link href="/Home.css" rel="stylesheet" type="text/css">
         <script src="/Home.js"></script>
     </head>
     <body>
@@ -26,20 +27,20 @@
         <div id='tela_inicial'>
             <div id='perguntas'>
                 <p>
-                    Clique para adicionar uma nova fase 
-                    <button id='nova_fase' onclick="adicionar_fase()">Nova Questão</button> 
-                    <button id='remover_fase' onclick="remover_fase()">Deletar última Questão</button>
+                    Clique para adicionar uma nova questão 
+                    <button id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
+                    <button id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
                 </p>
-                    <div id='fase_completa_1'>
+                    <div id='questao_completa_1'>
                         <p>
-                            &nbsp&nbsp&nbsp&nbspFase 1: Clique para adicionar uma nova pergunta a essa fase (minimo de 2 e maximo de 8) 
-                            <button id='nova_pergunta' onclick="adicionar_pergunta(1)">Nova Resposta</button> 
-                            <button id='deletar_pergunta' onclick="deletar_pergunta(1)">Deletar última resposta</button>
+                            &nbsp&nbsp&nbsp&nbspQuestão 1: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8) 
+                            <button id='nova_resposta' onclick="adicionar_resposta(1)">Nova Resposta</button> 
+                            <button id='deletar_resposta' onclick="deletar_resposta(1)">Deletar última resposta</button>
                         </p>
-                            <div id='fase_1'>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_1' type="text" placeholder="A pergunta">
-                                <div id='input_1_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_2' type="text" placeholder="A resposta certa"> </div>
-                                <div id='input_2_fase_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='fase_1_pergunta_3' type="text" placeholder="Uma das respostas erradas"> </div>
+                            <div id='questao_1'>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_1' type="text" placeholder="A resposta">
+                                <div id='input_1_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_2' type="text" placeholder="A resposta certa"> </div>
+                                <div id='input_2_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_3' type="text" placeholder="Uma das respostas erradas"> </div>
                             </div>
                     </div>
                 <br>

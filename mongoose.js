@@ -6,15 +6,17 @@ mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const contaSchma = new mongoose.Schema({
     email: String,
-    senha: String
+    senha: String,
+    username: String
 })
 
 const contaModel = mongoose.model('conta', contaSchma)
 
-function saveConta(email, senha){
+function saveConta(email, senha, username){
     let conta = new contaModel({
         email: email,
-        senha: senha
+        senha: senha,
+        username: username
     })
 
     conta.save()
