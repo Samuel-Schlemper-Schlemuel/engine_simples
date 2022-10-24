@@ -6,11 +6,12 @@ const mongo = require('./mongoose.js')
 const nodemailer = require('nodemailer')
 const fs = require('fs')
 const http = require('http')
+const Server = require('socket.io')
 const PORT = process.env.PORT || 3000
 const emailSenha = process.env.emailSenha
 const app = express()
 const server = http.createServer(app)
-const io = require("socket.io")(server)
+const io = Server(server)
 var confirmacao = undefined
 var userData = {
     email: undefined,
@@ -31,6 +32,16 @@ function gerarPassword() {
 
 io.on('connection', (socket) => {
 })
+
+io.close()
+
+function alert(msg){
+    io.on('connection', (socket) => {
+    })
+    io.emit('alert', msg)
+    io.close()
+    server.listen(PORT)
+}
 
 //routes
 app.use(express.static(__dirname + '/Style'))
@@ -63,17 +74,17 @@ app.post('/cadastro_efetuado', async (req, res) => {
 
     if(password1 == '' || password2 == ''){
         res.redirect('/cadastro')
-        io.emit('alert', 'Coloque uma senha')
+        alert('Coloque uma senha')
         return
     } else if(password1 != password2){
         res.redirect('/cadastro')
-        io.emit('alert', 'As senhas não são iguais')
+        alert('As senhas não são iguais')
         return
     }
 
     if(nome.length > 25){
         res.redirect('/cadastro')
-        io.emit('alert', 'Nome grande demais, por favor, bote apenas um nome e um sobrenome')
+        alert('Nome grande demais, por favor, bote apenas um nome e um sobrenome')
         return
     }
 
@@ -81,13 +92,13 @@ app.post('/cadastro_efetuado', async (req, res) => {
     
     if(exist == 'exist'){
         res.redirect('/cadastro')
-        io.emit('alert', 'Esse e-mail já possui uma conta')
+        alert('Esse e-mail já possui uma conta')
         return
     } else if(exist == "don't exist"){
          
     } else {
         res.redirect('/cadastro')
-        io.emit('alert', 'Houve algum erro, tente novamente mais tarde')
+        alert('Houve algum erro, tente novamente mais tarde')
         return
     }
 
@@ -128,13 +139,13 @@ app.post('/confirmar_email', async (req, res) => {
     
         if(exist == 'exist'){
             res.redirect('/cadastro')
-            io.emit('alert', 'Esse e-mail já possui uma conta')
+            alert('Esse e-mail já possui uma conta')
             return
         } else if(exist == "don't exist"){
             
         } else {
             res.redirect('/cadastro')
-            io.emit('alert', 'Houve algum erro, tente novamente mais tarde')
+            alert('Houve algum erro, tente novamente mais tarde')
             return
         }
 
@@ -147,7 +158,7 @@ app.post('/confirmar_email', async (req, res) => {
         `
         res.redirect('/')
     } else {
-        io.emit('alert', 'O código não está correto')
+        alert('O código não está correto')
         res.redirect('/cadastro')
     }
 })
@@ -167,13 +178,13 @@ app.post('/login_efetuado', async (req, res) => {
 
         if(conta == 'error'){
             res.redirect('/login')
-            io.emit('alert', 'Houve algum erro, tente novamente mais tarde')
+            alert('Houve algum erro, tente novamente mais tarde')
             return
         }
 
         if(password != conta.senha){
             res.redirect('/login')
-            io.emit('alert', 'A senha está errada')
+            alert('A senha está errada')
             return
         }
 
@@ -191,11 +202,11 @@ app.post('/login_efetuado', async (req, res) => {
 
     } else if(exist == "don't exist"){
         res.redirect('/login')
-        io.emit('alert', 'Não existe conta com esse email')
+        alert('Não existe conta com esse email')
         return
     } else {
         res.redirect('/login')
-        io.emit('alert', 'Houve algum erro, tente novamente mais tarde')
+        alert('Houve algum erro, tente novamente mais tarde')
         return
     }
 })

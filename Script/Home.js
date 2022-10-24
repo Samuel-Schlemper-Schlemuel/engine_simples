@@ -1,4 +1,3 @@
-var socket = io()
 var questoes = {1: 3}
 var quantidade_questao = 1
 var perguntas = []
