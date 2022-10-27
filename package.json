@@ -1,13 +1,13 @@
 {
     "name": "engine_simples",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Uma engine para jogos simples, onde você podera adicionar os jogos criados com ela em seu site",
     "main": "index.js",
     "engines": {
         "node": "16.x"
     },
     "scripts": {
-        "start": "node index.js",
+        "start": "nodemon index.js",
         "build": "webpack --env production --env VERCEL_ENV=$VERCEL_ENV"
     },
     "dependencies": {
@@ -17,6 +17,8 @@
         "http": "^0.0.1-security",
         "mongoose": "^6.6.2",
         "nodemailer": "^6.8.0",
+        "nodemon": "^2.0.20",
+        "pusher": "^5.1.1-beta",
         "socket.io": "^4.5.3"
     },
     "keywords": [

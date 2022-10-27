@@ -5,13 +5,12 @@ const express = require('express')
 const mongo = require('./mongoose.js')
 const nodemailer = require('nodemailer')
 const fs = require('fs')
-const http = require('http')
-const Server = require('socket.io')
+const Pusher = require('pusher')
 const PORT = process.env.PORT || 3000
 const emailSenha = process.env.emailSenha
+const appId = process.env.appId
+const secret = process.env.secret
 const app = express()
-const server = http.createServer(app)
-const io = Server(server)
 var confirmacao = undefined
 var userData = {
     email: undefined,
@@ -30,17 +29,18 @@ function gerarPassword() {
     return codigo
 }
 
-io.on('connection', (socket) => {
-})
-
-io.close()
+const pusher = new Pusher({
+    appId: appId,
+    key: "c8ba7e505c0d452fd3fa",
+    secret: secret,
+    cluster: "sa1",
+    useTLS: true
+  })
 
 function alert(msg){
-    io.on('connection', (socket) => {
+    pusher.trigger("my-channel", "my-event", {
+        message: msg
     })
-    io.emit('alert', msg)
-    io.close()
-    server.listen(PORT)
 }
 
 //routes
@@ -211,4 +211,4 @@ app.post('/login_efetuado', async (req, res) => {
     }
 })
 
-server.listen(PORT)
+app.listen(PORT)
