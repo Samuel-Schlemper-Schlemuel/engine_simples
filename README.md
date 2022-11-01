@@ -64,3 +64,6 @@ Sistema de login criado.
 
 ## Atualização 17
 Atualizei o código, por mais que as mudanças foram pequenas uma delas quebrava o código anterior, por isso estarei atualizando o pakage.json para a verção 2.0.0, e fiz com que o servidor interagice direto com o cliente.
+
+## Atualização 18
+Dessa vez fiz varias alterações, mas o principal foi que modifiquei os arquivos HTML para EJS

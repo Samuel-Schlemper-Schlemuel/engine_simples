@@ -5,7 +5,6 @@ const express = require('express')
 const mongo = require('./mongoose.js')
 const nodemailer = require('nodemailer')
 const fs = require('fs')
-const Pusher = require('pusher')
 const PORT = process.env.PORT || 3000
 const emailSenha = process.env.emailSenha
 const appId = process.env.appId
@@ -17,11 +16,6 @@ var userData = {
     password: undefined,
     username: undefined
 }
-var cabecario = `
-<div id="cabecario">
-    <p>By Samuel Schlemper</p> <button id="login"><a href="/login">Login</a></button> <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
-</div>
-`
 
 //functions
 function gerarPassword() {
@@ -29,16 +23,8 @@ function gerarPassword() {
     return codigo
 }
 
-const pusher = new Pusher({
-    appId: appId,
-    key: "c8ba7e505c0d452fd3fa",
-    secret: secret,
-    cluster: "sa1",
-    useTLS: true
-  })
-
-function alert(msg){
-    pusher.trigger("my-channel", "my-event", {
+function alert(msg, res, arquivo){
+    return res.render(__dirname + '/EJS' + arquivo, {
         message: msg
     })
 }
@@ -46,23 +32,22 @@ function alert(msg){
 //routes
 app.use(express.static(__dirname + '/Style'))
 app.use(express.static(__dirname + '/Script'))
+app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({
     extended: true
 }))
 
 app.get('/', (req, res) => {
-    fs.readFile(__dirname + '/HTML/Home.html', 'utf-8', (err, data) => {
-        if(err){
-            console.error(err)
-        } else {
-            res.send(data + cabecario)
-        }
+    res.render(__dirname + '/EJS/Home.ejs', {
+       login: ''
     })
 })
 
 app.get('/cadastro', (req, res) => {
-    res.sendFile(__dirname + '/HTML/cadastro.html')
+    res.render(__dirname + '/EJS/cadastro.ejs', {
+        message: ''
+    })
 })
 
 app.post('/cadastro_efetuado', async (req, res) => {
@@ -73,33 +58,23 @@ app.post('/cadastro_efetuado', async (req, res) => {
     confirmacao = gerarPassword()
 
     if(password1 == '' || password2 == ''){
-        res.redirect('/cadastro')
-        alert('Coloque uma senha')
-        return
+        return alert('Coloque uma senha', res, '/cadastro.ejs')
     } else if(password1 != password2){
-        res.redirect('/cadastro')
-        alert('As senhas não são iguais')
-        return
+        return alert('As senhas não são iguais', res, '/cadastro.ejs')
     }
 
     if(nome.length > 25){
-        res.redirect('/cadastro')
-        alert('Nome grande demais, por favor, bote apenas um nome e um sobrenome')
-        return
+        return alert('Nome grande demais, por favor, bote apenas um nome e um sobrenome', res, '/cadastro.ejs')
     }
 
     const exist = await mongo.seeIfCountExist(email)
     
     if(exist == 'exist'){
-        res.redirect('/cadastro')
-        alert('Esse e-mail já possui uma conta')
-        return
+        return alert('Esse e-mail já possui uma conta', res, '/cadastro.ejs')
     } else if(exist == "don't exist"){
          
     } else {
-        res.redirect('/cadastro')
-        alert('Houve algum erro, tente novamente mais tarde')
-        return
+        return alert('Houve algum erro, tente novamente mais tarde', res, '/cadastro.ejs')
     }
 
     const transporter = nodemailer.createTransport({
@@ -126,7 +101,9 @@ app.post('/cadastro_efetuado', async (req, res) => {
             userData.email = email
             userData.password = password1
             userData.username = nome
-            res.sendFile(__dirname + '/HTML/confirmar_email.html')
+            res.render(__dirname + '/EJS/confirmar_email.ejs', {
+                message: ''
+            })
         }
     })
 })
@@ -138,33 +115,28 @@ app.post('/confirmar_email', async (req, res) => {
         const exist = await mongo.seeIfCountExist(userData.email)
     
         if(exist == 'exist'){
-            res.redirect('/cadastro')
-            alert('Esse e-mail já possui uma conta')
-            return
+            return alert('Esse email possui conta', res, '/confirmar_email.ejs')
         } else if(exist == "don't exist"){
             
         } else {
-            res.redirect('/cadastro')
-            alert('Houve algum erro, tente novamente mais tarde')
-            return
+            return alert('Houve algum erro, tente novamente mais tarde', res, '/confirmar_email.ejs')
         }
 
         mongo.saveConta(userData.email, userData.password, userData.username)
 
-        cabecario = `
-        <div id="cabecario">
-            <p>By Samuel Schlemper</p> <label id='userMail'>${userData.username}</label>
-        </div>
-        `
-        res.redirect('/')
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: userData.username
+        })
+
     } else {
-        alert('O código não está correto')
-        res.redirect('/cadastro')
+        return alert('O código não está correto', res, '/confirmar_email.ejs')
     }
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/HTML/login.html')
+    res.render(__dirname + '/EJS/login.ejs', {
+        message: ''
+    })
 })
 
 app.post('/login_efetuado', async (req, res) => {
@@ -177,37 +149,21 @@ app.post('/login_efetuado', async (req, res) => {
         const conta = await mongo.findCount(email)
 
         if(conta == 'error'){
-            res.redirect('/login')
-            alert('Houve algum erro, tente novamente mais tarde')
-            return
+            return alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
         }
 
         if(password != conta.senha){
-            res.redirect('/login')
-            alert('A senha está errada')
-            return
+            return alert('A senha está errada', res, '/login.ejs')
         }
 
-        userData.email = conta.email
-        userData.password = conta.senha
-        userData.username = conta.username
-
-        cabecario = `
-        <div id="cabecario">
-        <p>By Samuel Schlemper</p> <label id='userMail'>${userData.username}</label>
-        </div>
-        `
-
-        res.redirect('/')
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: conta.username
+        })
 
     } else if(exist == "don't exist"){
-        res.redirect('/login')
-        alert('Não existe conta com esse email')
-        return
+        return alert('Não existe conta com esse email', res, '/login.ejs')
     } else {
-        res.redirect('/login')
-        alert('Houve algum erro, tente novamente mais tarde')
-        return
+        return alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
     }
 })
 

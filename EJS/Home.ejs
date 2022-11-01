@@ -16,11 +16,20 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
-        <script src="/socket.io/socket.io.js"></script>
         <link href="/Home.css" rel="stylesheet" type="text/css">
         <script src="/Home.js"></script>
     </head>
     <body>
+        <div id="cabecario">
+            <p>By Samuel Schlemper</p> 
+            <% if(login == '') { %>
+            <button id="login"><a href="/login">Login</a></button> 
+            <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
+            <% } else { %>
+                <label id='userMail'><%= login %></label>
+                <script>history.pushState({}, null, '/')</script>
+            <% } %>
+        </div>
         <div id='introducao'>
             <h1>Bem Vindo!</h1>
             <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>

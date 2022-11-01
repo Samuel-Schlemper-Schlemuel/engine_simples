@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link href="/cadastro.css" rel="stylesheet">
+</head>
+<body>
+    <% if(message == 'Coloque uma senha') { %>
+        <script>
+            alert('Coloque uma senha')
+            history.pushState({}, null, '/cadastro')
+        </script>
+    <% } %>
+    <% if(message == 'Houve um erro, tente novamente mais tarde') { %>
+        <script>
+            alert('Houve um erro, tente novamente mais tarde')
+            history.pushState({}, null, '/cadastro')
+        </script>
+    <% } %>
+    <% if(message == 'As senhas não são iguais') { %>
+        <script>
+            alert('As senhas não são iguais')
+            history.pushState({}, null, '/cadastro')
+        </script>
+    <% } %>
+    <% if(message == 'Nome grande demais, por favor, bote apenas um nome e um sobrenome') { %>
+        <script>
+            alert('Nome grande demais, por favor, bote apenas um nome e um sobrenome')
+            history.pushState({}, null, '/cadastro')
+        </script>
+    <% } %>
+    <% if(message == 'Esse e-mail já possui uma conta') { %>
+        <script>
+            alert('Esse e-mail já possui uma conta')
+            history.pushState({}, null, '/cadastro')
+        </script>
+    <% } %>
+    <div>
+        <form method="post" action="/cadastro_efetuado">
+            Email: <input type="email" name="email">
+            <br>
+            <br>
+            Nome: <input type="text" name="nome">
+            <br>
+            <br>
+            Senha: <input type="password" maxlength="15" minlength="4" id="password1" name="password1">
+            <br>
+            <br>
+            Confirmar Senha: <input type="password" maxlength="15" minlength="4" id="password2" name="password2">
+            <br>
+            <br>
+            <input type="submit" value="Criar a conta">
+        </form>
+    </div>
+</body>
+</html>

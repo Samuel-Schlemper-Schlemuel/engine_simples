@@ -6,10 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="/login.css" rel="stylesheet">
-    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
-    <script src="/geral.js"></script>
 </head>
 <body>
+    <% if(message == 'A senha está errada') { %>
+        <script>
+            alert('A senha está errada')
+            history.pushState({}, null, '/login')
+        </script>
+    <% } %>
+    <% if(message == 'Houve um erro, tente novamente mais tarde') { %>
+        <script>
+            alert('Houve um erro, tente novamente mais tarde')
+            history.pushState({}, null, '/login')
+        </script>
+    <% } %>
+    <% if(message == 'Não existe conta com esse email') { %>
+        <script>
+            alert('Não existe conta com esse email')
+            history.pushState({}, null, '/login')
+        </script>
+    <% } %>
     <div>
         <form method="post" action="/login_efetuado">
             Email: <input type="email" name="email">
