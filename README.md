@@ -67,3 +67,6 @@ Atualizei o código, por mais que as mudanças foram pequenas uma delas quebrava
 
 ## Atualização 18
 Dessa vez fiz varias alterações, mas o principal foi que modifiquei os arquivos HTML para EJS
+
+## Atualização 19
+Agora a conta é salva localmente, de forma com que o login é feito de forma automatica

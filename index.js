@@ -97,7 +97,7 @@ app.post('/cadastro_efetuado', async (req, res) => {
     transporter.sendMail(mailOptions, function(err, info){
         if (err) {
             res.send(err)
-        } else {
+            } else {
             userData.email = email
             userData.password = password1
             userData.username = nome

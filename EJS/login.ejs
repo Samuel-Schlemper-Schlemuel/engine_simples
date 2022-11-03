@@ -12,6 +12,8 @@
         <script>
             alert('A senha está errada')
             history.pushState({}, null, '/login')
+            localStorage.removeItem('email')
+            localStorage.removeItem('senha')
         </script>
     <% } %>
     <% if(message == 'Houve um erro, tente novamente mais tarde') { %>
@@ -27,15 +29,24 @@
         </script>
     <% } %>
     <div>
-        <form method="post" action="/login_efetuado">
-            Email: <input type="email" name="email">
+        <form method="post" action="/login_efetuado" id="form">
+            Email: <input type="email" name="email" id="email">
             <br>
             <br>
-            Senha: <input type="password" maxlength="15" minlength="4" name="password">
+            Senha: <input type="password" maxlength="15" minlength="4" name="password" id="senha">
             <br>
             <br>
             <input type="submit" value="Fazer login">
         </form>
     </div>
+    <script>
+        var form = document.getElementById('form')
+
+        form.addEventListener('submit', () => {
+            localStorage.setItem('email', document.getElementById('email').value)
+            localStorage.setItem('senha', document.getElementById('senha').value)
+            form.submit()
+        })
+    </script>
 </body>
 </html>

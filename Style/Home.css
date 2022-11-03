@@ -61,7 +61,7 @@ input{
     height: 25px;
 }
 
-#cabecario{
+header{
     position: fixed;
     width: 100vw;
     height: 50px;
@@ -90,7 +90,7 @@ input{
     text-decoration: none;
 }
 
-#cabecario p{
+header p{
     position: fixed;
     top: -3px;
     left: 10px;

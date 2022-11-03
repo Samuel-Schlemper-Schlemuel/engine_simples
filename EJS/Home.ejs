@@ -18,18 +18,42 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
         <link href="/Home.css" rel="stylesheet" type="text/css">
         <script src="/Home.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+        </script>
     </head>
     <body>
-        <div id="cabecario">
+        <header>
             <p>By Samuel Schlemper</p> 
             <% if(login == '') { %>
             <button id="login"><a href="/login">Login</a></button> 
             <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
+            <script>
+                var data = {email: localStorage.getItem('email'),
+                            senha: localStorage.getItem('senha')
+                        }
+
+                if(data.email == null || data.senha == null){
+        
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: '/login_efetuado',
+                        data: {email: data.email, password: data.senha},
+                        success: (data) => {
+                            console.log('sucesso')
+                            $('body').html(data)
+                        }
+                    })
+                }
+            </script>
             <% } else { %>
                 <label id='userMail'><%= login %></label>
                 <script>history.pushState({}, null, '/')</script>
             <% } %>
-        </div>
+        </header>
         <div id='introducao'>
             <h1>Bem Vindo!</h1>
             <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
