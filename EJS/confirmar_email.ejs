@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar e-mail</title>
     <link href="/confirmar_email.css" rel="stylesheet">
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <% if(message == 'O código não está correto') { %>
@@ -19,13 +24,34 @@
         </script>
     <% } %>
     <div>
-        <form method="post" action="/confirmar_email">
+        <form>
             Foi enviado um código por e-mail, escreva o a baixo:
             <br>
-            <input type="text" name="codigo">
+            <input type="text" name="codigo" id="codigo">
             <br>
-            <input type="submit" value="Criar conta">
+            <input type="button" value="Criar conta" onclick="criar_conta()">
         </form>
     </div>
+    <script>
+        history.pushState({}, null, '/confirmar_email')
+
+        function criar_conta(){
+            var data = {codigo: document.getElementById('codigo').value,
+                        confirmacao: '<%= confirmacao %>',
+                        email: '<%= email %>',
+                        senha: '<%= senha %>',
+                        username: '<%= nome %>'
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/confirmar_email',
+                data: data,
+                success: (data) => {
+                    $('body').html(data)
+                }
+            })
+        }
+    </script>
 </body>
 </html>

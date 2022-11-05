@@ -28,88 +28,110 @@
         <header>
             <p>By Samuel Schlemper</p> 
             <% if(login == '') { %>
-            <button id="login"><a href="/login">Login</a></button> 
-            <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
-            <script>
-                var data = {email: localStorage.getItem('email'),
-                            senha: localStorage.getItem('senha')
-                        }
+                <button id="login"><a href="/login">Login</a></button> 
+                <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
+                <script>
+                    var data = {email: localStorage.getItem('email'),
+                                password: localStorage.getItem('senha')
+                            }
+                    
+                    if(data.email == null || data.password == null){
 
-                if(data.email == null || data.senha == null){
-        
-                } else {
-                    $.ajax({
-                        type: "POST",
-                        url: '/login_efetuado',
-                        data: {email: data.email, password: data.senha},
-                        success: (data) => {
-                            console.log('sucesso')
-                            $('body').html(data)
-                        }
-                    })
-                }
-            </script>
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: '/login_efetuado',
+                            data: data,
+                            success: (data) => {
+                                $('body').html(data)
+                            }
+                        })
+                    }
+                </script>
             <% } else { %>
                 <label id='userMail'><%= login %></label>
-                <script>history.pushState({}, null, '/')</script>
+
+                <% if(creatNow) { %>
+                    <% var creatNowEjs= creatNow %>
+                    <% var emailEjs= email %>
+                    <% var senhaEjs= senha %>
+                <% } %>
+
+                <script>
+                    var creatNow = '<%= creatNow %>'
+
+                    if(creatNow == 'true') {
+                        var email = '<%= emailEjs %>'
+                        var senha = '<%= senhaEjs %>'
+                        localStorage.setItem('email', email)
+                        localStorage.setItem('senha', senha)
+                    }
+                </script>
+            <% } %>
+            <% if(recarregar) {%>
+                <script>
+                    document.location.reload()
+                </script>
             <% } %>
         </header>
-        <div id='introducao'>
-            <h1>Bem Vindo!</h1>
-            <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
-        </div>
-        <br>
-        <div id='tela_inicial'>
-            <div id='perguntas'>
-                <p>
-                    Clique para adicionar uma nova questão 
-                    <button id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
-                    <button id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
-                </p>
-                    <div id='questao_completa_1'>
-                        <p>
-                            &nbsp&nbsp&nbsp&nbspQuestão 1: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8) 
-                            <button id='nova_resposta' onclick="adicionar_resposta(1)">Nova Resposta</button> 
-                            <button id='deletar_resposta' onclick="deletar_resposta(1)">Deletar última resposta</button>
-                        </p>
-                            <div id='questao_1'>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_1' type="text" placeholder="A resposta">
-                                <div id='input_1_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_2' type="text" placeholder="A resposta certa"> </div>
-                                <div id='input_2_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_3' type="text" placeholder="Uma das respostas erradas"> </div>
-                            </div>
-                    </div>
-                <br>
+        <main>
+            <div id='introducao'>
+                <h1>Bem Vindo!</h1>
+                <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
             </div>
-                <br>
-                <button id='criar_jogo' onclick="criar_jogo()">Criar jogo!</button>
-        </div>
-        <div id='jogo'>
-            <div id='tela'>
+            <br>
+            <div id='tela_inicial'>
+                <div id='perguntas'>
+                    <p>
+                        Clique para adicionar uma nova questão 
+                        <button id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
+                        <button id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
+                    </p>
+                        <div id='questao_completa_1'>
+                            <p>
+                                &nbsp&nbsp&nbsp&nbspQuestão 1: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8) 
+                                <button id='nova_resposta' onclick="adicionar_resposta(1)">Nova Resposta</button> 
+                                <button id='deletar_resposta' onclick="deletar_resposta(1)">Deletar última resposta</button>
+                            </p>
+                                <div id='questao_1'>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_1' type="text" placeholder="A resposta">
+                                    <div id='input_1_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_2' type="text" placeholder="A resposta certa"> </div>
+                                    <div id='input_2_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_3' type="text" placeholder="Uma das respostas erradas"> </div>
+                                </div>
+                        </div>
+                    <br>
+                </div>
+                    <br>
+                    <button id='criar_jogo' onclick="criar_jogo()">Criar jogo!</button>
+            </div>
+            <div id='jogo'>
+                <div id='tela'>
 
-            </div>
+                </div>
 
-            <div id="caixa_seletor_cores">
-                <p>Escolha a cor de fundo para o jogo: </p>
-                <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
-                <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
-                <p>Escolha a de acerto do jogo: </p>
-                <input id="seletor_cores_acerto" type="color" value="#008000"/>    
-                <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
-                <p>Escolha a cor de erro do jogo: </p>
-                <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
-                <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
-            </div>
+                <div id="caixa_seletor_cores">
+                    <p>Escolha a cor de fundo para o jogo: </p>
+                    <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
+                    <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
+                    <p>Escolha a de acerto do jogo: </p>
+                    <input id="seletor_cores_acerto" type="color" value="#008000"/>    
+                    <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
+                    <p>Escolha a cor de erro do jogo: </p>
+                    <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
+                    <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
+                </div>
 
-            <div id="fonte">
-                <select id="select_fonte">
-                    <option>cursive</option>
-                    <option>serif</option>
-                    <option>sans-serif</option>
-                    <option>monospace</option>
-                    <option>fantasy</option>
-                </select>
-                <button onclick="mudar_fonte()">Mudar fonte</button>
+                <div id="fonte">
+                    <select id="select_fonte">
+                        <option>cursive</option>
+                        <option>serif</option>
+                        <option>sans-serif</option>
+                        <option>monospace</option>
+                        <option>fantasy</option>
+                    </select>
+                    <button onclick="mudar_fonte()">Mudar fonte</button>
+                </div>
             </div>
-        </div>
+        </main>
     </body>
 </html>

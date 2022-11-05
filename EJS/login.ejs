@@ -20,12 +20,16 @@
         <script>
             alert('Houve um erro, tente novamente mais tarde')
             history.pushState({}, null, '/login')
+            localStorage.removeItem('email')
+            localStorage.removeItem('senha')
         </script>
     <% } %>
     <% if(message == 'Não existe conta com esse email') { %>
         <script>
             alert('Não existe conta com esse email')
             history.pushState({}, null, '/login')
+            localStorage.removeItem('email')
+            localStorage.removeItem('senha')
         </script>
     <% } %>
     <div>
