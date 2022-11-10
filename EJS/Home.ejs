@@ -27,6 +27,15 @@
     <body>
         <header>
             <p>By Samuel Schlemper</p> 
+            <% if(message == 'error') { %>
+                <script>
+                    alert('Erro, tente novamente mais tarde')
+                </script>
+            <% } else if(message == 'não encontrado') { %>
+                <script>
+                    alert('Erro, verifique se o link está correto')
+                </script>
+            <% } %>
             <% if(login == '') { %>
                 <button id="login"><a href="/login">Login</a></button> 
                 <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
@@ -102,7 +111,8 @@
                     <br>
                 </div>
                     <br>
-                    <button id='criar_jogo' onclick="criar_jogo()">Criar jogo!</button>
+                    <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
+                    <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
             </div>
             <div id='jogo'>
                 <div id='tela'>

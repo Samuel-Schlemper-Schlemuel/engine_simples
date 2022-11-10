@@ -33,7 +33,8 @@ app.get('/', (req, res) => {
     res.render(__dirname + '/EJS/Home.ejs', {
        login: '',
        creatNow: false,
-       recarregar: false
+       recarregar: false,
+       message: null
     })
 })
 
@@ -141,7 +142,8 @@ app.post('/confirmar_email', async (req, res) => {
             login: userData.username,
             senha: userData.password,
             email: userData.email,
-            recarregar: true
+            recarregar: true,
+            message: null
         })
 
     } else {
@@ -181,13 +183,71 @@ app.post('/login_efetuado', async (req, res) => {
         res.render(__dirname + '/EJS/Home.ejs', {
             login: conta.username,
             creatNow: false,
-            recarregar: false
+            recarregar: false,
+            message: null
         })
 
     } else if(exist == "don't exist"){
         return alert('Não existe conta com esse email', res, '/login.ejs')
     } else {
         return alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
+    }
+})
+
+app.post('/save_game', async (req, res) => {
+    const email = req.body.email
+    const senha = req.body.senha
+    const game = req.body.game
+    let username = ''
+
+    const exist = await mongo.seeIfCountExist(email)
+    
+    if(exist == 'exist'){
+        const conta = await mongo.findCount(email)
+
+        if(conta == 'error'){
+            return alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
+        } else if(senha != conta.senha){
+            return alert('A senha está errada', res, '/login.ejs')
+        } else {
+            username = conta.username
+        }
+
+    } else if(exist == "don't exist"){
+        return alert('Não existe conta com esse email', res, '/login.ejs')
+    } else {
+        return alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
+    }
+
+    let url = '/game' + mongo.saveGame(game, email, username)
+
+    res.send(url)
+})
+
+app.get('/game/:link', async (req, res) => {
+    const link = req.params.link
+    const game = await mongo.getGame(link)
+
+    if(game == 'error'){
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: '',
+            creatNow: false,
+            recarregar: false,
+            message: game
+        })
+    } else if(game == 'não encontrado'){
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: '',
+            creatNow: false,
+            recarregar: false,
+            message: game
+        })  
+    } else {
+        res.render(__dirname + '/EJS/game.ejs', {
+            game: JSON.stringify(game.game),
+            username: game.username,
+            message: null
+         })
     }
 })
 

@@ -5,14 +5,15 @@ var game = {
     questoes: {1: 3},
     quantidade_questao: 1,
     perguntas: [],
-    perguntas_da_questao: [],
     cor_acerto: 'green',
     cor_erro: 'red',
+    cor_fundo: '#7a7ae6',
     fonte: 'cursive',
     imagem: false
 }
 var contagem_de_arrays = 0
 var pontuacao = 0
+var perguntas_da_questao = []
 
 function adicionar_questao(){
     manipular_perguntas()
@@ -82,10 +83,10 @@ function manipular_perguntas(){
     game.perguntas = []
     for(let i = 1; i <= game.quantidade_questao; i++){
         for(let c = 1; c <= game.questoes[i]; c++){
-            game.perguntas_da_questao.push(document.getElementById(`questao_${i}_resposta_${c}`).value)
+            perguntas_da_questao.push(document.getElementById(`questao_${i}_resposta_${c}`).value)
         }
-        game.perguntas.push(game.perguntas_da_questao)
-        game.perguntas_da_questao = []
+        game.perguntas.push(perguntas_da_questao)
+        perguntas_da_questao = []
     }
 }
 
@@ -139,6 +140,7 @@ function resposta(classe){
 function mudar_cor_fundo(){
     let cor = document.getElementById('seletor_cores_fundo').value
     document.getElementById('tela').style.backgroundColor = cor
+    game.cor_fundo = cor
 }
 
 function mudar_cor_acerto(){
@@ -161,4 +163,37 @@ function mudar_fonte(){
             botoes[botao].style.fontFamily = game.fonte
         }
     }
+}
+
+function salvar_jogo(){
+   const email = localStorage.getItem('email')
+   const senha = localStorage.getItem('senha')
+
+   if(email == null || senha == null){
+        history.pushState({}, null, '/login')
+        document.location.reload()
+   } else {
+        criar_jogo()
+
+        const data = {
+            email: email,
+            senha: senha,
+            game: game
+        }
+        
+        $.ajax({
+            type: "POST",
+            url: '/save_game',
+            data: data,
+            success: (data) => {
+                if(data.length > 26){
+                    history.pushState({}, null, '/login')
+                    $('body').html(data)
+                } else {
+                    history.pushState({}, null, data)
+                    document.location.reload()
+                }
+            }
+        })
+   }
 }
