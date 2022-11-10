@@ -5,21 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
-    <script src="/game.js">
-        let text = '<%= game %>'
-        text = text.split('&#34;')
-        text = text.join('"')
-        const game = JSON.parse(text)
-        console.log(game)
-    </script>
     <link href="/game.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <canvas>
+    <div id="tela">
 
-    </canvas>
+    </div>
     <footer>
         By <%= username %>
     </footer>
 </body>
+<script>
+    let text = '<%= game %>'
+    text = text.split('&#34;')
+    text = text.join('"')
+    const game = JSON.parse(text)
+    var pontuacao = 0
+    var contagem_de_arrays = 0
+    var tela = document.getElementById('tela')
+    console.log(game)
+            
+    function criar_jogo(){
+        contagem_de_arrays = 0
+        tela.style.backgroundColor = game.cor_fundo
+        tela.style.fontFamily = game.fonte
+        pontuacao = 0
+        botoes()
+    }
+
+    function botoes(){
+        let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
+        ordenado.sort()
+        tela.innerHTML =  game.perguntas[contagem_de_arrays][0] + '<br> <div id="botoes_tela"><div>'
+        var botoes_tela = document.getElementById('botoes_tela')
+        for(let c = 0; c < ordenado.length; c++){
+            if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
+                botoes_tela.innerHTML += `<button style='width:175px; font-family:${game.fonte};' onclick='resposta("certo")'>${ordenado[c]}</button>`
+            } else {
+                botoes_tela.innerHTML += `<button style='width:175px; font-family:${game.fonte};' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            }
+        }
+        if(game.imagem == 'false'){
+            document.getElementById('botoes_tela').style.textAlign = 'center'
+        } else {
+            document.getElementById('botoes_tela').style.paddingLeft = '150px'
+        }
+        
+        contagem_de_arrays += 1
+        var botoes = document.getElementById('tela').querySelectorAll('button')
+
+        for(botao in botoes){
+            if(!isNaN(Number.parseInt(botao))){
+                botoes[botao].style.fontFamily = game.fonte
+            }
+        }
+    }
+
+    function resposta(classe){
+        tela.style.textAlign = 'center'
+        if(classe === 'certo'){
+            tela.innerHTML = `<h1 style='color: ${game.cor_acerto};'>Acertou</h1>`
+            pontuacao++
+        } else {
+            tela.innerHTML = `<h1 style='color: ${game.cor_erro};'>Errou</h1>`
+        }
+        setTimeout(() => {
+            if(contagem_de_arrays ===  game.perguntas.length){
+                tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${ game.perguntas.length}</p>`
+            } else {
+                tela.style.textAlign = 'left'
+                botoes()
+            }
+        }, 1500);
+    }
+
+    criar_jogo()
+</script>
 </html>

@@ -66,7 +66,10 @@ Sistema de login criado.
 Atualizei o código, por mais que as mudanças foram pequenas uma delas quebrava o código anterior, por isso estarei atualizando o pakage.json para a verção 2.0.0, e fiz com que o servidor interagice direto com o cliente.
 
 ## Atualização 18
-Dessa vez fiz varias alterações, mas o principal foi que modifiquei os arquivos HTML para EJS
+Dessa vez fiz varias alterações, mas o principal foi que modifiquei os arquivos HTML para EJS.
 
 ## Atualização 19
-Agora a conta é salva localmente, de forma com que o login é feito de forma automatica
+Agora a conta é salva localmente, de forma com que o login é feito de forma automatica.
+
+## Atualização 20
+Agora o jogo pode ser salvo, e um link é gerado altomaticamente que levara para o jogo.
