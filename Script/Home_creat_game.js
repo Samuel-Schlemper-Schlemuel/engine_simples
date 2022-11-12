@@ -1,6 +1,3 @@
-history.pushState({}, null, '/')
-
-//game
 var game = {
     questoes: {1: 3},
     quantidade_questao: 1,
@@ -8,7 +5,7 @@ var game = {
     cor_acerto: 'green',
     cor_erro: 'red',
     cor_fundo: '#7a7ae6',
-    fonte: 'cursive',
+    fonte: 'Marhey',
     imagem: false
 }
 var contagem_de_arrays = 0

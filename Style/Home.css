@@ -39,7 +39,7 @@ input{
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
-    font: 25px cursive;
+    font: 25px Marhey;
 }
 
 #tela button{
@@ -96,8 +96,198 @@ header p{
     left: 10px;
 }
 
-#userMail{
+#mailUI{
+    padding: 8px;
     position: relative;
     top: 10px;
     right: 30px;
+    width: 270px;
+    float: right;
+    cursor: pointer;    
+    background-color: white;
+    border-radius: 8px;
+}
+
+#userMail{
+    cursor: pointer;
+}
+
+#mailUI:hover{
+    background-color: rgb(255, 94, 94);
+}
+
+#montserrat{
+    font-family: Montserrat;
+}
+
+#roboto{
+    font-family: Roboto;
+}
+
+#marhey{
+    font-family: Marhey;
+}
+
+#pacifico{
+    font-family: Pacifico;
+}
+
+#georgian{
+    font-family: Noto-Serif-Georgian;
+}
+
+#arial{
+    font-family: Arial;
+}
+
+#sair:hover{
+    background-color: rgb(255, 255, 106);
+    border-radius: 6px;
+}
+
+@media screen and (max-width: 1050px) {
+    #tela{
+        width: 400px;
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 830px) {
+    #jogo{
+        float: none;
+        margin-left: 40px;
+        width: none;
+    }
+
+    #tela_inicial{
+        float: none;
+        margin-left: 40px;
+        width: 100vw;
+    }
+
+    #tela{
+        position: relative;
+        left: 40px;
+    }
+
+    #caixa_seletor_cores{
+        float: none;
+        margin-left: 40px;
+        padding-top: 220px;
+    }
+
+    #fonte{
+        margin-top: 30px;
+        float: none;
+        margin-left: 40px;
+    }
+    
+}
+
+@media screen and (max-width: 830px) {
+    #jogo{
+        float: none;
+        width: 100vw;
+        text-align: left;
+    }
+
+    #tela_inicial{
+        float: none;
+        width: 100vw;
+    }
+
+    #tela{
+        float: none;
+    }
+
+    #caixa_seletor_cores{
+        float: none;
+        padding-top: 20px;
+    }
+
+    #fonte{
+        margin-top: 30px;
+        float: none;
+    }
+}
+
+@media screen and (max-width: 650px){
+    body{
+        font-size: 14px;
+    }
+    button{
+        font-size: 13px;
+    }
+    #tela{
+        font-size: 20px;
+    }
+    #tela button{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    #jogo{
+        margin-left: 15px;
+    }
+
+    #tela_inicial{
+        margin-left: 15px;
+    }
+
+    #tela{
+        position: relative;
+        left: 15px;
+    }
+
+    #caixa_seletor_cores{
+        margin-left: 15px;
+    }
+
+    #fonte{
+        margin-top: 30px;
+        margin-left: 15px;
+    }
+
+    #mailUI{
+        right: 20px;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 430px){
+    #jogo{
+        margin-left: 5px;
+    }
+
+    #tela_inicial{
+        margin-left: 5px;
+    }
+
+    #tela{
+        position: relative;
+        left: 5px;
+        width: 270px;
+        height: 108px;
+    }
+
+    #caixa_seletor_cores{
+        margin-left: 5px;
+    }
+
+    #fonte{
+        margin-top: 30px;
+        margin-left: 5px;
+    }
+
+    header{
+        font-size: 10px;
+    }
+
+    #mailUI{
+        right: 10px;
+        width: 150px;
+        height: auto;
+        top: 0px;
+    }
 }

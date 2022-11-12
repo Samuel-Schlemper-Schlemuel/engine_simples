@@ -73,3 +73,6 @@ Agora a conta é salva localmente, de forma com que o login é feito de forma au
 
 ## Atualização 20
 Agora o jogo pode ser salvo, e um link é gerado altomaticamente que levara para o jogo.
+
+## Atualização 21
+Agora existe uma opção de deslogar e a pagina principal do site é resposiva.

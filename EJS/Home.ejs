@@ -13,11 +13,9 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta name="rating" content="general">
         <title>Engine Simples</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Marhey&family=Montserrat&family=Noto+Serif+Georgian&family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
         <link href="/Home.css" rel="stylesheet" type="text/css">
-        <script src="/Home.js"></script>
+        <script src="/Home_creat_game.js"></script>
         <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -58,7 +56,9 @@
                     }
                 </script>
             <% } else { %>
-                <label id='userMail'><%= login %></label>
+                <div id="mailUI">
+                    <label id='userMail'><%= login %></label>
+                </div>
 
                 <% if(creatNow) { %>
                     <% var creatNowEjs= creatNow %>
@@ -68,6 +68,7 @@
 
                 <script>
                     var creatNow = '<%= creatNow %>'
+                    localStorage.setItem('username', '<%= login %>')
 
                     if(creatNow == 'true') {
                         var email = '<%= emailEjs %>'
@@ -89,6 +90,35 @@
                 <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
             </div>
             <br>
+            <div id='jogo'>
+                <div id='tela'>
+
+                </div>
+
+                <div id="caixa_seletor_cores">
+                    <p>Escolha a cor de fundo para o jogo: </p>
+                    <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
+                    <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
+                    <p>Escolha a de acerto do jogo: </p>
+                    <input id="seletor_cores_acerto" type="color" value="#008000"/>    
+                    <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
+                    <p>Escolha a cor de erro do jogo: </p>
+                    <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
+                    <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
+                </div>
+
+                <div id="fonte">
+                    <select id="select_fonte">
+                        <option id="marhey">Marhey</option>
+                        <option id="pacifico">Pacifico</option>
+                        <option id="georgian">Noto Serif Georgian</option>
+                        <option id="montserrat">Montserrat</option>
+                        <option id="roboto">Roboto</option>
+                        <option id="arial">Arial</option>
+                    </select>
+                    <button onclick="mudar_fonte()">Mudar fonte</button>
+                </div>
+            </div>
             <div id='tela_inicial'>
                 <div id='perguntas'>
                     <p>
@@ -114,34 +144,8 @@
                     <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
                     <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
             </div>
-            <div id='jogo'>
-                <div id='tela'>
 
-                </div>
-
-                <div id="caixa_seletor_cores">
-                    <p>Escolha a cor de fundo para o jogo: </p>
-                    <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
-                    <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
-                    <p>Escolha a de acerto do jogo: </p>
-                    <input id="seletor_cores_acerto" type="color" value="#008000"/>    
-                    <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
-                    <p>Escolha a cor de erro do jogo: </p>
-                    <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
-                    <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
-                </div>
-
-                <div id="fonte">
-                    <select id="select_fonte">
-                        <option>cursive</option>
-                        <option>serif</option>
-                        <option>sans-serif</option>
-                        <option>monospace</option>
-                        <option>fantasy</option>
-                    </select>
-                    <button onclick="mudar_fonte()">Mudar fonte</button>
-                </div>
-            </div>
         </main>
     </body>
+    <script src="/Home_UI.js"></script>
 </html>
