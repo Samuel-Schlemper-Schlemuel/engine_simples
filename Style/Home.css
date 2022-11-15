@@ -34,8 +34,8 @@ input{
 
 #tela{
     float: right;
-    width: 500px;
-    height: 200px;
+    width: 48vw;
+    height: 24vw;
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
@@ -43,18 +43,18 @@ input{
 }
 
 #tela button{
-    font: 20px cursive; 
+    font-size: 20px;
 }
 
 #caixa_seletor_cores{
     float: left;
-    margin-left: 140px;
+    margin-left: 40px;
 }
 
 #fonte{
     margin-top: 30px;
     float: left;
-    margin-left: 140px;
+    margin-left: 40px;
 }
 
 #fonte select{
@@ -99,7 +99,6 @@ header p{
 #mailUI{
     padding: 8px;
     position: relative;
-    top: 10px;
     right: 30px;
     width: 270px;
     float: right;
@@ -145,149 +144,112 @@ header p{
     border-radius: 6px;
 }
 
-@media screen and (max-width: 1050px) {
-    #tela{
-        width: 400px;
-        height: 160px;
-    }
-}
-
 @media screen and (max-width: 830px) {
     #jogo{
         float: none;
-        margin-left: 40px;
+        margin-left: 30px;
         width: none;
-    }
-
-    #tela_inicial{
-        float: none;
-        margin-left: 40px;
-        width: 100vw;
-    }
-
-    #tela{
-        position: relative;
-        left: 40px;
-    }
-
-    #caixa_seletor_cores{
-        float: none;
-        margin-left: 40px;
-        padding-top: 220px;
-    }
-
-    #fonte{
-        margin-top: 30px;
-        float: none;
-        margin-left: 40px;
-    }
-    
-}
-
-@media screen and (max-width: 830px) {
-    #jogo{
-        float: none;
-        width: 100vw;
         text-align: left;
     }
 
     #tela_inicial{
         float: none;
+        margin-left: 30px;
         width: 100vw;
     }
 
     #tela{
         float: none;
+        position: relative;
+        width: 90vw;
+        height: 45vw;
     }
 
     #caixa_seletor_cores{
         float: none;
-        padding-top: 20px;
+        margin-left: 30px;
+        width: 100vw;
     }
 
     #fonte{
-        margin-top: 30px;
         float: none;
+        margin-left: 30px;
     }
+    
 }
 
 @media screen and (max-width: 650px){
     body{
+        font-size: 15px;
+    }
+
+    button{
         font-size: 14px;
     }
-    button{
-        font-size: 13px;
-    }
+
     #tela{
         font-size: 20px;
     }
+
     #tela button{
-        font-size: 15px;
+        font-size: 16px;
+    }
+
+    header{
+        font-size: 12px;
+    }
+
+    #mailUI{
+        top: 0px;
     }
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 500px){
     #jogo{
-        margin-left: 15px;
+        margin-left: 10px;
     }
 
     #tela_inicial{
-        margin-left: 15px;
+        margin-left: 10px;
     }
 
     #tela{
         position: relative;
-        left: 15px;
+        left: 10px;
+        width: 80vw;
+        height: 40vw;
     }
 
     #caixa_seletor_cores{
-        margin-left: 15px;
+        margin-left: 10px;
     }
 
     #fonte{
-        margin-top: 30px;
-        margin-left: 15px;
+        margin-left: 10px;
     }
 
     #mailUI{
         right: 20px;
-        width: 200px;
+        width: 140px;
+        font-size: 10px;
     }
 }
 
-@media screen and (max-width: 430px){
-    #jogo{
-        margin-left: 5px;
-    }
-
-    #tela_inicial{
-        margin-left: 5px;
-    }
-
+@media screen and (max-width: 400px){
     #tela{
-        position: relative;
-        left: 5px;
-        width: 270px;
-        height: 108px;
+        width: 350px;
+        height: 175px;
     }
+}
 
-    #caixa_seletor_cores{
-        margin-left: 5px;
+@media screen and (max-width: 350px){
+    #cadastro{
+        margin-right: 20px;
+        font-size: 12px;
     }
-
-    #fonte{
-        margin-top: 30px;
-        margin-left: 5px;
-    }
-
-    header{
-        font-size: 10px;
-    }
-
-    #mailUI{
-        right: 10px;
-        width: 150px;
-        height: auto;
-        top: 0px;
+    
+    #login{
+        margin-right: 10px;
+        font-size: 12px;
     }
 }

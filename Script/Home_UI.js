@@ -6,7 +6,6 @@ var data = {email: localStorage.getItem('email'),
         }
 
 if(data.email == null || data.password == null || data.username == null){
-    console.log('chegou')
 } else {
     var mailUI = document.getElementById('mailUI')
     var aberto = false
