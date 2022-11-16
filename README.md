@@ -76,3 +76,6 @@ Agora o jogo pode ser salvo, e um link é gerado altomaticamente que levara para
 
 ## Atualização 21
 Agora existe uma opção de deslogar e a pagina principal do site é resposiva.
+
+## Atualização 22
+Houve uma atualização no desing de algumas partes do site.

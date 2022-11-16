@@ -1,18 +1,43 @@
 body{
     text-align: center;
     margin-top: 20vh;
+    font: 20px Arial;
 }
 
 #tela{
-    margin: 0 auto;
-    text-align: left;
-    width: 500px;
-    height: 200px;
-    font-size: 25px;
+    width: 90vw;
+    height: 45vw;
+    background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
+    font: 25px Marhey;
+    margin: 0 auto;
 }
 
-button{
+#tela button{
     font-size: 20px;
+}
+
+@media screen and (min-width: 800px){
+    #tela{
+        width: 800px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 650px){
+    #tela button{
+        font-size: 16px;
+    }
+
+    body{
+        font: 16px Arial;
+    }
+}
+
+@media screen and (max-width: 400px){
+    #tela{
+        width: 350px;
+        height: 175px;
+    }
 }
