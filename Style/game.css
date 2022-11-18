@@ -5,23 +5,25 @@ body{
 }
 
 #tela{
-    width: 90vw;
-    height: 45vw;
+    width: 100vw;
+    height: 50vw;
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
-    font: 25px Marhey;
+    font: 20px Marhey;
     margin: 0 auto;
+    overflow-y: auto;
 }
 
 #tela button{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @media screen and (min-width: 800px){
     #tela{
         width: 800px;
         height: 400px;
+        font-size: 25px;
     }
 }
 

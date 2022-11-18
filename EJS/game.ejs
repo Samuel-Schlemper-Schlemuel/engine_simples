@@ -36,11 +36,9 @@
 
     function botoes(){
         let tela = document.getElementById('tela')
-        let tela_altura = tela.clientHeight
         let tela_largura = tela.clientWidth
         let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
-        let quantia_linhas = Number.parseInt((tela_altura - 40) / 76)
-        let button_width = tela_largura / (ordenado.length / quantia_linhas)
+        let button_width = tela_largura - 170
 
         if(button_width > tela_largura - 170){
             console.log(button_width + '|' + (tela_largura - 170))

@@ -19,9 +19,9 @@ function adicionar_questao(){
                                                             <button id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
                                                             <button id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button></p>
                                                             <div id='questao_${game.quantidade_questao + 1}'>
-                                                            ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="25">
-                                                               <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="15"> </div>
-                                                                <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="15"> </div>
+                                                            ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="60">
+                                                               <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="40"> </div>
+                                                                <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>
                                                             </div>
                                                         </div>`
     valor()
@@ -53,7 +53,7 @@ function adicionar_resposta(questao){
         alert('Limite maximo de escolhas alcançado na questão ' + questao)
     } else {
         manipular_perguntas()
-        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao] + 1}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="15"> </div>`
+        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao] + 1}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>`
         valor()
         game.questoes[questao] += 1
     }
@@ -101,8 +101,8 @@ function botoes(){
     let tela_altura = tela.clientHeight
     let tela_largura = tela.clientWidth
     let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
-    let quantia_linhas = Number.parseInt((tela_altura - 40) / 76)
-    let button_width = tela_largura / (ordenado.length / quantia_linhas)
+    let quantia_linhas = Number.parseInt((tela_altura - 40) / 36)
+    let button_width = tela_largura - 170
 
     if(button_width > tela_largura - 170){
         console.log(button_width + '|' + (tela_largura - 170))

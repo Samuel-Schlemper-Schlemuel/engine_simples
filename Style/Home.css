@@ -39,11 +39,12 @@ input{
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
-    font: 25px Marhey;
+    font: 18px Marhey;
+    overflow-y: auto;
 }
 
 #tela button{
-    font-size: 20px;
+    font-size: 16px;
 }
 
 #caixa_seletor_cores{
@@ -144,6 +145,16 @@ header p{
     border-radius: 6px;
 }
 
+@media screen and (max-width: 1000px) {
+    #tela{
+        font-size: 15px;
+    }
+
+    #tela button{
+        font-size: 12px;
+    }
+}
+
 @media screen and (max-width: 830px) {
     #jogo{
         float: none;
@@ -163,6 +174,11 @@ header p{
         position: relative;
         width: 90vw;
         height: 45vw;
+        font-size: 17px;
+    }
+
+    #tela button{
+        font-size: 15px;
     }
 
     #caixa_seletor_cores{
@@ -187,14 +203,6 @@ header p{
         font-size: 14px;
     }
 
-    #tela{
-        font-size: 20px;
-    }
-
-    #tela button{
-        font-size: 16px;
-    }
-
     header{
         font-size: 12px;
     }
@@ -204,7 +212,7 @@ header p{
     }
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 520px){
     #jogo{
         margin-left: 10px;
     }
@@ -214,10 +222,14 @@ header p{
     }
 
     #tela{
-        position: relative;
-        left: 10px;
-        width: 80vw;
-        height: 40vw;
+        position: static;
+        width: 100vw;
+        height: 50vw;
+        font-size: 16px;
+    }
+
+    #tela button{
+        font-size: 13px;
     }
 
     #caixa_seletor_cores{
@@ -235,10 +247,10 @@ header p{
     }
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 420px){
     #tela{
-        width: 350px;
-        height: 175px;
+        width: 420px;
+        height: 210px;
     }
 }
 
