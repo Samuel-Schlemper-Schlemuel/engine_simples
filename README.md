@@ -79,3 +79,6 @@ Agora existe uma opção de deslogar e a pagina principal do site é resposiva.
 
 ## Atualização 22
 Houve uma atualização no desing de algumas partes do site.
+
+## Atualização 23
+Agora o site salva localmente os dados do jogo, para que eles não sejam perdidos quando a aba fechar ou ser recarregada, mas são apagados ao criar o jogo.

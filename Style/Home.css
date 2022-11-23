@@ -1,11 +1,11 @@
 body{
-    font: 18px Montserrat;
+    font: 16px Montserrat;
     background-color: rgb(250, 250, 250);
 }
 
 button{
     cursor: pointer;
-    font: 16px Montserrat;
+    font: 15px Montserrat;
 }
 
 select, #caixa_seletor_cores input{

@@ -79,6 +79,7 @@
             <% } %>
             <% if(recarregar) {%>
                 <script>
+                    history.pushState({}, null, '/')
                     document.location.reload()
                 </script>
             <% } %>

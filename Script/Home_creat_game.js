@@ -12,6 +12,36 @@ var contagem_de_arrays = 0
 var pontuacao = 0
 var perguntas_da_questao = []
 
+if(localStorage.getItem('game') != null){
+    let tempo_game = JSON.parse(localStorage.getItem('game'))
+
+    for(let c = 1; c <= tempo_game.quantidade_questao; c++){
+        if(c >= 2){
+            adicionar_questao()
+        }
+        
+        for(let i = 4; i <= tempo_game.questoes[c]; i++){
+            adicionar_resposta(c)
+        }
+    }
+
+    document.getElementById('seletor_cores_fundo').value = tempo_game.cor_fundo
+    mudar_cor_fundo()
+    document.getElementById('seletor_cores_acerto').value = tempo_game.cor_acerto
+    document.getElementById('seletor_cores_erro').value = tempo_game.cor_erro
+    document.getElementById('select_fonte').value = tempo_game.fonte
+    mudar_fonte()
+
+    game = JSON.parse(JSON.stringify(tempo_game))
+    valor()
+    save()
+}
+
+function save(){
+    manipular_perguntas()
+    localStorage.setItem('game', JSON.stringify(game))
+}
+
 function adicionar_questao(){
     manipular_perguntas()
     document.getElementById('perguntas').innerHTML += `<div id='questao_completa_${game.quantidade_questao + 1}'>
@@ -27,6 +57,8 @@ function adicionar_questao(){
     valor()
     game.quantidade_questao += 1
     game.questoes[game.quantidade_questao] = 3
+    game.perguntas.push(["", "", ""])
+    save()
 }
 
 function repeat(text, times){
@@ -43,9 +75,11 @@ function remover_questao(){
     if(game.quantidade_questao === 1){
         alert('Minimo de questões alcançado')
     } else {
-    document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
-    game.quantidade_questao -= 1
+        document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
+        game.questoes[game.quantidade_questao] = undefined
+        game.quantidade_questao -= 1
     }
+    save()
 }
 
 function adicionar_resposta(questao){
@@ -56,7 +90,9 @@ function adicionar_resposta(questao){
         document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao] + 1}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>`
         valor()
         game.questoes[questao] += 1
+        game.perguntas[questao - 1].push('')
     }
+    save()
 }
 
 function deletar_resposta(questao){
@@ -66,12 +102,13 @@ function deletar_resposta(questao){
         document.getElementById(`input_${game.questoes[questao]}_questao_${questao}`).remove()
         game.questoes[questao] -= 1
     }
+    save()
 }   
 
 function valor(){
     for(let i = 1; i <= game.quantidade_questao; i++){
         for(let c = 1; c <= game.questoes[i]; c++){
-            document.getElementById(`questao_${i}_resposta_${c}`).value =  game.perguntas[i - 1][c - 1]
+            document.getElementById(`questao_${i}_resposta_${c}`).value = game.perguntas[i - 1][c - 1]
         }
     }
 }
@@ -89,6 +126,7 @@ function manipular_perguntas(){
 
 function criar_jogo(){
     manipular_perguntas()
+    save()
     var tela = document.getElementById('tela')
     contagem_de_arrays = 0
     tela.style.textAlign = 'left'
@@ -105,7 +143,6 @@ function botoes(){
     let button_width = tela_largura - 170
 
     if(button_width > tela_largura - 170){
-        console.log(button_width + '|' + (tela_largura - 170))
         button_width = tela_largura - 170
     } else if(button_width < 170){
         button_width = 170
@@ -151,16 +188,19 @@ function mudar_cor_fundo(){
     let cor = document.getElementById('seletor_cores_fundo').value
     document.getElementById('tela').style.backgroundColor = cor
     game.cor_fundo = cor
+    save()
 }
 
 function mudar_cor_acerto(){
     let cor = document.getElementById('seletor_cores_acerto').value
     game.cor_acerto = cor
+    save()
 }
 
 function mudar_cor_erro(){
     let cor = document.getElementById('seletor_cores_erro').value
     game.cor_erro = cor
+    save()
 }
 
 function mudar_fonte(){
@@ -173,37 +213,40 @@ function mudar_fonte(){
             botoes[botao].style.fontFamily = game.fonte
         }
     }
+    save()
 }
 
 function salvar_jogo(){
-   const email = localStorage.getItem('email')
-   const senha = localStorage.getItem('senha')
+    save()
+    const email = localStorage.getItem('email')
+    const senha = localStorage.getItem('senha')
 
-   if(email == null || senha == null){
-        history.pushState({}, null, '/login')
-        document.location.reload()
-   } else {
-        criar_jogo()
+    if(email == null || senha == null){
+            history.pushState({}, null, '/login')
+            document.location.reload()
+    } else {
+            criar_jogo()
 
-        const data = {
-            email: email,
-            senha: senha,
-            game: game
-        }
-        
-        $.ajax({
-            type: "POST",
-            url: '/save_game',
-            data: data,
-            success: (data) => {
-                if(data.length > 26){
-                    history.pushState({}, null, '/login')
-                    $('body').html(data)
-                } else {
-                    history.pushState({}, null, data)
-                    document.location.reload()
-                }
+            const data = {
+                email: email,
+                senha: senha,
+                game: game
             }
-        })
-   }
+            
+            $.ajax({
+                type: "POST",
+                url: '/save_game',
+                data: data,
+                success: (data) => {
+                    if(data.length > 26){
+                        history.pushState({}, null, '/login')
+                        $('body').html(data)
+                    } else {
+                        history.pushState({}, null, data)
+                        localStorage.removeItem('game')
+                        document.location.reload()
+                    }
+                }
+            })
+    }
 }
