@@ -86,7 +86,7 @@ header{
     margin-top: 10px;
 }
 
-#cadastro a, #login a{
+button a{
     color: black;
     text-decoration: none;
 }
@@ -140,7 +140,7 @@ header p{
     font-family: Arial;
 }
 
-#sair:hover{
+#sair:hover, #jogos:hover{
     background-color: rgb(255, 255, 106);
     border-radius: 6px;
 }

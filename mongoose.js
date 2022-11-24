@@ -104,4 +104,29 @@ async function getGame(link){
     return result
 }
 
-module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame}
+async function links(email){
+    let objects
+    let result = []
+
+    await gameModel.find({
+        email: email
+    })
+    .then(doc => {
+        objects = doc
+    })
+    .catch(err => {
+        return 'error'
+    })
+
+    if(objects.length == 0){
+        return 'não há'
+    }
+
+    for(i in objects){
+        result.push(objects[i].link)
+    }
+
+    return result
+}
+
+module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links}

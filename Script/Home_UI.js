@@ -15,7 +15,13 @@ if(data.email == null || data.password == null || data.username == null){
             mailUI.innerHTML = `<label id='userMail'>${data.username}</label>`
             aberto = false
         } else {
-            mailUI.innerHTML += '<div onclick="sair()" id="sair">Sair</div>'
+            mailUI.innerHTML += `
+            <br>
+            <br>
+            <div id="jogos" onclick="jogos()">Jogos criados</div>
+            <br>
+            <div onclick="sair()" id="sair">Sair</div>
+            `
             aberto = true
         }
         
@@ -28,4 +34,16 @@ function sair(){
     localStorage.removeItem('username')
 
     document.location.reload()
+}
+
+function jogos(){
+    $.ajax({
+        type: "POST",
+        url: '/jogos',
+        data: data,
+        success: (data) => {
+                history.pushState({}, null, '/jogos')
+                $('body').html(data)
+            }
+        })
 }

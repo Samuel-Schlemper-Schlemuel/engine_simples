@@ -251,4 +251,21 @@ app.get('/game/:link', async (req, res) => {
     }
 })
 
+app.post('/jogos', async (req, res) => {
+    const links = await mongo.links(req.body.email)
+
+    if(links == 'error'){
+        return res.render(__dirname + '/EJS/Home.ejs', {
+            login: '',
+            creatNow: false,
+            recarregar: false,
+            message: game
+        })
+    }
+
+    res.render(__dirname + '/EJS/links.ejs', {
+        links: links
+     })
+})
+
 app.listen(PORT)
