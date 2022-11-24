@@ -2,8 +2,8 @@ var game = {
     questoes: {1: 3},
     quantidade_questao: 1,
     perguntas: [],
-    cor_acerto: 'green',
-    cor_erro: 'red',
+    cor_acerto: '#008000',
+    cor_erro: '#ff0000',
     cor_fundo: '#7a7ae6',
     fonte: 'Marhey',
     imagem: false
