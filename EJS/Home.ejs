@@ -75,6 +75,12 @@
                     }
                 </script>
             <% } %>
+            <% if(games != false){%>
+                <script>
+                    var games = '<%= games%>'
+                    localStorage.setItem('games', games)
+                </script>
+            <%}%>
             <% if(recarregar) {%>
                 <script>
                     history.pushState({}, null, '/')

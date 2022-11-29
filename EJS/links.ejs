@@ -19,32 +19,11 @@
 <body>
     <h1>Aqui está todos os jogos que você criou</h1>
     <p id="links"></p>
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+    </script>
+    <script src="/links.js"></script>
 </body>
-<script>
-    var links = '<%= links %>'
-    var id_links = document.getElementById('links')
-
-    if(links == 'não há'){
-        id_links.innerHTML = links
-    } else {
-        var links = links.split(',')
-
-        for(i in links){
-            id_links.innerHTML += `<br><a href="/game/${links[i]}">${links[i]}</a> <i onclick="apagar('${links[i]}')" class="bi bi-trash" style="font-size: 30px; color: rgb(255, 0, 0);"></i><br>`
-        }
-    }
-
-    function apagar(link){
-        if(confirm('Você quer mesmo apagar esse jogo?')){
-            $.ajax({
-                type: "POST",
-                url: '/apagar',
-                data: {email: localStorage.getItem('email'), link: link},
-                success: (data) => {
-                        $('body').html(data)
-                    }
-            })
-        }
-    }
-</script>
 </html>

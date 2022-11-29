@@ -23,22 +23,10 @@ function abrir(){
         mailUI.innerHTML += `
         <br>
         <br>
-        <div id="jogos" onclick="jogos()">Jogos criados</div>
+        <a href="/jogos" class="link"><div id="jogos">Jogos criados</div></a>
         <br>
         <div onclick="sair()" id="sair">Sair</div>
         `
         aberto = true
     }
-}
-
-function jogos(){
-    $.ajax({
-        type: "POST",
-        url: '/jogos',
-        data: {email: data.email},
-        success: (data) => {
-                history.pushState({}, null, '/jogos')
-                $('body').html(data)
-            }
-        })
 }

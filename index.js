@@ -20,7 +20,7 @@ function alert(msg, res, arquivo){
     })
 }
 
-//routes
+//set and use
 app.use(express.static(__dirname + '/Style'))
 app.use(express.static(__dirname + '/Script'))
 app.set('view engine', 'ejs')
@@ -29,12 +29,14 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+//routes
 app.get('/', (req, res) => {
     res.render(__dirname + '/EJS/Home.ejs', {
        login: '',
        creatNow: false,
        recarregar: false,
-       message: null
+       message: null,
+       games: false
     })
 })
 
@@ -143,7 +145,8 @@ app.post('/confirmar_email', async (req, res) => {
             senha: userData.password,
             email: userData.email,
             recarregar: true,
-            message: null
+            message: null,
+            games: false
         })
 
     } else {
@@ -166,6 +169,7 @@ app.get('/login', (req, res) => {
 app.post('/login_efetuado', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
+    const links = await mongo.links(email)
 
     const exist = await mongo.seeIfCountExist(email)
     
@@ -184,7 +188,8 @@ app.post('/login_efetuado', async (req, res) => {
             login: conta.username,
             creatNow: false,
             recarregar: false,
-            message: null
+            message: null,
+            games: links.toString()
         })
 
     } else if(exist == "don't exist"){
@@ -233,14 +238,16 @@ app.get('/game/:link', async (req, res) => {
             login: '',
             creatNow: false,
             recarregar: false,
-            message: game
+            message: game,
+            games: false
         })
     } else if(game == 'não encontrado'){
         res.render(__dirname + '/EJS/Home.ejs', {
             login: '',
             creatNow: false,
             recarregar: false,
-            message: game
+            message: game,
+            games: false
         })  
     } else {
         res.render(__dirname + '/EJS/game.ejs', {
@@ -251,26 +258,13 @@ app.get('/game/:link', async (req, res) => {
     }
 })
 
-app.post('/jogos', async (req, res) => {
-    const links = await mongo.links(req.body.email)
-
-    if(links == 'error'){
-        return res.render(__dirname + '/EJS/Home.ejs', {
-            login: '',
-            creatNow: false,
-            recarregar: false,
-            message: game
-        })
-    }
-
-    res.render(__dirname + '/EJS/links.ejs', {
-        links: links
-     })
+app.get('/jogos', async (req, res) => {
+    res.render(__dirname + '/EJS/links.ejs', {})
 })
 
 app.post('/apagar', async (req, res) => {
     await mongo.apagarLink(req.body.link)
-    res.redirect(307, 'jogos')
+    res.redirect('jogos')
 })
 
 app.listen(PORT)

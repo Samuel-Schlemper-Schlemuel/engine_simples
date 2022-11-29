@@ -87,7 +87,7 @@ header{
     margin-top: 10px;
 }
 
-button a{
+button a, .link{
     color: black;
     text-decoration: none;
 }
