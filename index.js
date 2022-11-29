@@ -268,4 +268,9 @@ app.post('/jogos', async (req, res) => {
      })
 })
 
+app.post('/apagar', async (req, res) => {
+    await mongo.apagarLink(req.body.link)
+    res.redirect(307, 'jogos')
+})
+
 app.listen(PORT)

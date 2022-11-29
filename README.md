@@ -85,3 +85,6 @@ Agora o site salva localmente os dados do jogo, para que eles não sejam perdido
 
 ## Atualização 24
 Agora é possivel clicar em um botão e ver todos os jogos que foram criados
+
+## Atualização 25
+Agora a um botão de apagar ao lado do jogo criado, representado por uma licheira criada pelo bootstrap

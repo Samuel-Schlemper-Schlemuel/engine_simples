@@ -53,7 +53,7 @@
                     }
                 </script>
             <% } else { %>
-                <div id="mailUI">
+                <div id="mailUI" onclick="abrir()">
                     <label id='userMail'><%= login %></label>
                 </div>
 
@@ -142,9 +142,8 @@
                     <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
                     <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
             </div>
-
         </main>
+        <script src="/Home_creat_game.js"></script>
+        <script src="/Home_UI.js"></script>
     </body>
-    <script src="/Home_creat_game.js"></script>
-    <script src="/Home_UI.js"></script>
 </html>

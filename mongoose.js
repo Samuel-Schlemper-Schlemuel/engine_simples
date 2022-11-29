@@ -129,4 +129,10 @@ async function links(email){
     return result
 }
 
-module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links}
+async function apagarLink(link){
+    await gameModel.deleteOne({
+        link: link
+    })
+}
+
+module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links, apagarLink}

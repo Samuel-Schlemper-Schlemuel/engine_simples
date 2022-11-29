@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Links</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 </head>
 <style>
     body{
         text-align: center;
+    }
+
+    i{
+        cursor: pointer;
     }
 </style>
 <body>
@@ -17,11 +22,29 @@
 </body>
 <script>
     var links = '<%= links %>'
-    var links = links.split(',')
     var id_links = document.getElementById('links')
 
-    for(i in links){
-        id_links.innerHTML += `<a href="/game/${links[i]}">${links[i]}</a><br><br>`
+    if(links == 'não há'){
+        id_links.innerHTML = links
+    } else {
+        var links = links.split(',')
+
+        for(i in links){
+            id_links.innerHTML += `<br><a href="/game/${links[i]}">${links[i]}</a> <i onclick="apagar('${links[i]}')" class="bi bi-trash" style="font-size: 30px; color: rgb(255, 0, 0);"></i><br>`
+        }
+    }
+
+    function apagar(link){
+        if(confirm('Você quer mesmo apagar esse jogo?')){
+            $.ajax({
+                type: "POST",
+                url: '/apagar',
+                data: {email: localStorage.getItem('email'), link: link},
+                success: (data) => {
+                        $('body').html(data)
+                    }
+            })
+        }
     }
 </script>
 </html>
