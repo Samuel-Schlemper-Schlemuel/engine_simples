@@ -36,7 +36,8 @@ app.get('/', (req, res) => {
        creatNow: false,
        recarregar: false,
        message: null,
-       games: false
+       games: false,
+       temporaly_games: null
     })
 })
 
@@ -146,7 +147,8 @@ app.post('/confirmar_email', async (req, res) => {
             email: userData.email,
             recarregar: true,
             message: null,
-            games: false
+            games: false,
+            temporaly_games: null
         })
 
     } else {
@@ -189,7 +191,8 @@ app.post('/login_efetuado', async (req, res) => {
             creatNow: false,
             recarregar: false,
             message: null,
-            games: links.toString()
+            games: links.toString(),
+            temporaly_games: null
         })
 
     } else if(exist == "don't exist"){
@@ -239,7 +242,8 @@ app.get('/game/:link', async (req, res) => {
             creatNow: false,
             recarregar: false,
             message: game,
-            games: false
+            games: false,
+            temporaly_games: null
         })
     } else if(game == 'não encontrado'){
         res.render(__dirname + '/EJS/Home.ejs', {
@@ -247,14 +251,15 @@ app.get('/game/:link', async (req, res) => {
             creatNow: false,
             recarregar: false,
             message: game,
-            games: false
+            games: false,
+            temporaly_games: null
         })  
     } else {
         res.render(__dirname + '/EJS/game.ejs', {
             game: JSON.stringify(game.game),
             username: game.username,
             message: null
-         })
+        })
     }
 })
 
@@ -265,6 +270,25 @@ app.get('/jogos', async (req, res) => {
 app.post('/apagar', async (req, res) => {
     await mongo.apagarLink(req.body.link)
     res.redirect('jogos')
+})
+
+app.post('/editar', async (req, res) => {
+    var game = await mongo.getGame(req.body.link)
+    game.game.lnk = req.body.link
+
+    res.render(__dirname + '/EJS/Home.ejs', {
+        login: game.username,
+        creatNow: false,
+        recarregar: false,
+        message: null,
+        games: false,
+        temporaly_games: JSON.stringify(game.game)
+     })
+})
+
+app.post('/atualizar', async (req, res) => {
+    await mongo.atualizarJogo(req.body.link, req.body.game)
+    res.send(req.body.link)
 })
 
 app.listen(PORT)

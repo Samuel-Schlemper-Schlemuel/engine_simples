@@ -135,4 +135,8 @@ async function apagarLink(link){
     })
 }
 
-module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links, apagarLink}
+async function atualizarJogo(link, game){
+    await gameModel.updateOne({link: link}, {$set: {game: game}})
+}
+
+module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links, apagarLink, atualizarJogo}

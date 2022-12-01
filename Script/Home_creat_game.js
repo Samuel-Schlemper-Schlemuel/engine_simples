@@ -11,9 +11,23 @@ var game = {
 var contagem_de_arrays = 0
 var pontuacao = 0
 var perguntas_da_questao = []
+var tempo_game
+var newGame = true
 
-if(localStorage.getItem('game') != null){
-    let tempo_game = JSON.parse(localStorage.getItem('game'))
+if (localStorage.getItem('temporaly_game') != null){
+    tempo_game = JSON.parse(localStorage.getItem('temporaly_game').split('&#34;').join('"'))
+    newGame = false
+} else if(localStorage.getItem('game') != null){
+    tempo_game = JSON.parse(localStorage.getItem('game'))
+}
+
+if(tempo_game != null){
+    tempo_game.questoes = convertToObject(tempo_game.questoes)
+    tempo_game.quantidade_questao = Number.parseInt(tempo_game.quantidade_questao)
+
+    if(typeof tempo_game.imagem == 'string'){
+        tempo_game.imagem = tempo_game.imagem.toLowerCase() == 'true'
+    }
 
     for(let c = 1; c <= tempo_game.quantidade_questao; c++){
         if(c >= 2){
@@ -38,8 +52,10 @@ if(localStorage.getItem('game') != null){
 }
 
 function save(){
-    manipular_perguntas()
-    localStorage.setItem('game', JSON.stringify(game))
+    if(newGame){
+        manipular_perguntas()
+        localStorage.setItem('game', JSON.stringify(game))
+    }
 }
 
 function adicionar_questao(){
@@ -222,11 +238,9 @@ function salvar_jogo(){
     const senha = localStorage.getItem('senha')
 
     if(email == null || senha == null){
-            history.pushState({}, null, '/login')
-            document.location.reload()
+        document.location.href = '/login'
     } else {
-            criar_jogo()
-
+        if(newGame){
             const data = {
                 email: email,
                 senha: senha,
@@ -242,11 +256,38 @@ function salvar_jogo(){
                         history.pushState({}, null, '/login')
                         $('body').html(data)
                     } else {
-                        history.pushState({}, null, data)
                         localStorage.removeItem('game')
-                        document.location.reload()
+                        let arr = localStorage.getItem('games').split(',')
+                        arr.push(data.slice(6, 26))
+                        localStorage.setItem('games', arr.toString())
+                        document.location.href = data
                     }
                 }
             })
+        } else {    
+            manipular_perguntas()
+
+            $.ajax({
+                type: "POST",
+                url: '/atualizar',
+                data: {game: game, link: game.lnk},
+                success: (data) => {
+                    localStorage.removeItem('temporaly_game')
+                    console.log(data)
+                    document.location.href = '/game/' + data
+                }
+            })
+        }
     }
+}
+
+function convertToObject(object){
+    var result = {}
+    var key = 1
+    for(data in object){
+        result[key] = Number.parseInt(object[data])
+        key++
+    }
+
+    return result
 }

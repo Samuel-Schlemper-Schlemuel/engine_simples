@@ -81,6 +81,16 @@
                     localStorage.setItem('games', games)
                 </script>
             <%}%>
+            <% if(temporaly_games != null) { %>
+                <script>
+                    localStorage.setItem('temporaly_game', '<%= temporaly_games%>')
+                </script>
+            <% } else { %>
+                <script>
+                    localStorage.removeItem('temporaly_game')
+                    history.pushState({}, null, '/')
+                </script>
+            <% } %>
             <% if(recarregar) {%>
                 <script>
                     history.pushState({}, null, '/')
@@ -146,7 +156,12 @@
                 </div>
                     <br>
                     <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
-                    <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
+                    <% if(temporaly_games != null) { %>
+                        <button id="salva_jogo" onclick="salvar_jogo()">Atualize o jogo</button>
+                        <button id="cancelar_mudaca"><a href="/">Cancele mudança</a></button>  
+                    <% } else { %>
+                        <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
+                    <% } %>
             </div>
         </main>
         <script src="/Home_creat_game.js"></script>

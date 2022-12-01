@@ -1,4 +1,3 @@
-history.pushState({}, null, '/')
 var aberto = false
 
 var data = {email: localStorage.getItem('email'),
