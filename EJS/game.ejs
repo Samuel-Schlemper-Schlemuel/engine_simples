@@ -21,7 +21,6 @@
     text = text.split('&#34;')
     text = text.join('"')
     const game = JSON.parse(text)
-    console.log(game)
     var pontuacao = 0
     var contagem_de_arrays = 0
     var tela = document.getElementById('tela')
@@ -41,14 +40,13 @@
         let button_width = tela_largura - 170
 
         if(button_width > tela_largura - 170){
-            console.log(button_width + '|' + (tela_largura - 170))
             button_width = tela_largura - 170
         } else if(button_width < 170){
             button_width = 170
         }
 
         ordenado.sort()
-        tela.innerHTML =  game.perguntas[contagem_de_arrays][0] + '<br> <div id="botoes_tela"><div>'
+        tela.innerHTML = `${game.perguntas[contagem_de_arrays][0]} <br> <div id="botoes_tela"><div>`
         var botoes_tela = document.getElementById('botoes_tela')
         for(let c = 0; c < ordenado.length; c++){
             if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
@@ -74,7 +72,6 @@
     }
 
     function resposta(classe){
-        tela.style.textAlign = 'center'
         if(classe === 'certo'){
             tela.innerHTML = `<h1 style='color: ${game.cor_acerto};'>Acertou</h1>`
             pontuacao++
@@ -83,9 +80,10 @@
         }
         setTimeout(() => {
             if(contagem_de_arrays ===  game.perguntas.length){
-                tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${ game.perguntas.length}</p>`
+                tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${ game.perguntas.length}</p>
+                <br>
+                <button onclick="criar_jogo()">Jogar de novo</button>`
             } else {
-                tela.style.textAlign = 'left'
                 botoes()
             }
         }, 1500);

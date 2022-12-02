@@ -1,11 +1,35 @@
 body{
-    font: 18px Montserrat;
+    font-family: Montserrat;
     background-color: rgb(250, 250, 250);
 }
 
 button{
     cursor: pointer;
-    font: 16px Montserrat;
+    font: Montserrat;
+    border:1px solid #00000030;
+    border-radius:4px;
+    padding:4px 6px;
+}
+
+button:active{
+    position:relative;
+    top:2px;
+}
+
+button a, .link{
+    color: black;
+    text-decoration: none;
+}
+
+footer{
+    text-align: center;
+    clear: both;
+}
+
+footer a{
+    position: relative;
+    top: 20px;
+    text-decoration: none;
 }
 
 select, #caixa_seletor_cores input{
@@ -39,14 +63,9 @@ input{
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
-    font: 18px Marhey;
+    font: Marhey;
     overflow-y: auto;
 }
-
-#tela button{
-    font-size: 16px;
-}
-
 #caixa_seletor_cores{
     float: left;
     margin-left: 40px;
@@ -73,23 +92,85 @@ header{
     z-index: 1;
 }
 
-#cadastro{
+header button{
     text-align: center;
-    background-color: rgb(0, 202, 0);
+    border-color:#68b465;
+    background:linear-gradient(to bottom, #abd5aa 5%, #75ca72 100%);
+    box-shadow:inset 0px 1px 0px 0px #e3f1e3;
+    border:1px solid #25692A;
+    border-radius:4px;
+    padding:6px 10px;
+}
+
+header button:hover{
+    background:linear-gradient(to bottom, #75ca72 5%, #abd5aa 100%);
+}
+
+.bt-gr{
+    background:rgb(24, 226, 125);
+}
+
+.bt-rd{
+    background-color: rgb(247, 80, 68);
+}
+
+.bt-gr:hover{
+    background:rgb(93, 248, 171);
+}
+
+.bt-rd:hover{
+    background-color: rgb(255, 144, 136);
+}
+
+#criar_jogo{
+    border-color:#46a7f5;
+    background:linear-gradient(to bottom, #86c6f8 5%, #46a7f5 100%);
+    box-shadow:inset 0px 1px 0px 0px #d7ecfd;
+}
+
+#criar_jogo:hover {
+    background:linear-gradient(to bottom, #46a7f5 5%, #86c6f8 100%);
+}
+
+#salvar_jogo{
+    border-color:#eb9b48;
+    background:linear-gradient(to bottom, #f7d6b3 5%, #eb9b48 100%);
+    box-shadow:inset 0px 1px 0px 0px #fdf7f0;
+}
+
+#salvar_jogo:hover{
+    background:linear-gradient(to bottom, #eb9b48 5%, #f7d6b3 100%);
+}
+
+.bt-jogo{
+    border-color:#53ff95;
+    background:linear-gradient(to bottom, #bee6bd 5%, #53ff95 100%);
+    box-shadow:inset 0px 1px 0px 0px #e3f1e3;
+}
+
+.bt-jogo:hover{
+    background:linear-gradient(to bottom, #53ff95 5%, #bee6bd 100%);
+}
+
+#tela button{
+    margin-top: 5px;
+    border-color:#00ff62;
+    background: linear-gradient(to bottom, #83f781 5%, #00ff62 100%);
+    box-shadow:inset 0px 1px 0px 0px #fdf7f0;
+}
+
+#tela button:hover{
+    background: linear-gradient(to bottom, #00ff62 5%, #83f781 100%);
+}
+
+#cadastro{
     margin-right: 30px;
     margin-top: 10px;
 }
 
 #login{
-    text-align: center;
-    background-color: rgb(0, 202, 0);
     margin-right: 15px;
     margin-top: 10px;
-}
-
-button a, .link{
-    color: black;
-    text-decoration: none;
 }
 
 input{
@@ -150,16 +231,6 @@ header p{
     border-radius: 6px;
 }
 
-@media screen and (max-width: 1000px) {
-    #tela{
-        font-size: 15px;
-    }
-
-    #tela button{
-        font-size: 12px;
-    }
-}
-
 @media screen and (max-width: 830px) {
     #jogo{
         float: none;
@@ -179,11 +250,6 @@ header p{
         position: relative;
         width: 90vw;
         height: 45vw;
-        font-size: 17px;
-    }
-
-    #tela button{
-        font-size: 15px;
     }
 
     #caixa_seletor_cores{
@@ -200,18 +266,6 @@ header p{
 }
 
 @media screen and (max-width: 650px){
-    body{
-        font-size: 15px;
-    }
-
-    button{
-        font-size: 14px;
-    }
-
-    header{
-        font-size: 12px;
-    }
-
     #mailUI{
         top: 0px;
     }
@@ -230,11 +284,6 @@ header p{
         position: static;
         width: 100vw;
         height: 50vw;
-        font-size: 16px;
-    }
-
-    #tela button{
-        font-size: 13px;
     }
 
     #caixa_seletor_cores{
@@ -243,12 +292,6 @@ header p{
 
     #fonte{
         margin-left: 10px;
-    }
-
-    #mailUI{
-        right: 20px;
-        width: 140px;
-        font-size: 10px;
     }
 }
 
@@ -262,11 +305,9 @@ header p{
 @media screen and (max-width: 350px){
     #cadastro{
         margin-right: 20px;
-        font-size: 12px;
     }
     
     #login{
         margin-right: 10px;
-        font-size: 12px;
     }
 }

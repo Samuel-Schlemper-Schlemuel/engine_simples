@@ -21,7 +21,6 @@
     </head>
     <body>
         <header>
-            <p>By Samuel Schlemper</p> 
             <% if(message == 'error') { %>
                 <script>
                     alert('Erro, tente novamente mais tarde')
@@ -32,8 +31,8 @@
                 </script>
             <% } %>
             <% if(login == '') { %>
-                <button id="login"><a href="/login">Login</a></button> 
-                <button id="cadastro"><a href="/cadastro">Criar conta</a></button>
+                <a href="/login"><button id="login">Login</button></a>
+                <a href="/cadastro"><button id="cadastro">Criar conta</button></a>
                 <script>
                     var data = {email: localStorage.getItem('email'),
                                 password: localStorage.getItem('senha')
@@ -112,13 +111,13 @@
                 <div id="caixa_seletor_cores">
                     <p>Escolha a cor de fundo para o jogo: </p>
                     <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
-                    <button class="botao_cores" onclick="mudar_cor_fundo()"> Adicionar cor </button>
+                    <button class="bt-jogo" onclick="mudar_cor_fundo()"> Adicionar cor </button>
                     <p>Escolha a de acerto do jogo: </p>
                     <input id="seletor_cores_acerto" type="color" value="#008000"/>    
-                    <button class="botao_cores" onclick="mudar_cor_acerto()"> Adicionar cor </button>
+                    <button class="bt-jogo" onclick="mudar_cor_acerto()"> Adicionar cor </button>
                     <p>Escolha a cor de erro do jogo: </p>
                     <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
-                    <button class="botao_cores" onclick="mudar_cor_erro()"> Adicionar cor </button>
+                    <button class="bt-jogo" onclick="mudar_cor_erro()"> Adicionar cor </button>
                 </div>
 
                 <div id="fonte">
@@ -130,21 +129,21 @@
                         <option id="roboto">Roboto</option>
                         <option id="arial">Arial</option>
                     </select>
-                    <button onclick="mudar_fonte()">Mudar fonte</button>
+                    <button class="bt-jogo" onclick="mudar_fonte()">Mudar fonte</button>
                 </div>
             </div>
             <div id='tela_inicial'>
                 <div id='perguntas'>
                     <p>
                         Clique para adicionar uma nova questão 
-                        <button id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
-                        <button id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
+                        <button class="bt-gr" id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
+                        <button class="bt-rd" id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
                     </p>
                         <div id='questao_completa_1'>
                             <p>
                                 &nbsp&nbsp&nbsp&nbspQuestão 1: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8) 
-                                <button id='nova_resposta' onclick="adicionar_resposta(1)">Nova Resposta</button> 
-                                <button id='deletar_resposta' onclick="deletar_resposta(1)">Deletar última resposta</button>
+                                <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(1)">Nova Resposta</button> 
+                                <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(1)">Deletar última resposta</button>
                             </p>
                                 <div id='questao_1'>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_1' type="text" placeholder="A pergunta" maxlength="60">
@@ -157,13 +156,14 @@
                     <br>
                     <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
                     <% if(temporaly_games != null) { %>
-                        <button id="salva_jogo" onclick="salvar_jogo()">Atualize o jogo</button>
+                        <button id="salvar_jogo" onclick="salvar_jogo()">Atualize o jogo</button>
                         <button id="cancelar_mudaca"><a href="/">Cancele mudança</a></button>  
                     <% } else { %>
-                        <button id="salva_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
+                        <button id="salvar_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
                     <% } %>
             </div>
         </main>
+        <footer><a href="https://samuel-schlemper-schlemuel.github.io/Curriculo/Principal.html">By Samuel Schlemper</a></footer> 
         <script src="/Home_creat_game.js"></script>
         <script src="/Home_UI.js"></script>
     </body>

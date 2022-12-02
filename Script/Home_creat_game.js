@@ -62,8 +62,8 @@ function adicionar_questao(){
     manipular_perguntas()
     document.getElementById('perguntas').innerHTML += `<div id='questao_completa_${game.quantidade_questao + 1}'>
                                                          <p>${repeat('&nbsp', 4)}Questão ${game.quantidade_questao + 1}: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8)
-                                                            <button id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
-                                                            <button id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button></p>
+                                                            <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
+                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button></p>
                                                             <div id='questao_${game.quantidade_questao + 1}'>
                                                             ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="60">
                                                                <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="40"> </div>
@@ -145,7 +145,6 @@ function criar_jogo(){
     save()
     var tela = document.getElementById('tela')
     contagem_de_arrays = 0
-    tela.style.textAlign = 'left'
     pontuacao = 0
     botoes()
 }
@@ -183,7 +182,6 @@ function botoes(){
 }
 
 function resposta(classe){
-    tela.style.textAlign = 'center'
     if(classe === 'certo'){
         tela.innerHTML = `<h1 style='color: ${game.cor_acerto};'>Acertou</h1>`
         pontuacao++
@@ -194,7 +192,6 @@ function resposta(classe){
         if(contagem_de_arrays ===  game.perguntas.length){
             tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${ game.perguntas.length}</p>`
         } else {
-            tela.style.textAlign = 'left'
             botoes()
         }
     }, 1500);
