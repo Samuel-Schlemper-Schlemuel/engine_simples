@@ -84,10 +84,16 @@ Houve uma atualização no desing de algumas partes do site.
 Agora o site salva localmente os dados do jogo, para que eles não sejam perdidos quando a aba fechar ou ser recarregada, mas são apagados ao criar o jogo.
 
 ## Atualização 24
-Agora é possivel clicar em um botão e ver todos os jogos que foram criados
+Agora é possivel clicar em um botão e ver todos os jogos que foram criados.
 
 ## Atualização 25
-Agora a um botão de apagar ao lado do jogo criado, representado por uma licheira criada pelo bootstrap
+Agora a um botão de apagar ao lado do jogo criado, representado por uma licheira criada pelo bootstrap.
 
 ## Atualização 26
 Agora há um botão de atualizar.
+
+## Atualização 27
+Desing melhorado.
+
+## Atualização 28
+Agora a verção estavel e ultilizavel do site está terminada, já que existe um link que é possivel copiar para adicionar o jogo ao site do usuario, as unicas coisas que faltam são adicionar a opção de adiconar imagens e vídeos ao jogo e melhorar o desing do jogo.

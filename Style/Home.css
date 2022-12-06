@@ -63,8 +63,9 @@ input{
     background-color: rgb(122, 122, 230);
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
-    font: Marhey;
+    font-family: Marhey;
     overflow-y: auto;
+    text-align: center;
 }
 #caixa_seletor_cores{
     float: left;

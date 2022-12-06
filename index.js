@@ -258,7 +258,40 @@ app.get('/game/:link', async (req, res) => {
         res.render(__dirname + '/EJS/game.ejs', {
             game: JSON.stringify(game.game),
             username: game.username,
-            message: null
+            message: null,
+            fullscreen: false
+        })
+    }
+})
+
+app.get('/game/fullscreen/:link', async (req, res) => {
+    const link = req.params.link
+    const game = await mongo.getGame(link)
+
+    if(game == 'error'){
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: '',
+            creatNow: false,
+            recarregar: false,
+            message: game,
+            games: false,
+            temporaly_games: null
+        })
+    } else if(game == 'não encontrado'){
+        res.render(__dirname + '/EJS/Home.ejs', {
+            login: '',
+            creatNow: false,
+            recarregar: false,
+            message: game,
+            games: false,
+            temporaly_games: null
+        })  
+    } else {
+        res.render(__dirname + '/EJS/game.ejs', {
+            game: JSON.stringify(game.game),
+            username: game.username,
+            message: null,
+            fullscreen: true
         })
     }
 })

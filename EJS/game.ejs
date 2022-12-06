@@ -12,9 +12,23 @@
     <div id="tela">
 
     </div>
-    <footer>
-        By <%= username %>
-    </footer>
+    <%if(fullscreen) {%>
+        <style>
+            #tela{
+                height: 100vh;
+                width: 100vw;
+                position: absolute;
+                top: 0;
+                left: 0;
+                border: 0px;
+                padding: 0px;
+            }
+        </style>
+    <%} else {%>
+        <footer>
+            By <%= username %>
+        </footer>
+    <%}%>
 </body>
 <script>
     let text = '<%= game %>'
