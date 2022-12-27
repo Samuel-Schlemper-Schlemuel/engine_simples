@@ -12,23 +12,6 @@
     <div id="tela">
 
     </div>
-    <%if(fullscreen) {%>
-        <style>
-            #tela{
-                height: 100vh;
-                width: 100vw;
-                position: absolute;
-                top: 0;
-                left: 0;
-                border: 0px;
-                padding: 0px;
-            }
-        </style>
-    <%} else {%>
-        <footer>
-            By <%= username %>
-        </footer>
-    <%}%>
 </body>
 <script>
     let text = '<%= game %>'
@@ -38,6 +21,7 @@
     var pontuacao = 0
     var contagem_de_arrays = 0
     var tela = document.getElementById('tela')
+    var criador = '<%= username %>'
             
     function criar_jogo(){
         contagem_de_arrays = 0
@@ -69,6 +53,7 @@
                 botoes_tela.innerHTML += `<button style='width:${button_width}px; font-family:${game.fonte};' onclick='resposta("errado")'>${ordenado[c]}</button>`
             }
         }
+        tela.innerHTML += `<br> Criado por ${criador}`
         if(game.imagem == 'false'){
             document.getElementById('botoes_tela').style.textAlign = 'center'
         } else {

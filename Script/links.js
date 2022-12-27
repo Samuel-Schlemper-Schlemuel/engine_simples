@@ -6,7 +6,7 @@ if(links == 'não há'){
     id_links.innerHTML = links
 } else {
     for(i in links){
-        id_links.innerHTML += `<br><a href="/game/${links[i]}">https://${window.location.hostname}/game/fullscreen/${links[i]}</a> <i onclick="apagar('${links[i]}')" class="bi bi-trash" style="font-size: 30px; color: rgb(255, 0, 0);"></i> &nbsp;<i onclick="editar('${links[i]}')" class="bi bi-pencil-fill" style="font-size: 30px; color: rgb(0, 0, 200);"></i><br>`
+        id_links.innerHTML += `<br><a href="/game/${links[i]}">https://${window.location.hostname}/game/${links[i]}</a> <i onclick="apagar('${links[i]}')" class="bi bi-trash" style="font-size: 30px; color: rgb(255, 0, 0);"></i> &nbsp;<i onclick="editar('${links[i]}')" class="bi bi-pencil-fill" style="font-size: 30px; color: rgb(0, 0, 200);"></i><br>`
     }
 }
 
