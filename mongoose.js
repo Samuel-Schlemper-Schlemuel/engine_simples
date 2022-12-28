@@ -129,6 +129,31 @@ async function links(email){
     return result
 }
 
+async function titles(email){
+    let objects
+    let result = []
+
+    await gameModel.find({
+        email: email
+    })
+    .then(doc => {
+        objects = doc
+    })
+    .catch(err => {
+        return 'error'
+    })
+
+    if(objects.length == 0){
+        return 'não há'
+    }
+
+    for(i in objects){
+        result.push(objects[i].game.titulo)
+    }
+
+    return result
+}
+
 async function apagarLink(link){
     await gameModel.deleteOne({
         link: link
@@ -139,4 +164,4 @@ async function atualizarJogo(link, game){
     await gameModel.updateOne({link: link}, {$set: {game: game}})
 }
 
-module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links, apagarLink, atualizarJogo}
+module.exports = {saveConta, seeIfCountExist, findCount, saveGame, getGame, links, apagarLink, atualizarJogo, titles}

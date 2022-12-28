@@ -97,3 +97,6 @@ Desing melhorado.
 
 ## Atualização 28
 Agora a verção estavel e ultilizavel do site está terminada, já que existe um link que é possivel copiar para adicionar o jogo ao site do usuario, as únicas coisas que faltam são adicionar a opção de adiconar imagens e vídeos ao jogo e melhorar o desing do jogo.
+
+## Atualização 29
+Agora se pode adicionar um título ao jogo.

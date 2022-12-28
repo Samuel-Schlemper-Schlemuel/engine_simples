@@ -77,7 +77,9 @@
             <% if(games != false){%>
                 <script>
                     var games = '<%= games%>'
+                    var titulos = '<%= titles%>'
                     localStorage.setItem('games', games)
+                    localStorage.setItem('titles', titulos)
                 </script>
             <%}%>
             <% if(temporaly_games != null) { %>
@@ -107,6 +109,8 @@
                 <div id='tela'>
 
                 </div>
+
+                <input type="text" id="titulo" placeholder="Nome do jogo" maxlength="40">
 
                 <div id="caixa_seletor_cores">
                     <p>Escolha a cor de fundo para o jogo: </p>

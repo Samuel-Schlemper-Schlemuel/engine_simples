@@ -233,6 +233,8 @@ function salvar_jogo(){
     save()
     const email = localStorage.getItem('email')
     const senha = localStorage.getItem('senha')
+    const titulo = document.getElementById('titulo').value
+    game.titulo = titulo
 
     if(email == null || senha == null){
         document.location.href = '/login'
@@ -254,9 +256,14 @@ function salvar_jogo(){
                         $('body').html(data)
                     } else {
                         localStorage.removeItem('game')
-                        let arr = localStorage.getItem('games').split(',')
-                        arr.push(data.slice(6, 26))
-                        localStorage.setItem('games', arr.toString())
+                        let arrGames = localStorage.getItem('games').split(',')
+                        arrGames.push(data.slice(6, 26))
+                        localStorage.setItem('games', arrGames.toString())
+
+                        let arrTitles = localStorage.getItem('titles').split(',')
+                        arrTitles.push(titulo)
+                        localStorage.setItem('titles', arrTitles.toString())
+                        
                         document.location.href = data
                     }
                 }

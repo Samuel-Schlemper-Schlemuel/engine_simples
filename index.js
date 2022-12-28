@@ -172,6 +172,7 @@ app.post('/login_efetuado', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
     const links = await mongo.links(email)
+    const titles = await mongo.titles(email)
 
     const exist = await mongo.seeIfCountExist(email)
     
@@ -192,6 +193,7 @@ app.post('/login_efetuado', async (req, res) => {
             recarregar: false,
             message: null,
             games: links.toString(),
+            titles: titles.toString(),
             temporaly_games: null
         })
 
@@ -258,7 +260,7 @@ app.get('/game/:link', async (req, res) => {
         res.render(__dirname + '/EJS/game.ejs', {
             game: JSON.stringify(game.game),
             username: game.username,
-            message: null
+            titulo: game.game.titulo
         })
     }
 })
