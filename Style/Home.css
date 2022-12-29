@@ -68,6 +68,10 @@ input{
     text-align: center;
 }
 
+#pergunta{
+    font-size: 20px;
+}
+
 #caixa_seletor_cores{
     float: left;
     margin-left: 40px;

@@ -143,7 +143,6 @@ function manipular_perguntas(){
 function criar_jogo(){
     manipular_perguntas()
     save()
-    var tela = document.getElementById('tela')
     contagem_de_arrays = 0
     pontuacao = 0
     botoes()
@@ -151,10 +150,8 @@ function criar_jogo(){
 
 function botoes(){
     let tela = document.getElementById('tela')
-    let tela_altura = tela.clientHeight
     let tela_largura = tela.clientWidth
     let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
-    let quantia_linhas = Number.parseInt((tela_altura - 40) / 36)
     let button_width = tela_largura - 170
 
     if(button_width > tela_largura - 170){
@@ -164,7 +161,7 @@ function botoes(){
     }
 
     ordenado.sort()
-    tela.innerHTML =  game.perguntas[contagem_de_arrays][0] + '<br> <div id="botoes_tela"><div>'
+    tela.innerHTML =  `<p id='pergunta'>${game.perguntas[contagem_de_arrays][0]}</p> <div id="botoes_tela"><div>`
     var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
         if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
