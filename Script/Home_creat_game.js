@@ -1,18 +1,23 @@
-var game = {
-    questoes: {1: 3},
-    quantidade_questao: 1,
-    perguntas: [],
-    cor_acerto: '#008000',
-    cor_erro: '#ff0000',
-    cor_fundo: '#7a7ae6',
-    fonte: 'Marhey',
-    imagem: false
-}
 var contagem_de_arrays = 0
 var pontuacao = 0
 var perguntas_da_questao = []
 var tempo_game
 var newGame = true
+// As paletas funcionam na ordem [Background, Error, Right, Button normal, Button with mouse, Letter]
+var paletas = {
+    'Padrão': ['#FFFFFF', '#FF0000', '#00FF00', 'linear-gradient(to bottom, #bee6bd 5%, #0000CC 100%)', 'linear-gradient(to bottom, #0000CC 5%, #bee6bd 100%)', '#000000'],
+    'Futurista': ['#000D0D', '#F21326', '#00FF00', 'linear-gradient(to bottom, #05F2F2 5%, #0D5FA6 100%)', 'linear-gradient(to bottom, #0D5FA6 5%, #05F2F2 100%)', '#F2F2F2'],
+    'Infantil': ['#FFED67', '#FF0000', '#00FF00', 'linear-gradient(to bottom, #bee6bd 5%, #5A9FFF 100%)', 'linear-gradient(to bottom, #5A9FFF 5%, #bee6bd 100%)', '#000000']
+}
+var game = {
+    questoes: {1: 3},
+    quantidade_questao: 1,
+    perguntas: [],
+    paleta: paletas['Padrão'],
+    paleta_name: 'Padrão',
+    fonte: 'Marhey',
+    imagem: false
+}
 
 if (localStorage.getItem('temporaly_game') != null){
     tempo_game = JSON.parse(localStorage.getItem('temporaly_game').split('&#34;').join('"'))
@@ -38,14 +43,10 @@ if(tempo_game != null){
             adicionar_resposta(c)
         }
     }
-
-    document.getElementById('seletor_cores_fundo').value = tempo_game.cor_fundo
-    mudar_cor_fundo()
-    document.getElementById('seletor_cores_acerto').value = tempo_game.cor_acerto
-    document.getElementById('seletor_cores_erro').value = tempo_game.cor_erro
+    document.getElementById('select_palette').value = tempo_game.paleta_name
     document.getElementById('select_fonte').value = tempo_game.fonte
     mudar_fonte()
-
+    document.getElementById('tela').style.backgroundColor = tempo_game.paleta[0]
     game = JSON.parse(JSON.stringify(tempo_game))
     valor()
     save()
@@ -149,6 +150,7 @@ function criar_jogo(){
 }
 
 function botoes(){
+    document.getElementById('tela').style.color = game.paleta[5]
     let tela = document.getElementById('tela')
     let tela_largura = tela.clientWidth
     let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
@@ -165,9 +167,9 @@ function botoes(){
     var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
         if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
-            botoes_tela.innerHTML += `<button style='width:${button_width}px; font-family:${game.fonte};' onclick='resposta("certo")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("certo")'>${ordenado[c]}</button>`
         } else {
-            botoes_tela.innerHTML += `<button style='width:${button_width}px; font-family:${game.fonte};' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
     }
     if(!game.imagem){
@@ -176,14 +178,26 @@ function botoes(){
         document.getElementById('botoes_tela').style.paddingLeft = '150px'
     }
     contagem_de_arrays += 1
+
+    let els = document.getElementsByClassName('button_tela')
+    for(i in els){
+        if(!isNaN(Number.parseInt(i))){
+            els[i].addEventListener('mouseover', (e) => {
+                e.currentTarget.style.background = game.paleta[4]
+            })
+            els[i].addEventListener('mouseout', (e) => {
+                e.currentTarget.style.background = game.paleta[3]
+            })
+        }
+    }
 }
 
 function resposta(classe){
     if(classe === 'certo'){
-        tela.innerHTML = `<h1 style='color: ${game.cor_acerto};'>Acertou</h1>`
+        tela.innerHTML = `<h1 style='color: ${game.paleta[2]};'>Acertou</h1>`
         pontuacao++
     } else {
-        tela.innerHTML = `<h1 style='color: ${game.cor_erro};'>Errou</h1>`
+        tela.innerHTML = `<h1 style='color: ${game.paleta[1]};'>Errou</h1>`
     }
     setTimeout(() => {
         if(contagem_de_arrays ===  game.perguntas.length){
@@ -194,22 +208,19 @@ function resposta(classe){
     }, 1500);
 }
 
-function mudar_cor_fundo(){
-    let cor = document.getElementById('seletor_cores_fundo').value
-    document.getElementById('tela').style.backgroundColor = cor
-    game.cor_fundo = cor
-    save()
-}
-
-function mudar_cor_acerto(){
-    let cor = document.getElementById('seletor_cores_acerto').value
-    game.cor_acerto = cor
-    save()
-}
-
-function mudar_cor_erro(){
-    let cor = document.getElementById('seletor_cores_erro').value
-    game.cor_erro = cor
+function mudar_cor(){
+    let paleta_name = document.getElementById('select_palette').value
+    let paleta = paletas[document.getElementById('select_palette').value]
+    game.paleta_name = paleta_name
+    game.paleta = paleta
+    document.getElementById('tela').style.backgroundColor = paleta[0]
+    document.getElementById('tela').style.color = game.paleta[5]
+    for(i in document.getElementsByClassName('button_tela')){
+        if(!isNaN(Number.parseInt(i))){
+            document.getElementsByClassName('button_tela')[i].style.background = paleta[3]
+            document.getElementsByClassName('button_tela')[i].style.color = paleta[5]
+        }
+    }
     save()
 }
 
@@ -274,7 +285,6 @@ function salvar_jogo(){
                 data: {game: game, link: game.lnk},
                 success: (data) => {
                     localStorage.removeItem('temporaly_game')
-                    console.log(data)
                     document.location.href = '/game/' + data
                 }
             })

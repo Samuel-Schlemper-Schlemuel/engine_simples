@@ -25,8 +25,9 @@
             
     function criar_jogo(){
         contagem_de_arrays = 0
-        document.body.style.backgroundColor = game.cor_fundo
+        document.body.style.backgroundColor = game.paleta[0]
         tela.style.fontFamily = game.fonte
+        tela.style.color = game.paleta[5]
         pontuacao = 0
         botoes()
     }
@@ -40,9 +41,9 @@
         var botoes_tela = document.getElementById('botoes_tela')
         for(let c = 0; c < ordenado.length; c++){
             if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
-                botoes_tela.innerHTML += `<button style='font-family:${game.fonte};' onclick='resposta("certo")'>${ordenado[c]}</button><br>`
+                botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; background: ${game.paleta[3]}; font-family:${game.fonte};' onclick='resposta("certo")'>${ordenado[c]}</button><br>`
             } else {
-                botoes_tela.innerHTML += `<button style='font-family:${game.fonte};' onclick='resposta("errado")'>${ordenado[c]}</button><br>`
+                botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; background: ${game.paleta[3]}; font-family:${game.fonte};' onclick='resposta("errado")'>${ordenado[c]}</button><br>`
             }
         }
         tela.innerHTML += `<br> Criado por ${criador}`
@@ -60,20 +61,40 @@
                 botoes[botao].style.fontFamily = game.fonte
             }
         }
+
+        let els = document.getElementsByClassName('button_tela')
+        for(i in els){
+            if(!isNaN(Number.parseInt(i))){
+                els[i].addEventListener('mouseover', (e) => {
+                    e.currentTarget.style.background = game.paleta[4]
+                })
+                els[i].addEventListener('mouseout', (e) => {
+                    e.currentTarget.style.background = game.paleta[3]
+                })
+            }
+        }
     }
 
     function resposta(classe){
         if(classe === 'certo'){
-            tela.innerHTML = `<h1 style='color: ${game.cor_acerto};'>Acertou</h1>`
+            tela.innerHTML = `<h1 style='color: ${game.paleta[2]};'>Acertou</h1>`
             pontuacao++
         } else {
-            tela.innerHTML = `<h1 style='color: ${game.cor_erro};'>Errou</h1>`
+            tela.innerHTML = `<h1 style='color: ${game.paleta[1]};'>Errou</h1>`
         }
         setTimeout(() => {
             if(contagem_de_arrays ===  game.perguntas.length){
                 tela.innerHTML = `<p>O jogo acabou<br>Sua pontuação: ${pontuacao}/${ game.perguntas.length}</p>
                 <br>
-                <button onclick="criar_jogo()">Jogar de novo</button>`
+                <button id="Jogar_novamente" onclick="criar_jogo()" style="background: ${game.paleta[3]}; color: ${game.paleta[5]};">Jogar de novo</button>`
+
+                let el = document.getElementById('Jogar_novamente')
+                el.addEventListener('mouseover', (e) => {
+                    e.currentTarget.style.background = game.paleta[4]
+                })
+                el.addEventListener('mouseout', (e) => {
+                    e.currentTarget.style.background = game.paleta[3]
+                })
             } else {
                 botoes()
             }

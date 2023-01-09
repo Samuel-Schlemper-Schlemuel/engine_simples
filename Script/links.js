@@ -4,7 +4,7 @@ var id_links = document.getElementById('links')
 var usermail = localStorage.getItem('email')
 
 if(links == 'não há'){
-    id_links.innerHTML = links
+    id_links.innerHTML = 'Não há'
 } else {
     for(i in links){
         id_links.innerHTML += `<br><a href="/game/${links[i]}">${titles[i] == '' ? 'Sem titulo' : titles[i]}</a> <i onclick="apagar('${links[i]}')" class="bi bi-trash" style="font-size: 30px; color: rgb(255, 0, 0);"></i> &nbsp;<i onclick="editar('${links[i]}')" class="bi bi-pencil-fill" style="font-size: 30px; color: rgb(0, 0, 200);"></i><br>`

@@ -113,15 +113,12 @@
                 <input type="text" id="titulo" placeholder="Nome do jogo" maxlength="40">
 
                 <div id="caixa_seletor_cores">
-                    <p>Escolha a cor de fundo para o jogo: </p>
-                    <input id="seletor_cores_fundo" type="color" value="#7a7ae6"/>    
-                    <button class="bt-jogo" onclick="mudar_cor_fundo()"> Adicionar cor </button>
-                    <p>Escolha a de acerto do jogo: </p>
-                    <input id="seletor_cores_acerto" type="color" value="#008000"/>    
-                    <button class="bt-jogo" onclick="mudar_cor_acerto()"> Adicionar cor </button>
-                    <p>Escolha a cor de erro do jogo: </p>
-                    <input id="seletor_cores_erro" type="color" value="#ff0000"/>    
-                    <button class="bt-jogo" onclick="mudar_cor_erro()"> Adicionar cor </button>
+                    <select id="select_palette">
+                        <option>Padrão</option>
+                        <option>Futurista</option>
+                        <option>Infantil</option>
+                    </select>
+                    <button class="bt-jogo" onclick="mudar_cor()">Mudar Paleta de cor</button>
                 </div>
 
                 <div id="fonte">

@@ -32,12 +32,13 @@ footer a{
     text-decoration: none;
 }
 
-select, #caixa_seletor_cores input{
+select{
     cursor: pointer;
 }
 
 input{
     width: 230px;
+    cursor: pointer;
 }
 
 #introducao{
@@ -53,14 +54,13 @@ input{
 #jogo{
     width: 48vw;
     float: right;
-    text-align: center;
 }
 
 #tela{
     float: right;
     width: 48vw;
     height: 24vw;
-    background-color: rgb(122, 122, 230);
+    background-color: #fff;
     padding: 5px;
     border: 5px solid rgba(0, 0, 0, 0.7);
     font-family: Marhey;
@@ -72,15 +72,9 @@ input{
     font-size: 20px;
 }
 
-#caixa_seletor_cores{
-    float: left;
-    margin-left: 40px;
-}
-
-#fonte, #titulo{
+#fonte, #titulo, #caixa_seletor_cores{
     margin-top: 30px;
-    float: left;
-    margin-left: 40px;
+    margin-left: 30px;
 }
 
 #fonte select{
@@ -160,13 +154,7 @@ header button:hover{
 
 #tela button{
     margin-top: 5px;
-    border-color:#00ff62;
-    background: linear-gradient(to bottom, #83f781 5%, #00ff62 100%);
-    box-shadow:inset 0px 1px 0px 0px #fdf7f0;
-}
-
-#tela button:hover{
-    background: linear-gradient(to bottom, #00ff62 5%, #83f781 100%);
+    box-shadow:inset 0px 1px 0px 0px #24242330;
 }
 
 #cadastro{
@@ -177,10 +165,6 @@ header button:hover{
 #login{
     margin-right: 15px;
     margin-top: 10px;
-}
-
-input{
-    cursor: pointer;
 }
 
 header p{
@@ -257,18 +241,6 @@ header p{
         width: 90vw;
         height: 45vw;
     }
-
-    #caixa_seletor_cores{
-        float: none;
-        margin-left: 30px;
-        width: 100vw;
-    }
-
-    #fonte, #titulo{
-        float: none;
-        margin-left: 30px;
-    }
-    
 }
 
 @media screen and (max-width: 650px){
@@ -292,11 +264,7 @@ header p{
         height: 50vw;
     }
 
-    #caixa_seletor_cores{
-        margin-left: 10px;
-    }
-
-    #fonte, #titulo{
+    #fonte, #titulo, #caixa_seletor_cores{
         margin-left: 10px;
     }
 }

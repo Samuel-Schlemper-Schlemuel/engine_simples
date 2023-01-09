@@ -100,3 +100,6 @@ Agora a verção estavel e ultilizavel do site está terminada, já que existe u
 
 ## Atualização 29
 Agora se pode adicionar um título ao jogo.
+
+## Atulaização 30
+Agora a forma de cores mudou, fazendo com que em vez de o usuário escolha as cores diretamente, ele escolhe uma paleta de cores.
