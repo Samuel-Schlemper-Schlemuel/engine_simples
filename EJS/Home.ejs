@@ -18,6 +18,7 @@
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
         </script>
+        <link rel="shortcut icon" href="#">
     </head>
     <body>
         <header>
@@ -84,7 +85,10 @@
             <%}%>
             <% if(temporaly_games != null) { %>
                 <script>
-                    localStorage.setItem('temporaly_game', '<%= temporaly_games%>')
+                    var tempo_game = '<%= temporaly_games%>'
+                    tempo_game = JSON.parse(tempo_game.split('&#34;').join('"'))
+                    tempo_game.imagens = []
+                    localStorage.setItem('temporaly_game', JSON.stringify(tempo_game))
                 </script>
             <% } else { %>
                 <script>
@@ -102,7 +106,7 @@
         <main>
             <div id='introducao'>
                 <h1>Bem Vindo!</h1>
-                <p>Aqui você podera fazer um jogo simples onde podes usar em qualquer site seu, e isso de graça!</p>
+                <p>Aqui você podera fazer um jogo simples (limite de 17mb por jogo) onde podes usar em qualquer site seu, e isso de graça!</p>
             </div>
             <br>
             <div id='jogo'>
@@ -110,7 +114,7 @@
 
                 </div>
 
-                <input type="text" id="titulo" placeholder="Nome do jogo" maxlength="40">
+                <input type="text" id="titulo" placeholder="Nome do jogo" maxlength="40" onkeyup="escrito()">
 
                 <div id="caixa_seletor_cores">
                     <select id="select_palette">
@@ -151,6 +155,11 @@
                                     <div id='input_1_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_2' type="text" placeholder="A resposta certa" maxlength="40"> </div>
                                     <div id='input_2_questao_1'> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input id='questao_1_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>
                                 </div>
+                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
+                                <label class="file" tabindex="0">
+                                    <input id="0" class="input" type="file" accept="image/*, video/*">
+                                    <span> Escolha uma imagem ou vídeo </span>
+                                </label>
                         </div>
                     <br>
                 </div>

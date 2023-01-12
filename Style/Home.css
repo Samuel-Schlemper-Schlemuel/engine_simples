@@ -41,6 +41,28 @@ input{
     cursor: pointer;
 }
 
+input[type='file']{
+    display: none;
+}
+
+.file{
+    cursor: pointer;
+    width: 350px;
+    height: 200px;
+    background: rgb(182, 182, 182);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+    border: 2px dashed gray;
+    overflow: hidden;
+}
+
+.file:hover{
+    background: gray;
+    border: 2px dashed black;
+}
+
 #introducao{
     text-align: center;
     margin-top: 50px;
@@ -104,6 +126,10 @@ header button{
 
 header button:hover{
     background:linear-gradient(to bottom, #75ca72 5%, #abd5aa 100%);
+}
+
+.button_tela{
+    text-align: center;
 }
 
 .bt-gr{

@@ -16,6 +16,12 @@ input{
     font-size: 18px;
 }
 
+footer{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 610px) {
     input{
         height: 23px;

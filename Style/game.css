@@ -17,7 +17,7 @@ body{
 button{
     font-size: 22px;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 10px;
     border-color:#00ff62;
     background: linear-gradient(to bottom, #83f781 5%, #00ff62 100%);
     box-shadow:inset 0px 1px 0px 0px #fdf7f0;
@@ -33,13 +33,18 @@ button:hover{
     background: linear-gradient(to bottom, #00ff62 5%, #83f781 100%);
 }
 
+button:active{
+    position: relative;
+    top: 8px;
+}
+
 #pergunta{
     margin-top: 4vh;
     font-size: 26px;
 }
 
 @media screen and (max-width: 650px){
-    #tela button{
+    button{
         font-size: 20px;
     }
 

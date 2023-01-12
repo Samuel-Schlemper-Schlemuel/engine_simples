@@ -16,6 +16,12 @@ input{
     font-size: 18px;
 }
 
+footer{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
 @media screen and (max-height: 270px), screen and (max-width: 460px) {
     div{
         position: static;

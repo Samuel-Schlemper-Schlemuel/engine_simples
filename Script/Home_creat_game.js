@@ -16,7 +16,8 @@ var game = {
     paleta: paletas['Padrão'],
     paleta_name: 'Padrão',
     fonte: 'Marhey',
-    imagem: false
+    imagens: [''],
+    titulo: ''
 }
 
 if (localStorage.getItem('temporaly_game') != null){
@@ -30,8 +31,9 @@ if(tempo_game != null){
     tempo_game.questoes = convertToObject(tempo_game.questoes)
     tempo_game.quantidade_questao = Number.parseInt(tempo_game.quantidade_questao)
 
-    if(typeof tempo_game.imagem == 'string'){
-        tempo_game.imagem = tempo_game.imagem.toLowerCase() == 'true'
+    tempo_game.imagens = tempo_game.imagens.slice(0, tempo_game.quantidade_questao)
+    for(i in tempo_game.imagens){
+        tempo_game.imagens[i] = ''
     }
 
     for(let c = 1; c <= tempo_game.quantidade_questao; c++){
@@ -47,6 +49,7 @@ if(tempo_game != null){
     document.getElementById('select_fonte').value = tempo_game.fonte
     mudar_fonte()
     document.getElementById('tela').style.backgroundColor = tempo_game.paleta[0]
+    document.getElementById('titulo').value = tempo_game.titulo
     game = JSON.parse(JSON.stringify(tempo_game))
     valor()
     save()
@@ -55,7 +58,9 @@ if(tempo_game != null){
 function save(){
     if(newGame){
         manipular_perguntas()
-        localStorage.setItem('game', JSON.stringify(game))
+        let tempo_game = JSON.parse(JSON.stringify(game))
+        tempo_game.imagens = []
+        localStorage.setItem('game', JSON.stringify(tempo_game))
     }
 }
 
@@ -70,8 +75,15 @@ function adicionar_questao(){
                                                                <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="40"> </div>
                                                                 <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>
                                                             </div>
+                                                            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
+                                                            <label class="file" tabindex="0">
+                                                                <input id="${game.quantidade_questao}" class="input" type="file" accept="image/*, video/*">
+                                                                <span> Escolha uma imagem ou vídeo </span>
+                                                            </label>
                                                         </div>`
+    game.imagens.push('')
     valor()
+    creatEvent()
     game.quantidade_questao += 1
     game.questoes[game.quantidade_questao] = 3
     game.perguntas.push(["", "", ""])
@@ -95,6 +107,7 @@ function remover_questao(){
         document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
         game.questoes[game.quantidade_questao] = undefined
         game.quantidade_questao -= 1
+        game.imagens.pop()
     }
     save()
 }
@@ -141,6 +154,12 @@ function manipular_perguntas(){
     }
 }
 
+function escrito(){
+    const titulo = document.getElementById('titulo').value
+    game.titulo = titulo
+    save()
+}
+
 function criar_jogo(){
     manipular_perguntas()
     save()
@@ -154,16 +173,80 @@ function botoes(){
     let tela = document.getElementById('tela')
     let tela_largura = tela.clientWidth
     let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
-    let button_width = tela_largura - 170
+    let button_width = tela_largura*0.9
+    ordenado.sort()
+    const base64 = game.imagens[contagem_de_arrays]
 
-    if(button_width > tela_largura - 170){
-        button_width = tela_largura - 170
-    } else if(button_width < 170){
-        button_width = 170
+    tela.innerHTML =  `
+    <p id='pergunta'>${game.perguntas[contagem_de_arrays][0]}</p> 
+    <div id="imagem_tela"></div>
+    <div id="botoes_tela"><div>
+    `
+
+    if(base64 != ''){
+        let img, event, attributes
+
+        if(/data:video/.test(base64)){
+            img = document.createElement('video')
+            event = 'loadedmetadata'
+            attributes = ['autoplay', 'loop', 'controls']
+        } else {
+            img = document.createElement('img')
+            event = 'load'
+        }
+
+        img.src = base64
+
+        img.addEventListener(event, () => {
+            for(i in attributes){
+                img.setAttribute(attributes[i], '')
+            }
+
+            let img_width, img_height
+
+            if(img.width == 0){
+                img_width = img.videoWidth
+                img_height = img.videoHeight
+            } else {
+                img_width = img.width
+                img_height = img.height
+            }
+
+            const pro_width = tela_largura/img_width
+            const pro_height = tela.clientHeight*0.4/img_height
+            let mWW = img_width*pro_width
+            let mHW = img_height*pro_width
+            let mWH = img_width*pro_height
+            let mHH = img_height*pro_height
+
+            if(pro_width < pro_height){
+                if(mWW < 150){
+                    mHW = mHW + mHW / (mWW / (150 - mWW)) 
+                    mWW = 150
+                } else if(mHW < 200){
+                    mWW = mWW + mWW / (mHW / (200 - mHW)) 
+                    mHW = 200
+                }
+
+                img.height = mHW
+                img.width = mWW
+            } else {
+                if(mWH < 150){
+                    mHH = mHH + mHH / (mWH / (150 - mWH)) 
+                    mWH = 150
+                } else if(mHH < 200){
+                    mWH = mWH + mWH / (mHH / (200 - mHH)) 
+                    mHH = 200
+                }
+
+                img.height = mHH
+                img.width = mWH
+            }
+
+            document.getElementById('imagem_tela').appendChild(img)
+        })
     }
 
-    ordenado.sort()
-    tela.innerHTML =  `<p id='pergunta'>${game.perguntas[contagem_de_arrays][0]}</p> <div id="botoes_tela"><div>`
     var botoes_tela = document.getElementById('botoes_tela')
     for(let c = 0; c < ordenado.length; c++){
         if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
@@ -172,11 +255,7 @@ function botoes(){
             botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("errado")'>${ordenado[c]}</button>`
         }
     }
-    if(!game.imagem){
-        document.getElementById('botoes_tela').style.textAlign = 'center'
-    } else {
-        document.getElementById('botoes_tela').style.paddingLeft = '150px'
-    }
+
     contagem_de_arrays += 1
 
     let els = document.getElementsByClassName('button_tela')
@@ -241,8 +320,6 @@ function salvar_jogo(){
     save()
     const email = localStorage.getItem('email')
     const senha = localStorage.getItem('senha')
-    const titulo = document.getElementById('titulo').value
-    game.titulo = titulo
 
     if(email == null || senha == null){
         document.location.href = '/login'
@@ -302,3 +379,76 @@ function convertToObject(object){
 
     return result
 }
+
+function creatEvent(){
+    const els = document.getElementsByClassName('input')
+    for(i in els){
+        if(!isNaN(Number.parseInt(i))){
+            els[i].addEventListener('change', (event) => {
+                const curTar = event.currentTarget
+                const file = event.target.files[0]
+
+                if(file.size / 1024 / 1024 > 10){
+                    curTar.parentNode.children[1].innerHTML = 'O limite de tamanho é 10 mb'
+                    return
+                }
+
+                if(file){
+                    const reader = new FileReader()
+
+                    if(/image/.test(file.type)){
+                        reader.addEventListener('load', (e) => {
+                            const readerTarget = e.target
+                            const img = document.createElement('img')
+                            img.src = readerTarget.result
+
+                            img.addEventListener('load', (e) => {
+                                if(350/img.width < 200/img.height){
+                                    img.style.scale = 350/img.width
+                                } else {
+                                    img.style.scale = 200/img.height
+                                }
+
+                                curTar.parentNode.children[1].innerHTML = ''
+                                curTar.parentNode.children[1].appendChild(img)
+                                const base64String = readerTarget.result
+                                game.imagens[curTar.id] = base64String
+                            })
+                        })
+                    } else {
+                        reader.addEventListener('load', (e) => {
+                            const readerTarget = e.target
+                            const video = document.createElement('video')
+                            video.src = readerTarget.result
+                            video.setAttribute('autoplay', '')
+                            video.setAttribute('loop', '')
+                            video.setAttribute('controls', '')
+
+                            video.addEventListener( "loadedmetadata", function (e) {
+                                const pro_width = 350/video.videoWidth
+                                const pro_height = 200/video.videoHeight
+    
+                                if(pro_width < pro_height){
+                                    video.style.scale = pro_width
+                                } else {
+                                    video.style.scale = pro_height
+                                }
+    
+                                curTar.parentNode.children[1].innerHTML = ''
+                                curTar.parentNode.children[1].appendChild(video)
+                                const base64String = reader.result
+                                game.imagens[curTar.id] = base64String
+                            })
+                        })
+                    }
+
+                    reader.readAsDataURL(file)
+                } else {
+                    curTar.parentNode.children[1].innerHTML = 'Arquivo inválido'
+                }
+            })
+        }
+    }
+}
+
+creatEvent()

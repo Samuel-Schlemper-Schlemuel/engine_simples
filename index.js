@@ -24,6 +24,8 @@ function alert(msg, res, arquivo){
 app.use(express.static(__dirname + '/Style'))
 app.use(express.static(__dirname + '/Script'))
 app.set('view engine', 'ejs')
+app.use(express.json({limit: '18mb'}))
+app.use(express.urlencoded({limit: '18mb'}))
 
 app.use(express.urlencoded({
     extended: true

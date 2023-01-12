@@ -103,3 +103,7 @@ Agora se pode adicionar um título ao jogo.
 
 ## Atulaização 30
 Agora a forma de cores mudou, fazendo com que em vez de o usuário escolha as cores diretamente, ele escolhe uma paleta de cores.
+
+## Atulização 31
+Agora o site é capaz de botar imagens e vídeos no jogo. O projeto está praticamente finalizado, todas as funções propostas no ínicio do projeto
+estão praticamente pronta. Eu posso vir a fazer atualizações para corrigir bugs e melhorar o desempenho, mas por hora é isso.
