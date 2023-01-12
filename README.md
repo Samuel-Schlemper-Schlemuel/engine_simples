@@ -1,9 +1,7 @@
 # Engine Simples
 Site hospedado no render: [Engine Simples](https://engine-simples.onrender.com).
 
-## Exemplo
-
-<iframe frameborder="0" src="https://engine-simples.onrender.com/game/ujkgms9tfqw40qxdc56k" style="width: 550px; height: 275px;"></iframe>
+Exemplo: https://engine-simples.onrender.com/game/ujkgms9tfqw40qxdc56k
 
 Este projeto foi criado quando minha mãe disse que precisava de um programa que fizesse isso gratuitamente, o objetivo dele é fazer ser uma engine simples de jogos onde se pode criar um jogo de botões onde o usuário escolhe uma opção das dadas pelo criador e vê se foi a resposta certa ou não, o criador do jogo também pode adicionar uma imagem ou animação simples no jogo, o resultado final pode ser baixado ou adicionado a outro site.
 
