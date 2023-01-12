@@ -321,6 +321,13 @@ function mudar_fonte(){
 }
 
 function salvar_jogo(){
+    let bytes = new TextEncoder().encode(JSON.stringify(game)).length
+
+    if(bytes / 1024 / 1024 > 17){
+        alert('Esse jogo tem mais que 17mb')
+        return
+    }
+    
     save()
     const email = localStorage.getItem('email')
     const senha = localStorage.getItem('senha')

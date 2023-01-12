@@ -24,9 +24,9 @@ button{
     border:1px solid #00000030;
     border-radius:4px;
     padding:4px 23px;
-    width: calc(100vw - 170px);
+    width: 93vw;
     max-width: 800px;
-    min-width: 200px;
+    min-width: 300px;
 }
 
 button:hover{
