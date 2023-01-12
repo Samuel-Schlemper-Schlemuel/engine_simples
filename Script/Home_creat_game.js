@@ -51,6 +51,10 @@ if(tempo_game != null){
     document.getElementById('tela').style.backgroundColor = tempo_game.paleta[0]
     document.getElementById('titulo').value = tempo_game.titulo
     game = JSON.parse(JSON.stringify(tempo_game))
+    game.imagens = []
+    for(i in game.perguntas){
+        game.imagens.push('')
+    }
     valor()
     save()
 }
