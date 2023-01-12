@@ -13,11 +13,15 @@ if(links == 'não há'){
 
 function apagar(link){
     if(confirm('Você quer mesmo apagar esse jogo?')){
+        titles.splice(links.indexOf(link), 1)
         links.splice(links.indexOf(link), 1)
+
         if(links.length == 0){
             localStorage.setItem('games', 'não há')
+            localStorage.setItem('titles', '')
         } else {
             localStorage.setItem('games', links.toString())
+            localStorage.setItem('titles', titles.toString())
         }
 
         $.ajax({

@@ -350,7 +350,7 @@ function salvar_jogo(){
                         localStorage.setItem('games', arrGames.toString())
 
                         let arrTitles = localStorage.getItem('titles').split(',')
-                        arrTitles.push(titulo)
+                        arrTitles.push(game.titulo)
                         localStorage.setItem('titles', arrTitles.toString())
                         
                         document.location.href = data
