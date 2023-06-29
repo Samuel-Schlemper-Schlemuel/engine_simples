@@ -1,3 +1,5 @@
+var max_perguntas = 120
+var max_respostas = 90
 var contagem_de_arrays = 0
 var pontuacao = 0
 var perguntas_da_questao = []
@@ -13,6 +15,7 @@ var game = {
     questoes: {1: 3},
     quantidade_questao: 1,
     perguntas: [],
+    perguntas_imagens: {1: [null, null]},
     paleta: paletas['Padrão'],
     paleta_name: 'Padrão',
     fonte: 'Marhey',
@@ -30,11 +33,7 @@ if (localStorage.getItem('temporaly_game') != null){
 if(tempo_game != null){
     tempo_game.questoes = convertToObject(tempo_game.questoes)
     tempo_game.quantidade_questao = Number.parseInt(tempo_game.quantidade_questao)
-
-    tempo_game.imagens = tempo_game.imagens.slice(0, tempo_game.quantidade_questao)
-    for(i in tempo_game.imagens){
-        tempo_game.imagens[i] = ''
-    }
+    tempo_game.imagens = []
 
     for(let c = 1; c <= tempo_game.quantidade_questao; c++){
         if(c >= 2){
@@ -45,6 +44,7 @@ if(tempo_game != null){
             adicionar_resposta(c)
         }
     }
+
     document.getElementById('select_palette').value = tempo_game.paleta_name
     document.getElementById('select_fonte').value = tempo_game.fonte
     mudar_fonte()
@@ -52,9 +52,25 @@ if(tempo_game != null){
     document.getElementById('titulo').value = tempo_game.titulo
     game = JSON.parse(JSON.stringify(tempo_game))
     game.imagens = []
+    game.perguntas_imagens = {1: [null, null]}
+
     for(i in game.perguntas){
         game.imagens.push('')
     }
+
+    for(let pergunta in game.perguntas){
+        pergunta = Number(pergunta)
+        if(pergunta >= 1){
+            game.perguntas_imagens[pergunta + 1] = [null, null]
+        }
+
+        for(let i in Array.from({length: game.questoes[pergunta + 1]}, () => 1)){
+            if(i >= 3){
+                game.perguntas_imagens[pergunta + 1].push(null)
+            }
+        }
+    }
+
     valor()
     save()
 }
@@ -63,7 +79,8 @@ function save(){
     if(newGame){
         manipular_perguntas()
         let tempo_game = JSON.parse(JSON.stringify(game))
-        tempo_game.imagens = []
+        tempo_game.imagens = ['']
+        tempo_game.perguntas_imagens = {1: [null, null]}
         localStorage.setItem('game', JSON.stringify(tempo_game))
     }
 }
@@ -75,9 +92,9 @@ function adicionar_questao(){
                                                             <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
                                                             <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button></p>
                                                             <div id='questao_${game.quantidade_questao + 1}'>
-                                                            ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="60">
-                                                               <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="40"> </div>
-                                                                <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>
+                                                            ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
+                                                               <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                                <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
                                                             </div>
                                                             <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
                                                             <label class="file" tabindex="0">
@@ -87,11 +104,13 @@ function adicionar_questao(){
                                                         </div>`
     game.imagens.push('')
     valor()
-    creatEvent()
     game.quantidade_questao += 1
     game.questoes[game.quantidade_questao] = 3
     game.perguntas.push(["", "", ""])
+    game.perguntas_imagens[game.quantidade_questao] = [null, null]
     save()
+    $('[data-toggle="tooltip"]').tooltip()
+    creatEvent()
 }
 
 function repeat(text, times){
@@ -110,6 +129,7 @@ function remover_questao(){
     } else {
         document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
         game.questoes[game.quantidade_questao] = undefined
+        delete game.perguntas_imagens[game.quantidade_questao]
         game.quantidade_questao -= 1
         game.imagens.pop()
     }
@@ -121,10 +141,13 @@ function adicionar_resposta(questao){
         alert('Limite maximo de escolhas alcançado na questão ' + questao)
     } else {
         manipular_perguntas()
-        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao] + 1}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="40"> </div>`
+        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao]}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>`
         valor()
         game.questoes[questao] += 1
         game.perguntas[questao - 1].push('')
+        game.perguntas_imagens[questao].push(null)
+        $('[data-toggle="tooltip"]').tooltip()
+        creatEvent()
     }
     save()
 }
@@ -133,8 +156,9 @@ function deletar_resposta(questao){
     if(game.questoes[questao] === 3){
         alert('Minimo de escolhas alcançado na questão ' + questao)
     } else {
-        document.getElementById(`input_${game.questoes[questao]}_questao_${questao}`).remove()
+        document.getElementById(`input_${game.questoes[questao] - 1}_questao_${questao}`).remove()
         game.questoes[questao] -= 1
+        game.perguntas_imagens[questao].pop()
     }
     save()
 }   
@@ -164,6 +188,54 @@ function escrito(){
     save()
 }
 
+async function ImgVideoMaker(src, bW){
+    let FinalTag
+    const tagWidth = bW - 10
+    let tag, event, attributes 
+
+    if(/data:video/.test(src)){
+        tag = document.createElement('video')
+        event = 'loadedmetadata'
+        attributes = ['controls']
+    } else {
+        tag = document.createElement('img')
+        event = 'load'
+    }
+
+    tag.src = src
+
+    await new Promise ((resolve) => {
+            tag.addEventListener(event, () => {
+            for(i in attributes){
+                tag.setAttribute(attributes[i], '')
+            }
+
+            let tag_width, tag_height
+
+            if(tag.height == 0){
+                tag_width  = tag.videoWidth
+                tag_height = tag.videoHeight
+            } else {
+                tag_height = tag.height
+                tag_width  = tag.width
+            }
+
+            tag.height = tag_height * (tagWidth / tag_width)
+            tag.width = tagWidth
+
+            if(tag.height > 200){
+                tag.width = tag.width * (200 / tag.height)
+                tag.height = 200
+            }
+
+            FinalTag = tag
+            resolve()
+        })
+    })
+
+    return FinalTag.outerHTML
+}
+
 function criar_jogo(){
     manipular_perguntas()
     save()
@@ -172,13 +244,22 @@ function criar_jogo(){
     botoes()
 }
 
-function botoes(){
+async function botoes(){
     document.getElementById('tela').style.color = game.paleta[5]
     let tela = document.getElementById('tela')
     let tela_largura = tela.clientWidth
-    let ordenado =  game.perguntas[contagem_de_arrays].slice(1,)
+    let ordenado = []
+
+    for(i in game.perguntas[contagem_de_arrays].slice(1,)){
+        if(game.perguntas_imagens[contagem_de_arrays + 1][i] != null){
+            ordenado.push(game.perguntas_imagens[contagem_de_arrays + 1][i])
+        } else {
+            ordenado.push(game.perguntas[contagem_de_arrays][Number(i) + 1])
+        }
+    }
+
+    const ordenadoSort = [...ordenado].sort()
     let button_width = tela_largura*0.9
-    ordenado.sort()
     const base64 = game.imagens[contagem_de_arrays]
 
     tela.innerHTML =  `
@@ -252,12 +333,16 @@ function botoes(){
     }
 
     var botoes_tela = document.getElementById('botoes_tela')
-    for(let c = 0; c < ordenado.length; c++){
-        if(game.perguntas[contagem_de_arrays][1] === ordenado[c]){
-            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("certo")'>${ordenado[c]}</button>`
+
+    for(let c = 0; c < ordenadoSort.length; c++){  
+        const resposta =  /data:image\/.*;base64,.+/.test(ordenadoSort[c]) || /data:video\/.*;base64,.+/.test(ordenadoSort[c]) ? await ImgVideoMaker(ordenadoSort[c], button_width) : ordenadoSort[c]
+
+        if(ordenado[0] === ordenadoSort[c]){
+            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("certo")'>${resposta}</button>`
         } else {
-            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("errado")'>${ordenado[c]}</button>`
+            botoes_tela.innerHTML += `<button class='button_tela' style='color: ${game.paleta[5]}; width:${button_width}px; font-family:${game.fonte}; background:${game.paleta[3]};' onclick='resposta("errado")'>${resposta}</button>`
         }
+
     }
 
     contagem_de_arrays += 1
@@ -460,6 +545,83 @@ function creatEvent(){
             })
         }
     }
+
+    const icons = document.getElementsByClassName('icons')
+    const answers = document.getElementsByClassName('answers')
+
+    for(i in icons){
+        if(!isNaN(Number.parseInt(i))){
+            
+            icons[i].addEventListener('click', (e) => {
+                const curTar = e.currentTarget
+                curTar.parentNode.children[2].click()
+            })
+
+            answers[i].addEventListener('change', (e) => {
+                const curTar = e.currentTarget
+
+                if(e.target.files[0].size / 1024 / 1024 > 5){
+                    alert('Essa imagem/vídeo tem mais que 5mb')
+                    return
+                }
+
+                if (curTar.files && curTar.files[0]) {
+                    const reader = new FileReader()
+                
+                    reader.onload = async function(e) {
+                        const maxHeight = 200
+                        const maxWidth = 200
+
+                        if(/image/.test(curTar.files[0].type)){
+                            const imageURL = e.target.result
+                            const img = document.createElement('img')
+                            img.src = imageURL
+                            img.alt = 'Imagem'
+                            
+                            img.addEventListener('load', (e) => {
+                                if(maxWidth/img.width < maxHeight/img.height){
+                                    img.height = img.height * maxWidth/img.width
+                                    img.width = maxWidth
+                                } else {
+                                    img.width = img.width * maxHeight/img.height
+                                    img.height = maxHeight
+                                }
+    
+                                game.perguntas_imagens[curTar.parentNode.id.split('')[curTar.parentNode.id.length - 1]][curTar.parentNode.id.split('')[6] - 1] = imageURL
+                                $(curTar.parentNode.children[1]).attr("data-original-title", img.outerHTML)
+                            })
+                        } else {
+                            const videoURL = e.target.result
+                            const video = document.createElement('video')
+                            video.src = videoURL
+                            video.alt = 'Vídeo'
+                            video.setAttribute('controls', '')
+                            
+                            video.addEventListener('loadedmetadata', (e) => {
+                                if(maxWidth/video.videoWidth < maxHeight/video.videoHeight){
+                                    video.height = video.videoHeight * maxWidth/video.videoWidth
+                                    video.width = maxWidth
+                                } else {
+                                    video.width = video.videoWidth * maxHeight/video.videoHeight
+                                    video.height = maxHeight
+                                }
+
+                                game.perguntas_imagens[curTar.parentNode.id.split('')[curTar.parentNode.id.length - 1]][curTar.parentNode.id.split('')[6] - 1] = videoURL
+                                $(curTar.parentNode.children[1]).attr("data-original-title", video.outerHTML)
+                            })
+                        }
+                    }
+
+                    $('[data-toggle="tooltip"]').tooltip()
+                    reader.readAsDataURL(curTar.files[0])
+                }
+            })
+        }
+    }
 }
 
+manipular_perguntas()
+document.getElementById('perguntas').innerHTML += ''
+valor()
+$('[data-toggle="tooltip"]').tooltip()
 creatEvent()

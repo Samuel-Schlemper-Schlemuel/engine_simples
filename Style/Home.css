@@ -245,6 +245,14 @@ header p{
 #sair:hover, #jogos:hover{
     background-color: rgb(255, 255, 106);
     border-radius: 6px;
+    color: black;
+}
+
+.bi-aspect-ratio{
+    position: relative;
+    top: 4px;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 830px) {
