@@ -15,7 +15,8 @@
         "express": "^4.18.1",
         "mongoose": "^6.6.2",
         "nodemailer": "^6.8.0",
-        "nodemon": "^2.0.20"
+        "nodemon": "^2.0.20",
+        "bcrypt": "^5.1.1"
     },
     "keywords": [
         "node",
