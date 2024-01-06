@@ -87,21 +87,26 @@ function save(){
 
 function adicionar_questao(){
     manipular_perguntas()
-    document.getElementById('perguntas').innerHTML += `<div id='questao_completa_${game.quantidade_questao + 1}'>
-                                                         <p>${repeat('&nbsp', 4)}Questão ${game.quantidade_questao + 1}: Clique para adicionar uma nova resposta a essa questão (minimo de 2 e maximo de 8)
+    document.getElementById('perguntas').innerHTML += `<div class='pergunta' id='questao_completa_${game.quantidade_questao + 1}'>
+                                                         <p>${repeat('&nbsp', 4)}
+                                                            <p>Questão ${game.quantidade_questao + 1}</p>
                                                             <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
-                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button></p>
-                                                            <div id='questao_${game.quantidade_questao + 1}'>
+                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button>
+                                                         </p>
+                                                            <div class='questao' id='questao_${game.quantidade_questao + 1}'>
                                                             ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
                                                                <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
                                                                 <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
                                                             </div>
-                                                            <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
-                                                            <label class="file" tabindex="0">
-                                                                <input id="${game.quantidade_questao}" class="input" type="file" accept="image/*, video/*">
-                                                                <span> Escolha uma imagem ou vídeo </span>
-                                                            </label>
-                                                        </div>`
+                                                            <div class='imagem'>
+                                                                <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
+                                                                <label class="file" tabindex="0">
+                                                                    <input id="${game.quantidade_questao}" class="input" type="file" accept="image/*, video/*">
+                                                                    <span> Escolha uma imagem ou vídeo </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <br>`
     game.imagens.push('')
     valor()
     game.quantidade_questao += 1
@@ -124,9 +129,7 @@ function repeat(text, times){
 }
 
 function remover_questao(){
-    if(game.quantidade_questao === 1){
-        alert('Minimo de questões alcançado')
-    } else {
+    if(game.quantidade_questao > 1){
         document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
         game.questoes[game.quantidade_questao] = undefined
         delete game.perguntas_imagens[game.quantidade_questao]
@@ -137,9 +140,7 @@ function remover_questao(){
 }
 
 function adicionar_resposta(questao){
-    if(game.questoes[questao] === 9){
-        alert('Limite maximo de escolhas alcançado na questão ' + questao)
-    } else {
+    if(game.questoes[questao] < 9) {
         manipular_perguntas()
         document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao]}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>`
         valor()
@@ -153,9 +154,7 @@ function adicionar_resposta(questao){
 }
 
 function deletar_resposta(questao){
-    if(game.questoes[questao] === 3){
-        alert('Minimo de escolhas alcançado na questão ' + questao)
-    } else {
+    if(game.questoes[questao] > 3){
         document.getElementById(`input_${game.questoes[questao] - 1}_questao_${questao}`).remove()
         game.questoes[questao] -= 1
         game.perguntas_imagens[questao].pop()
