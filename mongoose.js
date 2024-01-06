@@ -66,7 +66,11 @@ async function findCount(email){
     return result
 }
 
-function saveGame(game, email, username){
+async function saveGame(game, email, username){
+    function sleep(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
     var text1 = Math.random().toString(36).slice(2)
     var text2 = Math.random().toString(36).slice(2)
     var text3 = Math.random().toString(36).slice(2)
@@ -81,6 +85,7 @@ function saveGame(game, email, username){
     })
 
     jogo.save()
+    await sleep(500)
     return '/' + text
 }
 

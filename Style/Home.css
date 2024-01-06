@@ -11,13 +11,17 @@ button{
     padding:4px 6px;
 }
 
-button:active{
-    position:relative;
-    top:2px;
+button:active {
+    position: relative;
+    top: 2px;
 }
 
 button a, .link{
     color: black;
+    text-decoration: none;
+}
+
+.link:hover {
     text-decoration: none;
 }
 

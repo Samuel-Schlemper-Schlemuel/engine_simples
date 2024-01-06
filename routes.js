@@ -207,8 +207,9 @@ module.exports = function (app) {
         } else {
             return f.alert('Houve um erro, tente novamente mais tarde', res, '/login.ejs')
         }
-    
-        let url = '/game' + mongo.saveGame(game, email, username)
+        
+        const link = await mongo.saveGame(game, email, username)
+        const url = '/game' + link 
     
         res.send(url)
     })
