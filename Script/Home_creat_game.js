@@ -11,6 +11,7 @@ var paletas = {
     'Futurista': ['#000D0D', '#F21326', '#00FF00', 'linear-gradient(to bottom, #05F2F2 5%, #0D5FA6 100%)', 'linear-gradient(to bottom, #0D5FA6 5%, #05F2F2 100%)', '#F2F2F2'],
     'Infantil': ['#FFED67', '#FF0000', '#00FF00', 'linear-gradient(to bottom, #bee6bd 5%, #5A9FFF 100%)', 'linear-gradient(to bottom, #5A9FFF 5%, #bee6bd 100%)', '#000000']
 }
+
 var game = {
     questoes: {1: 3},
     quantidade_questao: 1,
@@ -87,16 +88,18 @@ function save(){
 
 function adicionar_questao(){
     manipular_perguntas()
-    document.getElementById('perguntas').innerHTML += `<div class='pergunta' id='questao_completa_${game.quantidade_questao + 1}'>
+    let actual = game.quantidade_questao + 1
+
+    document.getElementById('perguntas').innerHTML += `<div class='pergunta' id='questao_completa_${actual}'>
                                                          <p>${repeat('&nbsp', 4)}
-                                                            <p>Questão ${game.quantidade_questao + 1}</p>
-                                                            <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${game.quantidade_questao + 1})">Nova Resposta</button> 
-                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${game.quantidade_questao + 1})">Deletar última resposta</button>
+                                                            <p>Questão ${actual}</p>
+                                                            <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${actual})">Nova Resposta</button> 
+                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${actual})">Deletar última resposta</button>
                                                          </p>
-                                                            <div class='questao' id='questao_${game.quantidade_questao + 1}'>
-                                                            ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
-                                                               <div id='input_1_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
-                                                                <div id='input_2_questao_${game.quantidade_questao + 1}'> ${repeat('&nbsp', 8)}<input id='questao_${game.quantidade_questao + 1}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                            <div class='questao' id='questao_${actual}'>
+                                                            ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
+                                                               <div id='input_1_questao_${actual}'> ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                                <div id='input_2_questao_${actual}'> ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
                                                             </div>
                                                             <div class='imagem'>
                                                                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
@@ -176,9 +179,15 @@ function manipular_perguntas(){
         for(let c = 1; c <= game.questoes[i]; c++){
             perguntas_da_questao.push(document.getElementById(`questao_${i}_resposta_${c}`).value)
         }
+        if(game.perguntas)
         game.perguntas.push(perguntas_da_questao)
         perguntas_da_questao = []
     }
+}
+
+function apagar_tudo(){
+    localStorage.removeItem('game')
+    location.reload()
 }
 
 function escrito(){

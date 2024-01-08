@@ -141,6 +141,17 @@
 
                     <button class="bt-gr margem" id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
                     <button class="bt-rd margem" id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
+
+                    <div id="game-buttons">
+                        <button class='margem' id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
+                        <% if(temporaly_games != null) { %>
+                            <button id="salvar_jogo" class='margem' onclick="salvar_jogo()">Atualize o jogo</button>
+                            <button class='margem' id="cancelar_mudaca"><a href="/" class="link">Cancele mudança</a></button>  
+                        <% } else { %>
+                            <button class='margem' id="salvar_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
+                        <% } %>
+                        <button class='margem' id="apagar_tudo" onclick="apagar_tudo()">Apagar jogo</button>
+                    </div>
                 </div>
             </div>
             <br>
@@ -170,14 +181,6 @@
                         </div>
                     <br>
                 </div>
-                    <br>
-                    <button id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
-                    <% if(temporaly_games != null) { %>
-                        <button id="salvar_jogo" onclick="salvar_jogo()">Atualize o jogo</button>
-                        <button id="cancelar_mudaca"><a href="/">Cancele mudança</a></button>  
-                    <% } else { %>
-                        <button id="salvar_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
-                    <% } %>
             </div>
         </main>
         <footer><a href="https://samuel-schlemper-schlemuel.github.io/Curriculo/Principal.html">By Samuel Schlemper</a></footer> 
