@@ -109,7 +109,7 @@ function adicionar_questao(){
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                        <br>`
+                                                        <br id='br_${actual}'>`
     game.imagens.push('')
     valor()
     game.quantidade_questao += 1
@@ -134,6 +134,7 @@ function repeat(text, times){
 function remover_questao(){
     if(game.quantidade_questao > 1){
         document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
+        document.getElementById(`br_${game.quantidade_questao}`).remove()
         game.questoes[game.quantidade_questao] = undefined
         delete game.perguntas_imagens[game.quantidade_questao]
         game.quantidade_questao -= 1
