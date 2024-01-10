@@ -82,10 +82,13 @@ input[type='file']{
     border: 5px solid rgba(0, 0, 0, 0.7);
     font-family: Marhey;
     text-align: center;
+    float: right;
+    margin-left: 150px;
+    overflow: auto;
 }
 
 #detalhes{
-    float: right;
+    float: left;
 }
 
 .margem {
@@ -294,7 +297,7 @@ header p{
     }
 }
 
-@media screen and (max-width: 1026px) {
+@media screen and (max-width: 1050px) {
     .pergunta{
         display: block;
     }
@@ -303,13 +306,21 @@ header p{
         float: none;
         margin-top: 50px;
     }
-}
 
-@media screen and (max-width: 830px) {
+    #jogo{
+        display: block;
+    }
+
     #tela{
-        position: relative;
-        width: 90vw;
-        height: 45vw;
+        float: none;
+        width: 94vw;
+        height: 47vw;
+        margin-left: 0px;
+        min-height: 200px;
+    }
+
+    #detalhes{
+        float: none;
     }
 }
 
@@ -320,16 +331,6 @@ header p{
 }
 
 @media screen and (max-width: 520px){
-    #tela_inicial{
-        margin-left: 10px;
-    }
-
-    #tela{
-        position: static;
-        width: 100vw;
-        height: 50vw;
-    }
-
     #fonte, #titulo, #caixa_seletor_cores{
         margin-left: 10px;
     }
@@ -339,13 +340,6 @@ header p{
         width: 80vw;
         height: 46vw;
         right: 30px;
-    }
-}
-
-@media screen and (max-width: 420px){
-    #tela{
-        width: 420px;
-        height: 210px;
     }
 }
 

@@ -91,11 +91,11 @@ function adicionar_questao(){
     let actual = game.quantidade_questao + 1
 
     document.getElementById('perguntas').innerHTML += `<div class='pergunta' id='questao_completa_${actual}'>
-                                                         <p>${repeat('&nbsp', 4)}
-                                                            <p>Questão ${actual}</p>
+                                                         <div>
+                                                            <p>${repeat('&nbsp', 4)}Questão ${actual}</p>
                                                             <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${actual})">Nova Resposta</button> 
                                                             <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${actual})">Deletar última resposta</button>
-                                                         </p>
+                                                         </div>
                                                             <div class='questao' id='questao_${actual}'>
                                                             ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
                                                                <div id='input_1_questao_${actual}'> ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
@@ -401,6 +401,8 @@ function mudar_cor(){
     save()
 }
 
+document.getElementById('select_palette').addEventListener('change', mudar_cor)
+
 function mudar_fonte(){
     game.fonte = document.getElementById('select_fonte').value
     document.getElementById('tela').style.fontFamily = game.fonte
@@ -413,6 +415,8 @@ function mudar_fonte(){
     }
     save()
 }
+
+document.getElementById('select_fonte').addEventListener('change', mudar_fonte)
 
 function salvar_jogo(){
     let bytes = new TextEncoder().encode(JSON.stringify(game)).length

@@ -107,54 +107,9 @@
         <main>
             <div id='introducao'>
                 <h1>Bem Vindo!</h1>
-                <p>Aqui você podera fazer um jogo simples (limite de 17mb por jogo) onde podes usar em qualquer site seu, e isso de graça!</p>
+                <p>Aqui você podera fazer um jogo de pergunta e resposta (limite de 17mb por jogo) onde podes usar em qualquer site seu, e isso de graça!</p>
                 <p>Uma questão pode ter no minimo 2 perguntas e no máximo 8</p>
             </div>
-            <br>
-            <div id="jogo">
-                <div id='tela'>
-
-                </div>
-                <div id='detalhes'> 
-                    <input class='margem' type="text" id="titulo" placeholder="Nome do jogo" maxlength="60" onkeyup="escrito()">
-
-                    <div id="caixa_seletor_cores" class='margem'>
-                        <select id="select_palette">
-                            <option>Padrão</option>
-                            <option>Futurista</option>
-                            <option>Infantil</option>
-                        </select>
-                        <button class="bt-jogo" onclick="mudar_cor()">Mudar Paleta de cor</button>
-                    </div>
-
-                    <div id="fonte" class='margem'>
-                        <select id="select_fonte">
-                            <option id="marhey">Marhey</option>
-                            <option id="pacifico">Pacifico</option>
-                            <option id="georgian">Noto Serif Georgian</option>
-                            <option id="montserrat">Montserrat</option>
-                            <option id="roboto">Roboto</option>
-                            <option id="arial">Arial</option>
-                        </select>
-                        <button class="bt-jogo" onclick="mudar_fonte()">Mudar fonte</button>
-                    </div>
-
-                    <button class="bt-gr margem" id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
-                    <button class="bt-rd margem" id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
-
-                    <div id="game-buttons">
-                        <button class='margem' id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
-                        <% if(temporaly_games != null) { %>
-                            <button id="salvar_jogo" class='margem' onclick="salvar_jogo()">Atualize o jogo</button>
-                            <button class='margem' id="cancelar_mudaca"><a href="/" class="link">Cancele mudança</a></button>  
-                        <% } else { %>
-                            <button class='margem' id="salvar_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
-                        <% } %>
-                        <button class='margem' id="apagar_tudo" onclick="apagar_tudo()">Apagar jogo</button>
-                    </div>
-                </div>
-            </div>
-            <br>
             <br>    
             <div id='tela_inicial'>
                 <div id='perguntas'>
@@ -180,6 +135,49 @@
                             </div>
                         </div>
                     <br id="br_1">
+                </div>
+            </div>
+            <br>
+            <div id="jogo">
+                <div id='detalhes'> 
+                    <button class="bt-gr margem" id='nova_questao' onclick="adicionar_questao()">Nova Questão</button> 
+                    <button class="bt-rd margem" id='remover_questao' onclick="remover_questao()">Deletar última Questão</button>
+                    <br>
+                    <input class='margem' type="text" id="titulo" placeholder="Nome do jogo" maxlength="60" onkeyup="escrito()">
+
+                    <div id="caixa_seletor_cores" class='margem'>
+                        <select id="select_palette">
+                            <option>Padrão</option>
+                            <option>Futurista</option>
+                            <option>Infantil</option>
+                        </select>
+                    </div>
+
+                    <div id="fonte" class='margem'>
+                        <select id="select_fonte">
+                            <option id="marhey">Marhey</option>
+                            <option id="pacifico">Pacifico</option>
+                            <option id="georgian">Noto Serif Georgian</option>
+                            <option id="montserrat">Montserrat</option>
+                            <option id="roboto">Roboto</option>
+                            <option id="arial">Arial</option>
+                        </select>
+                    </div>
+
+                    <div id="game-buttons">
+                        <button class='margem' id="criar_jogo" onclick="criar_jogo()">Criar jogo!</button>
+                        <% if(temporaly_games != null) { %>
+                            <button id="salvar_jogo" class='margem' onclick="salvar_jogo()">Atualize o jogo</button>
+                            <button class='margem' id="cancelar_mudaca"><a href="/" class="link">Cancele mudança</a></button>  
+                        <% } else { %>
+                            <button class='margem' id="salvar_jogo" onclick="salvar_jogo()">Salve seu jogo</button>
+                        <% } %>
+                        <button class='margem' id="apagar_tudo" onclick="apagar_tudo()">Apagar jogo</button>
+                    </div>
+                </div>
+                <br>
+                <div id='tela'>
+
                 </div>
             </div>
         </main>
