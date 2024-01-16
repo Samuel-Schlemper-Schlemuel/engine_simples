@@ -1,6 +1,6 @@
 {
     "name": "engine_simples",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "description": "Uma engine para jogos simples, onde você podera adicionar os jogos criados com ela em seu site",
     "main": "index.js",
     "engines": {

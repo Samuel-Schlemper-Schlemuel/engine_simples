@@ -2,7 +2,6 @@ var max_perguntas = 120
 var max_respostas = 90
 var contagem_de_arrays = 0
 var pontuacao = 0
-var perguntas_da_questao = []
 var tempo_game
 var newGame = true
 // As paletas funcionam na ordem [Background, Error, Right, Button normal, Button with mouse, Letter]
@@ -40,9 +39,9 @@ if(tempo_game != null){
         if(c >= 2){
             adicionar_questao()
         }
-        
+        creatEvent()
         for(let i = 4; i <= tempo_game.questoes[c]; i++){
-            adicionar_resposta(c)
+            document.getElementById(c).getElementsByClassName('ad_res')[0].click()
         }
     }
 
@@ -90,26 +89,29 @@ function adicionar_questao(){
     manipular_perguntas()
     let actual = game.quantidade_questao + 1
 
-    document.getElementById('perguntas').innerHTML += `<div class='pergunta' id='questao_completa_${actual}'>
+    document.getElementById('perguntas').innerHTML += `<label class='pergunta' id='${actual}'>
                                                          <div>
                                                             <p>${repeat('&nbsp', 4)}Questão ${actual}</p>
-                                                            <button class="bt-gr" id='nova_resposta' onclick="adicionar_resposta(${actual})">Nova Resposta</button> 
-                                                            <button class="bt-rd" id='deletar_resposta' onclick="deletar_resposta(${actual})">Deletar última resposta</button>
                                                          </div>
-                                                            <div class='questao' id='questao_${actual}'>
-                                                            ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_1' type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
-                                                               <div id='input_1_questao_${actual}'> ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_2' type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
-                                                                <div id='input_2_questao_${actual}'> ${repeat('&nbsp', 8)}<input id='questao_${actual}_resposta_3' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                            <div class='questao'>
+                                                                ${repeat('&nbsp', 3)}<input class="question" type="text" placeholder="A pergunta" maxlength="${max_perguntas}">
+                                                                <br>
+                                                                <br>
+                                                                <div class="alternativa_correta"> ${repeat('&nbsp', 3)}<input type="text" placeholder="A resposta certa" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                                <div class="alternativa_errada"> ${repeat('&nbsp', 3)}<input type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>
+                                                            </div>
+                                                            <div>
+                                                                <button class="bt-gr ad_res">Nova alternativa</button>
                                                             </div>
                                                             <div class='imagem'>
                                                                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspOpcional: </p>
                                                                 <label class="file" tabindex="0">
-                                                                    <input id="${game.quantidade_questao}" class="input" type="file" accept="image/*, video/*">
+                                                                    <input class="input" type="file" accept="image/*, video/*">
                                                                     <span> Escolha uma imagem ou vídeo </span>
                                                                 </label>
                                                             </div>
-                                                        </div>
-                                                        <br id='br_${actual}'>`
+                                                            <br>
+                                                        </label>`
     game.imagens.push('')
     valor()
     game.quantidade_questao += 1
@@ -118,6 +120,7 @@ function adicionar_questao(){
     game.perguntas_imagens[game.quantidade_questao] = [null, null]
     save()
     $('[data-toggle="tooltip"]').tooltip()
+    document.getElementById(actual).getElementsByClassName('ad_res')[0].addEventListener('click', fn_add_res)
     creatEvent()
 }
 
@@ -133,8 +136,7 @@ function repeat(text, times){
 
 function remover_questao(){
     if(game.quantidade_questao > 1){
-        document.getElementById(`questao_completa_${game.quantidade_questao}`).remove()
-        document.getElementById(`br_${game.quantidade_questao}`).remove()
+        document.getElementById(`${game.quantidade_questao}`).remove()
         game.questoes[game.quantidade_questao] = undefined
         delete game.perguntas_imagens[game.quantidade_questao]
         game.quantidade_questao -= 1
@@ -143,46 +145,38 @@ function remover_questao(){
     save()
 }
 
-function adicionar_resposta(questao){
-    if(game.questoes[questao] < 9) {
-        manipular_perguntas()
-        document.getElementById(`questao_${questao}`).innerHTML += `<div id='input_${game.questoes[questao]}_questao_${questao}'> ${repeat('&nbsp', 8)}<input id='questao_${questao}_resposta_${game.questoes[questao] + 1}' type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i><input class="answers" type="file" accept="image/*, video/*" /> </div>`
-        valor()
-        game.questoes[questao] += 1
-        game.perguntas[questao - 1].push('')
-        game.perguntas_imagens[questao].push(null)
-        $('[data-toggle="tooltip"]').tooltip()
-        creatEvent()
-    }
-    save()
-}
-
-function deletar_resposta(questao){
-    if(game.questoes[questao] > 3){
-        document.getElementById(`input_${game.questoes[questao] - 1}_questao_${questao}`).remove()
-        game.questoes[questao] -= 1
-        game.perguntas_imagens[questao].pop()
-    }
-    save()
-}   
-
 function valor(){
-    for(let i = 1; i <= game.quantidade_questao; i++){
-        for(let c = 1; c <= game.questoes[i]; c++){
-            document.getElementById(`questao_${i}_resposta_${c}`).value = game.perguntas[i - 1][c - 1]
+    const perguntas = document.getElementsByClassName('pergunta')
+
+    for(let i = 0; i < game.quantidade_questao; i++){
+        let inputs = perguntas[i].getElementsByTagName('input')
+        let c = 0
+
+        for(let input of inputs){
+            if(input.type == 'text'){
+                if(game.perguntas[i][c] != undefined){
+                    input.value = game.perguntas[i][c]
+                    c++
+                }
+            }
         }
     }
 }
 
 function manipular_perguntas(){
+    const perguntas = document.getElementsByClassName('pergunta')
     game.perguntas = []
-    for(let i = 1; i <= game.quantidade_questao; i++){
-        for(let c = 1; c <= game.questoes[i]; c++){
-            perguntas_da_questao.push(document.getElementById(`questao_${i}_resposta_${c}`).value)
+
+    for(let el of perguntas){
+        const inputs = el.getElementsByTagName('input')
+        let temp = []
+        
+        for(let input of inputs){
+            if(input.type == 'text'){
+                temp.push(input.value)
+            }          
         }
-        if(game.perguntas)
-        game.perguntas.push(perguntas_da_questao)
-        perguntas_da_questao = []
+        game.perguntas.push(temp)
     }
 }
 
@@ -489,6 +483,133 @@ function convertToObject(object){
     return result
 }
 
+function fn_add_res(e){
+    const curTarDad = e.currentTarget.parentNode.parentNode
+
+    if(game.questoes[curTarDad.id] < 9) {
+        const id = curTarDad.id
+        manipular_perguntas()
+        
+        const add = `
+        <div class="alternativa_errada"> 
+            ${repeat('&nbsp', 3)}<input type="text" placeholder="Uma das respostas erradas" maxlength="${max_respostas}"> 
+            <i class="bi bi-aspect-ratio icons" data-toggle="tooltip" data-html="true" data-placement="right" title="Adicionar imagem em vez de texto"></i>
+            <input class="answers" type="file" accept="image/*, video/*" />
+            <i class="rd del_res">X</i> 
+        </div>
+        `
+
+        curTarDad.getElementsByClassName('questao')[0].innerHTML += add
+        game.questoes[id] += 1
+        game.perguntas[id - 1].push('')
+        game.perguntas_imagens[id].push(null)
+        $('[data-toggle="tooltip"]').tooltip()
+        valor()
+        creatEvent()
+    }
+    save()
+}
+
+function fn_del_res(e){
+    const curTarGrandFather = e.currentTarget.parentNode.parentNode.parentNode
+
+    if(game.questoes[curTarGrandFather.id] > 3){
+        const questao = curTarGrandFather.id
+        const curTar = e.currentTarget
+        let sum = 2
+        const all = curTarGrandFather.getElementsByClassName('del_res')
+
+        for(let el of all){
+            if(el === curTar){
+                break
+            }
+
+            sum++
+        }
+
+        game.questoes[questao] -= 1
+        game.perguntas_imagens[questao] = game.perguntas_imagens[questao].slice(0, sum).concat(game.perguntas_imagens[questao].slice(sum + 1))
+        curTar.parentNode.remove()
+    }
+    save()
+}
+
+function fn_icons(e) {
+    const curTar = e.currentTarget
+    curTar.parentNode.children[2].click()
+}
+
+function fn_answer(e) {
+    let sum = 0
+    const curTar = e.currentTarget
+
+    if(e.target.files[0].size / 1024 / 1024 > 5){
+        alert('Essa imagem/vídeo tem mais que 5mb')
+        return
+    }
+
+    const all = curTar.parentNode.parentNode.getElementsByClassName('answers')
+
+    for(let el of all){
+        if(el === curTar){
+            break
+        }
+
+        sum++
+    }
+
+    if (curTar.files && curTar.files[0]) {
+        const reader = new FileReader()
+    
+        reader.onload = async function(e) {
+            const maxHeight = 200
+            const maxWidth = 200
+
+            if(/image/.test(curTar.files[0].type)){
+                const imageURL = e.target.result
+                const img = document.createElement('img')
+                img.src = imageURL
+                img.alt = 'Imagem'
+                
+                img.addEventListener('load', (e) => {
+                    if(maxWidth/img.width < maxHeight/img.height){
+                        img.height = img.height * maxWidth/img.width
+                        img.width = maxWidth
+                    } else {
+                        img.width = img.width * maxHeight/img.height
+                        img.height = maxHeight
+                    }
+
+                    game.perguntas_imagens[curTar.parentNode.parentNode.parentNode.id][sum] = imageURL
+                    $(curTar.parentNode.children[1]).attr("data-original-title", img.outerHTML)
+                })
+            } else {
+                const videoURL = e.target.result
+                const video = document.createElement('video')
+                video.src = videoURL
+                video.alt = 'Vídeo'
+                video.setAttribute('controls', '')
+                
+                video.addEventListener('loadedmetadata', (e) => {
+                    if(maxWidth/video.videoWidth < maxHeight/video.videoHeight){
+                        video.height = video.videoHeight * maxWidth/video.videoWidth
+                        video.width = maxWidth
+                    } else {
+                        video.width = video.videoWidth * maxHeight/video.videoHeight
+                        video.height = maxHeight
+                    }
+
+                    game.perguntas_imagens[curTar.parentNode.id][sum] = videoURL
+                    $(curTar.parentNode.children[1]).attr("data-original-title", video.outerHTML)
+                })
+            }
+        }
+
+        $('[data-toggle="tooltip"]').tooltip()
+        reader.readAsDataURL(curTar.files[0])
+    }
+}
+
 function creatEvent(){
     const els = document.getElementsByClassName('input')
     for(i in els){
@@ -521,7 +642,7 @@ function creatEvent(){
                                 curTar.parentNode.children[1].innerHTML = ''
                                 curTar.parentNode.children[1].appendChild(img)
                                 const base64String = readerTarget.result
-                                game.imagens[curTar.id] = base64String
+                                game.imagens[parseInt(curTar.parentNode.parentNode.parentNode.id) - 1] = base64String
                             })
                         })
                     } else {
@@ -564,77 +685,30 @@ function creatEvent(){
 
     for(i in icons){
         if(!isNaN(Number.parseInt(i))){
+            icons[i].removeEventListener('click', fn_icons)
+            answers[i].removeEventListener('change', fn_answer)
             
-            icons[i].addEventListener('click', (e) => {
-                const curTar = e.currentTarget
-                curTar.parentNode.children[2].click()
-            })
-
-            answers[i].addEventListener('change', (e) => {
-                const curTar = e.currentTarget
-
-                if(e.target.files[0].size / 1024 / 1024 > 5){
-                    alert('Essa imagem/vídeo tem mais que 5mb')
-                    return
-                }
-
-                if (curTar.files && curTar.files[0]) {
-                    const reader = new FileReader()
-                
-                    reader.onload = async function(e) {
-                        const maxHeight = 200
-                        const maxWidth = 200
-
-                        if(/image/.test(curTar.files[0].type)){
-                            const imageURL = e.target.result
-                            const img = document.createElement('img')
-                            img.src = imageURL
-                            img.alt = 'Imagem'
-                            
-                            img.addEventListener('load', (e) => {
-                                if(maxWidth/img.width < maxHeight/img.height){
-                                    img.height = img.height * maxWidth/img.width
-                                    img.width = maxWidth
-                                } else {
-                                    img.width = img.width * maxHeight/img.height
-                                    img.height = maxHeight
-                                }
-    
-                                game.perguntas_imagens[curTar.parentNode.id.split('')[curTar.parentNode.id.length - 1]][curTar.parentNode.id.split('')[6] - 1] = imageURL
-                                $(curTar.parentNode.children[1]).attr("data-original-title", img.outerHTML)
-                            })
-                        } else {
-                            const videoURL = e.target.result
-                            const video = document.createElement('video')
-                            video.src = videoURL
-                            video.alt = 'Vídeo'
-                            video.setAttribute('controls', '')
-                            
-                            video.addEventListener('loadedmetadata', (e) => {
-                                if(maxWidth/video.videoWidth < maxHeight/video.videoHeight){
-                                    video.height = video.videoHeight * maxWidth/video.videoWidth
-                                    video.width = maxWidth
-                                } else {
-                                    video.width = video.videoWidth * maxHeight/video.videoHeight
-                                    video.height = maxHeight
-                                }
-
-                                game.perguntas_imagens[curTar.parentNode.id.split('')[curTar.parentNode.id.length - 1]][curTar.parentNode.id.split('')[6] - 1] = videoURL
-                                $(curTar.parentNode.children[1]).attr("data-original-title", video.outerHTML)
-                            })
-                        }
-                    }
-
-                    $('[data-toggle="tooltip"]').tooltip()
-                    reader.readAsDataURL(curTar.files[0])
-                }
-            })
+            icons[i].addEventListener('click', fn_icons)
+            answers[i].addEventListener('change', fn_answer)
         }
+    }
+
+    const ad_res = document.getElementsByClassName('ad_res')
+
+    for(let b of ad_res){
+        b.removeEventListener("click", fn_add_res)
+        b.addEventListener('click', fn_add_res)
+    }
+
+    const del_res = document.getElementsByClassName('del_res')
+
+    for(let b of del_res){
+        b.removeEventListener('click', fn_del_res)
+        b.addEventListener('click', fn_del_res)
     }
 }
 
 manipular_perguntas()
-document.getElementById('perguntas').innerHTML += ''
 valor()
 $('[data-toggle="tooltip"]').tooltip()
 creatEvent()

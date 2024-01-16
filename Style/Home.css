@@ -100,10 +100,6 @@ input[type='file']{
     display: flex;
 }
 
-#pergunta{
-    font-size: 20px;
-}
-
 .pergunta{
     background-color: #808080bf;
     border-radius: 10px;
@@ -112,17 +108,31 @@ input[type='file']{
 }
 
 .pergunta button{
-    margin-left: 30px;
     margin-top: 35px;
     height: 50px;
+    order: 1;
 }
 
 .questao{
     margin-top: 50px;
+    order: 2;
+}
+
+.question{
+    background-color: rgb(255, 255, 182);
+}
+
+.alternativa_correta input[type=text]{
+    background-color: rgb(194, 255, 194);
+}
+
+.alternativa_errada input[type=text]{
+    background-color: rgb(255, 196, 182);
 }
 
 .imagem{
     float: right;
+    order: 3;
 }
 
 #fonte select{
@@ -162,16 +172,19 @@ header button:hover{
     background:rgb(24, 226, 125);
 }
 
-.bt-rd{
-    background-color: rgb(247, 80, 68);
+.rd{
+    color: rgb(247, 80, 68);
+    margin-left: 5px;
+    font-weight: 800;
 }
 
 .bt-gr:hover{
     background:rgb(93, 248, 171);
 }
 
-.bt-rd:hover{
-    background-color: rgb(255, 144, 136);
+.rd:hover{
+    color: rgb(255, 144, 136);
+    cursor: pointer;
 }
 
 #criar_jogo{
@@ -297,7 +310,7 @@ header p{
     }
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 950px) {
     .pergunta{
         display: block;
     }
