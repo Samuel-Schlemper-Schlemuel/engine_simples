@@ -8,6 +8,8 @@ function sair(){
     localStorage.removeItem('email')
     localStorage.removeItem('senha')
     localStorage.removeItem('username')
+    localStorage.removeItem('games')
+    localStorage.removeItem('titles')
 
     document.location.reload()
 }

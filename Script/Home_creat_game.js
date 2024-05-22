@@ -182,7 +182,7 @@ function manipular_perguntas(){
 
 function apagar_tudo(){
     localStorage.removeItem('game')
-    location.reload()
+    location.reload(true)
 }
 
 function escrito(){
@@ -599,7 +599,7 @@ function fn_answer(e) {
                         video.height = maxHeight
                     }
 
-                    game.perguntas_imagens[curTar.parentNode.id][sum] = videoURL
+                    game.perguntas_imagens[curTar.parentNode.parentNode.parentNode.id][sum] = videoURL
                     $(curTar.parentNode.children[1]).attr("data-original-title", video.outerHTML)
                 })
             }
@@ -667,7 +667,7 @@ function creatEvent(){
                                 curTar.parentNode.children[1].innerHTML = ''
                                 curTar.parentNode.children[1].appendChild(video)
                                 const base64String = reader.result
-                                game.imagens[curTar.id] = base64String
+                                game.imagens[parseInt(curTar.parentNode.parentNode.parentNode.id) - 1] = base64String
                             })
                         })
                     }
